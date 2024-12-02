@@ -17,8 +17,6 @@ public class FeeChiTietKhoanThu implements Initializable {
     @FXML
     private Button back_btn;
 
-    @FXML
-    private Text bat_buoc;
 
     @FXML
     private AnchorPane chua_hoan_thanh_btn;
@@ -41,8 +39,6 @@ public class FeeChiTietKhoanThu implements Initializable {
     @FXML
     private Text ngay_tao;
 
-    @FXML
-    private Text so_tien_can_dong;
 
     @FXML
     private Text ten_khoan_thu;
@@ -119,14 +115,6 @@ public class FeeChiTietKhoanThu implements Initializable {
 
         ma_khoan_thu.setText(String.valueOf(selectedItem.getMaKhoanThu().get()));
         ten_khoan_thu.setText(selectedItem.getTenKhoanThu().get());
-        if(selectedItem.getBatBuoc().get() == 0) {
-            bat_buoc.setText("Không");
-            so_tien_can_dong.setText("0 đ");
-        }
-        else {
-            bat_buoc.setText("Có");
-            so_tien_can_dong.setText("" + selectedItem.getSoTienTrenMotNguoi().get() + " đ");
-        }
 
         if(selectedItem.getNgayTao().get() != null)
             ngay_tao.setText(selectedItem.getNgayTao().get());

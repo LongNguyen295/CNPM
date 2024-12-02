@@ -15,7 +15,6 @@ public class FeeKhoanThuModel{
     private StringProperty tenKhoanThu;
     private IntegerProperty batBuoc;
 
-    private LongProperty soTienTrenMotNguoi;
     private StringProperty ngayTao;
     private StringProperty moTa;
 
@@ -23,7 +22,6 @@ public class FeeKhoanThuModel{
         maKhoanThu = new SimpleIntegerProperty(-1);
         tenKhoanThu = new SimpleStringProperty("");
         batBuoc = new SimpleIntegerProperty(0);
-        soTienTrenMotNguoi = new SimpleLongProperty(0);
         ngayTao = new SimpleStringProperty(LocalDate.now().toString());
         moTa = new SimpleStringProperty("");
 
@@ -37,10 +35,9 @@ public class FeeKhoanThuModel{
         try {
             if(resultSet.isBeforeFirst()){
                 resultSet.next();
-
+                maKhoanThu.set(resultSet.getInt(1));
                 tenKhoanThu.set(resultSet.getNString(2));
                 batBuoc.set(resultSet.getInt(3));
-                soTienTrenMotNguoi.set(resultSet.getLong(4));
                 ngayTao.set(resultSet.getString(5));
                 moTa.set(resultSet.getNString(6));
             }
@@ -49,10 +46,10 @@ public class FeeKhoanThuModel{
         }
     }
 
-    public void setFeeKhoanThuModel(String tenKhoanThu, int batBuoc, long soTienTrenMotNguoi, String ngayTao, String moTa) {
+    public void setFeeKhoanThuModel(int maKhoanThu,String tenKhoanThu, int batBuoc, String ngayTao, String moTa) {
+        this.maKhoanThu.setValue(maKhoanThu);
         this.tenKhoanThu.setValue(tenKhoanThu);
         this.batBuoc.setValue(batBuoc);
-        this.soTienTrenMotNguoi.setValue(soTienTrenMotNguoi);
         this. ngayTao.setValue(ngayTao);
         this.moTa.setValue(moTa);
     }
@@ -73,13 +70,6 @@ public class FeeKhoanThuModel{
         this.batBuoc.setValue(batBuoc);
     }
 
-    public LongProperty getSoTienTrenMotNguoi() {
-        return soTienTrenMotNguoi;
-    }
-
-    public void setSoTienTrenMotNguoi(long soTienTrenMotNguoi) {
-        this.soTienTrenMotNguoi.setValue(soTienTrenMotNguoi);
-    }
 
     public StringProperty getNgayTao() {
         return ngayTao;

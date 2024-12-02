@@ -25,8 +25,10 @@
             <Font name="Verdana" size="12.0" />
          </font>
       </Button>
-      <Button fx:id="them_khoan_thu_btn" mnemonicParsing="false" prefHeight="90.0" prefWidth="180.0" styleClass="btn_an" text="Thêm  Khoản Thu" />
-      <Button fx:id="danh_sach_phi_btn" mnemonicParsing="false" prefHeight="90.0" prefWidth="180.0" styleClass="btn_an" text="Danh Sách Khoản Thu" />
+      <Button fx:id="them_khoan_thu_dot_btn" mnemonicParsing="false" prefHeight="90.0" prefWidth="180.0" styleClass="btn_an" text="Thêm Đợt Thu Phí" />
+      <Button fx:id="them_khoan_thu_btn" mnemonicParsing="false" prefHeight="90.0" prefWidth="180.0" styleClass="btn_an" text="Thêm Khoản Ủng Hộ" />
+      <Button fx:id="danh_sach_phi_btn" mnemonicParsing="false" prefHeight="90.0" prefWidth="180.0" styleClass="btn_an" text="Danh Sách Ủng Hộ" />
+      <Button fx:id="danh_sach_phi_dot_btn" mnemonicParsing="false" prefHeight="90.0" prefWidth="180.0" styleClass="btn_an" text="Danh Sách Khoản Thu Theo Đợt" />
       <Line endX="100.0" />
    </VBox>
    <HBox fx:id="dang_xuat_btn" onMouseClicked="#onLogoutBtn" prefHeight="60.0" prefWidth="180.0" styleClass="logoutBtn" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">

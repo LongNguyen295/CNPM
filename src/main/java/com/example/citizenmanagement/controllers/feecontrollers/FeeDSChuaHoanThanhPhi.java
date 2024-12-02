@@ -67,7 +67,7 @@ public class FeeDSChuaHoanThanhPhi implements Initializable {
                             if (result2.get() == ButtonType.OK) {
 
                                 Model.getInstance().getDatabaseConnection().updateNopPhi(selectedItem.getMaHoKhau(), Model.getInstance().getFeeKhoanThuModel().getMaKhoanThu().get(), soTien);
-
+                                Model.getInstance().getDatabaseConnection().updateUngHoFee(Model.getInstance().getFeeKhoanThuModel().getMaKhoanThu().get(),selectedItem.getMaHoKhau(), Integer.parseInt(soTien));
                                 Model.getInstance().getDanhSachChuaDongPhi().remove(selectedItem);
                                 showDanhSach();
                             }

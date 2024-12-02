@@ -1,6 +1,5 @@
 package com.example.citizenmanagement.controllers.feecontrollers;
 
-import com.example.citizenmanagement.models.FeeHoKhauCell;
 import com.example.citizenmanagement.models.FeeKhoanThuCell;
 import com.example.citizenmanagement.models.FeeMenuOptions;
 import com.example.citizenmanagement.models.Model;
@@ -14,10 +13,9 @@ import javafx.scene.control.TextField;
 import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.List;
 import java.util.ResourceBundle;
 
-public class FeeDanhSachController implements Initializable {
+public class FeeDanhSachDotController implements Initializable {
 
     @FXML
     private ListView<FeeKhoanThuCell> listView;

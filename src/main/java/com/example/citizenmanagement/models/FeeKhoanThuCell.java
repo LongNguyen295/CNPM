@@ -5,17 +5,14 @@ import javafx.beans.property.*;
 public class FeeKhoanThuCell {
     private final IntegerProperty maKhoanThu = new SimpleIntegerProperty();
     private final StringProperty tenKhoanThu = new SimpleStringProperty();
-    private final IntegerProperty batBuoc = new SimpleIntegerProperty();
-    private final LongProperty soTienCanDong = new SimpleLongProperty();
     private final StringProperty ngayTao = new SimpleStringProperty();
 
     public FeeKhoanThuCell() {
     }
-    public FeeKhoanThuCell(int maKhoanThu, String tenKhoanThu, int batBuoc, long soTienCanDong, String ngayTao) {
+    public FeeKhoanThuCell(int maKhoanThu, String tenKhoanThu,  String ngayTao) {
         this.maKhoanThu.setValue(maKhoanThu);
         this.tenKhoanThu.setValue(tenKhoanThu);
-        this.batBuoc.setValue(batBuoc);
-        this.soTienCanDong.setValue(soTienCanDong);
+
         this.ngayTao.setValue(ngayTao);
     }
 
@@ -43,29 +40,7 @@ public class FeeKhoanThuCell {
         this.tenKhoanThu.set(tenKhoanThu);
     }
 
-    public int getBatBuoc() {
-        return batBuoc.get();
-    }
 
-    public IntegerProperty batBuocProperty() {
-        return batBuoc;
-    }
-
-    public void setBatBuoc(int batBuoc) {
-        this.batBuoc.set(batBuoc);
-    }
-
-    public long getSoTienCanDong() {
-        return soTienCanDong.get();
-    }
-
-    public LongProperty soTienCanDongProperty() {
-        return soTienCanDong;
-    }
-
-    public void setSoTienCanDong(int soTienCanDong) {
-        this.soTienCanDong.set(soTienCanDong);
-    }
 
     public String getNgayTao() {
         return ngayTao.get();

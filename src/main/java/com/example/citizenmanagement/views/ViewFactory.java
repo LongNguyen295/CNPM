@@ -69,6 +69,13 @@ public class ViewFactory {
     private AnchorPane feeDSHoanThanhPhiView;
     private AnchorPane feeDSChuaHoanThanhPhiView;
     private AnchorPane feeProfileView;
+    private AnchorPane feeThemDotThuView;
+    private AnchorPane feeThemHoKhauDotView;
+    private AnchorPane feeDanhSachDotThuView;
+    private AnchorPane feeDSHoanThanhPhiDotView;
+    private AnchorPane feeThongTinDotView;
+    private AnchorPane feeDSChuaHoanThanhPhiDotView;
+
     /********************************************************************************************/
     public ViewFactory(){
         this.selectedMenuItem = new SimpleObjectProperty<>();
@@ -224,6 +231,27 @@ public class ViewFactory {
         }
         return feeThemKhoanThuView;
     }
+    public AnchorPane getFeeThemDotThuView(){
+        if(feeThemDotThuView == null){
+            try {
+                feeThemDotThuView = new FXMLLoader(getClass().getResource("/fxml/fee/FeeThemKhoanThuDot.fxml")).load();
+            }catch (IOException e){
+                throw new RuntimeException(e);
+            }
+        }
+        return feeThemDotThuView;
+    }
+    public AnchorPane getFeeDanhSachDotThuView(){
+        if(feeDanhSachDotThuView == null){
+            try {
+                feeDanhSachDotThuView = new FXMLLoader(getClass().getResource("/fxml/fee/FeeDanhSachDot.fxml")).load();
+            }catch (IOException e){
+                throw new RuntimeException(e);
+            }
+        }
+        return feeDanhSachDotThuView;
+    }
+
 
     public AnchorPane getFeeThemHoKhauView() {
         try {
@@ -233,6 +261,15 @@ public class ViewFactory {
         }
 
         return feeThemHoKhauView;
+    }
+    public AnchorPane getFeeThemHoKhauDotView() {
+        try {
+            feeThemHoKhauDotView = new FXMLLoader(getClass().getResource("/fxml/fee/FeeThemHoKhauDot.fxml")).load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        return feeThemHoKhauDotView;
     }
 
     public AnchorPane getFeeXemChiTietKhoanThuView() {

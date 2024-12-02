@@ -13,6 +13,6 @@
       <Text fx:id="ma_ho_khau" strokeType="OUTSIDE" strokeWidth="0.0" text="12345678901" wrappingWidth="90.0" />
       <Text fx:id="ten_chu_ho" layoutX="24.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nguyễn Tiến Thành" wrappingWidth="140.0" />
       <Text fx:id="dia_chi" layoutX="48.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Số 1 Đại Cồ Việt, Hai Bà Trưng, Hà Nội" wrappingWidth="200.0" />
-      <Text fx:id="so_thanh_vien" layoutX="72.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="5" wrappingWidth="50.0" />
+      <Text fx:id="tong_tien_can_dong" layoutX="72.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="100.000" wrappingWidth="50.0" />
    </HBox>
 </AnchorPane>

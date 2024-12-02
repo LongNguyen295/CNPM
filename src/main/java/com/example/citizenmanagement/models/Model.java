@@ -45,8 +45,10 @@ public class Model {
 
     //thu phi
     private final FeeKhoanThuModel feeKhoanThuModel;
+    private final FeeKhoanThuDotModel feeKhoanThuDotModel;
 
     private final ObservableList<FeeKhoanThuCell> danhSachKhoanThu;
+    private final ObservableList<FeeKhoanThuCell> danhSachKhoanThuDot;
 
     private final ObservableList<FeeHoKhauCell> danhSachDaDongPhi;
     private final ObservableList<FeeHoKhauCell> danhSachChuaDongPhi;
@@ -59,7 +61,9 @@ public class Model {
         this.databaseConnection = new DatabaseConnection();
 
         this.citizenManager = new CitizenManager();
+        this.feeKhoanThuDotModel = new FeeKhoanThuDotModel();
         this.feeKhoanThuModel = new FeeKhoanThuModel();
+        this.danhSachKhoanThuDot = FXCollections.observableArrayList();
         this.danhSachKhoanThu = FXCollections.observableArrayList();
         this.danhSachDaDongPhi = FXCollections.observableArrayList();
         this.danhSachChuaDongPhi = FXCollections.observableArrayList();
@@ -541,7 +545,15 @@ public class Model {
         return feeKhoanThuModel;
     }
 
+    public FeeKhoanThuDotModel getFeeKhoanThuDotModel() {
+        return feeKhoanThuDotModel;
+    }
+
     public ObservableList<FeeKhoanThuCell> getDanhSachKhoanThu() {return danhSachKhoanThu;}
+
+    public ObservableList<FeeKhoanThuCell> getDanhSachKhoanThuDot() {
+        return danhSachKhoanThuDot;
+    }
 
     public ObservableList<FeeHoKhauCell> getDanhSachDaDongPhi() {
         return danhSachDaDongPhi;
@@ -561,7 +573,7 @@ public class Model {
                     int soTienCanDong = resultSet.getInt(4);
                     String ngayTao = resultSet.getString(5);
 
-                    danhSachKhoanThu.add(new FeeKhoanThuCell(maKhoanThu, tenKhoanThu, batBuoc, soTienCanDong, ngayTao));
+                    danhSachKhoanThu.add(new FeeKhoanThuCell(maKhoanThu, tenKhoanThu, ngayTao));
                 }
             }
         } catch (SQLException e) {

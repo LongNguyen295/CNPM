@@ -18,10 +18,13 @@ import java.util.ResourceBundle;
 
 public class FeeTrangChuController implements Initializable {
 
-
+    @FXML
     public Label tongSoHoKhau;
+    @FXML
     public Label tongSoNhanKhau;
+    @FXML
     public Label tongSoTienDaThu;
+    @FXML
     public Label tongSoLoaiPhi;
     @FXML
     private Circle profile_thuphi;
