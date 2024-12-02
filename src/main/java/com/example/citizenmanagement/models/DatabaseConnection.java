@@ -17,11 +17,17 @@ public class DatabaseConnection {
 
     public DatabaseConnection() {
         String dbName = "QUANLYDANCU";
-        String dbUser = "group11";
-        String dbPassword = "group11";
+//        String dbUser = "group11";
+//        String dbPassword = "group11";
+//
+//        String url = "jdbc:sqlserver://LAPTOP-10MBD6CH\\dbo:1433;databaseName=" + dbName +
+//                ";encrypt=true;integratedSecurity=false;trustServerCertificate=true";
 
-        String url = "jdbc:sqlserver://LAPTOP-10MBD6CH\\dbo:1433;databaseName=" + dbName +
+        String dbUser = "sa";
+        String dbPassword = "123";
+        String url = "jdbc:sqlserver://DESKTOP-SM2FAUO:1433;databaseName=" + dbName +
                 ";encrypt=true;integratedSecurity=false;trustServerCertificate=true";
+
 
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
@@ -515,10 +521,10 @@ public class DatabaseConnection {
 
         return executeQuery(query);
     }
-    public int capNhatHoKhau(String idHoKhau, String maChuHo, String diaChi, String ghiChu){
+    public int capNhatHoKhau(String idHoKhau, String maChuHo, String diaChi, String ghiChu, String xeMay, String oTo){
 
         try {
-            String capnhat = "update HOKHAU set IDCHUHO=?, DIACHI=?, GHICHU=?, tenchuho=? where MAHOKHAU=?";
+            String capnhat = "update HOKHAU set IDCHUHO=?, DIACHI=?, GHICHU=?, tenchuho=?, XEMAY=?, OTO=? where MAHOKHAU=?";
             PreparedStatement preparedStatement = connection.prepareStatement(capnhat);
             preparedStatement.setString(1,maChuHo);
             preparedStatement.setNString(2,diaChi);
@@ -526,7 +532,9 @@ public class DatabaseConnection {
                 preparedStatement.setNString(3,null);
             else
                 preparedStatement.setNString(3, ghiChu);
-            preparedStatement.setString(5,idHoKhau);
+            preparedStatement.setNString(5, xeMay);
+            preparedStatement.setNString(6, oTo);
+            preparedStatement.setString(7,idHoKhau);
 
 
             String lay_ten_chu="select * from nhankhau where manhankhau="+maChuHo;
