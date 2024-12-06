@@ -17,14 +17,17 @@ public class FeeController implements Initializable {
     private Button trang_chu_btn;
     private Button them_khoan_thu_btn;
     private Button danh_sach_phi_btn;
+    private Button them_khoan_thu_dot_btn;
+    private Button danh_sach_phi_dot_btn;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
         trang_chu_btn = (Button) fee_parent.lookup("#trang_chu_btn");
+        them_khoan_thu_dot_btn = (Button) fee_parent.lookup("#them_khoan_thu_dot_btn");
         them_khoan_thu_btn = (Button) fee_parent.lookup("#them_khoan_thu_btn");
         danh_sach_phi_btn = (Button) fee_parent.lookup("#danh_sach_phi_btn");
-
+        danh_sach_phi_dot_btn = (Button) fee_parent.lookup("#danh_sach_phi_dot_btn");
         addListener();
     }
 
@@ -35,6 +38,34 @@ public class FeeController implements Initializable {
                     them_khoan_thu_btn.requestFocus();
                     fee_parent.setCenter(Model.getInstance().getViewFactory().getFeeThemKhoanThuView());
 
+                }
+                case THEM_HO_KHAU_DOT -> {
+                    them_khoan_thu_dot_btn.requestFocus();
+                    fee_parent.setCenter(Model.getInstance().getViewFactory().getFeeThemHoKhauDotView());
+                }
+                case CHI_TIET_KHOAN_THU_DOT -> {
+                    danh_sach_phi_dot_btn.requestFocus();
+                    fee_parent.setCenter(Model.getInstance().getViewFactory().getFeeThongTinDotThuView());
+                }
+                case HOAN_THANH_PHI_DOT -> {
+                    danh_sach_phi_dot_btn.requestFocus();
+                    fee_parent.setCenter(Model.getInstance().getViewFactory().getFeeDSHoanThanhPhiDotView());
+                }
+                case CHUA_HOAN_THANH_PHI_DOT -> {
+                    danh_sach_phi_dot_btn.requestFocus();
+                    fee_parent.setCenter(Model.getInstance().getViewFactory().getFeeDSChuaHoanThanhPhiDotView());
+                }
+                case THONG_TIN_HOA_DON -> {
+                    danh_sach_phi_dot_btn.requestFocus();
+                    fee_parent.setCenter(Model.getInstance().getViewFactory().getFeeThongTinChiTietHoaDon());
+                }
+                case THEM_KHOAN_THU_DOT -> {
+                    them_khoan_thu_dot_btn.requestFocus();
+                    fee_parent.setCenter(Model.getInstance().getViewFactory().getFeeThemDotThuView());
+                }
+                case DANH_SACH_KHOAN_THU_DOT -> {
+                    danh_sach_phi_dot_btn.requestFocus();
+                    fee_parent.setCenter(Model.getInstance().getViewFactory().getFeeDanhSachDotThuView());
                 }
                 case DANH_SACH_HO_KHAU_CAN_THU_PHI -> {
                     them_khoan_thu_btn.requestFocus();

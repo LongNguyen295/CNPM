@@ -13,7 +13,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class FeeMenuController implements Initializable {
-
     @FXML
     private HBox dang_xuat_btn;
 
@@ -25,6 +24,10 @@ public class FeeMenuController implements Initializable {
 
     @FXML
     private Button trang_chu_btn;
+    @FXML
+    private Button them_khoan_thu_dot_btn;
+    @FXML
+    private Button danh_sach_phi_dot_btn;
 
     @FXML
     public void onLogoutBtn(MouseEvent event) {
@@ -43,6 +46,8 @@ public class FeeMenuController implements Initializable {
         trang_chu_btn.setOnAction(event -> onTrangChu());
         them_khoan_thu_btn.setOnAction(event -> onThemKhoanThu());
         danh_sach_phi_btn.setOnAction(event -> onDanhSachKhoanThu());
+        them_khoan_thu_dot_btn.setOnAction(event -> onThemKhoanThuDot());
+        danh_sach_phi_dot_btn.setOnAction(event -> onDanhSachPhiDot());
     }
 
     private void onDanhSachKhoanThu() {
@@ -57,5 +62,12 @@ public class FeeMenuController implements Initializable {
     private void onTrangChu() {
         Model.getInstance().getViewFactory().getFeeSelectedMenuItem().set(FeeMenuOptions.TRANG_CHU);
     }
+    private void onThemKhoanThuDot(){
+        Model.getInstance().getViewFactory().getFeeSelectedMenuItem().set(FeeMenuOptions.THEM_KHOAN_THU_DOT);
+    }
+    private void onDanhSachPhiDot(){
+        Model.getInstance().getViewFactory().getFeeSelectedMenuItem().set(FeeMenuOptions.DANH_SACH_KHOAN_THU_DOT);
+    }
+
 
 }

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane fx:id="anchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="50.0" prefWidth="800.0" styleClass="hoKhauCell_container" stylesheets="@../../styles/Fee/Cell.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1">
+   <HBox fx:id="hbox" prefHeight="50.0" prefWidth="800.0">
+      <Pane prefHeight="50.0" prefWidth="0.0" />
+      <Text fx:id="ma_ho_khau" strokeType="OUTSIDE" strokeWidth="0.0" text="1" wrappingWidth="97.0" />
+      <Text fx:id="ten_chu_ho" layoutX="24.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nguyễn Tiến Thành" wrappingWidth="135.0" />
+      <Text fx:id="dia_chi" layoutX="48.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Số 1 Đại Cồ Việt, Hai Bà Trưng, Hà Nội" wrappingWidth="182.0" />
+      <Text fx:id="so_tien_can_dong" layoutX="72.0" layoutY="23.0" strokeType="OUTSIDE" strokeWidth="0.0" text="5" wrappingWidth="132.0" />
+      <Text fx:id="ngay_thu" strokeType="OUTSIDE" strokeWidth="0.0" text="1/1/2024" wrappingWidth="91.0" />
+   </HBox>
+</AnchorPane>

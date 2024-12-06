@@ -1,0 +1,485 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<AnchorPane prefHeight="750.0" prefWidth="850.0" styleClass="background_form" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.citizenmanagement.controllers.feecontrollers.FeeHoaDonController">
+   <children>
+      <AnchorPane fx:id="da_hoan_thanh_btn" layoutX="548.0" layoutY="570.0" prefHeight="150.0" prefWidth="409.0" styleClass="button_ds" AnchorPane.rightAnchor="52.0" AnchorPane.topAnchor="570.0">
+         <children>
+            <Label layoutX="134.0" layoutY="14.0" text="Đã đóng" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0">
+               <font>
+                  <Font name="Verdana Bold Italic" size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="tong_so_tien" layoutY="54.0" prefHeight="63.0" prefWidth="303.0" text="10.000.000" AnchorPane.bottomAnchor="33.0" AnchorPane.rightAnchor="83.0">
+               <font>
+                  <Font name="Verdana" size="48.0" />
+               </font>
+            </Label>
+            <Label fx:id="da_hoan_thanh_lbl1" layoutX="305.0" layoutY="98.0" text="VNĐ">
+               <font>
+                  <Font name="Verdana" size="30.0" />
+               </font>
+            </Label>
+         </children>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </AnchorPane>
+      <AnchorPane layoutX="46.0" layoutY="208.0" prefHeight="350.0" prefWidth="733.0" styleClass="info" AnchorPane.leftAnchor="46.0" AnchorPane.topAnchor="208.0">
+         <children>
+            <HBox layoutX="137.0" layoutY="21.0" prefHeight="19.0" prefWidth="457.0">
+               <children>
+                  <Label prefWidth="82.0" text="Mã đợt thu">
+                     <font>
+                        <Font name="Verdana" size="15.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </Label>
+                  <Text fx:id="ma_dot_thu12" strokeType="OUTSIDE" strokeWidth="0.0" text=":" wrappingWidth="1.0">
+                     <font>
+                        <Font name="Calibri Bold Italic" size="18.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </Text>
+                  <Text fx:id="ma_dot_thu" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="108.2646484375">
+                     <font>
+                        <Font name="Calibri Bold Italic" size="18.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets right="50.0" />
+                     </HBox.margin>
+                  </Text>
+                  <Label text="Đợt thu">
+                     <font>
+                        <Font name="Verdana" size="15.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </Label>
+                  <Text fx:id="ma_dot_thu121" strokeType="OUTSIDE" strokeWidth="0.0" text=":" wrappingWidth="2.9658203125">
+                     <font>
+                        <Font name="Calibri Bold Italic" size="18.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets right="10.0" />
+                     </HBox.margin>
+                  </Text>
+                  <Text fx:id="dot_thu" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="100.2646484375">
+                     <font>
+                        <Font name="Calibri Bold Italic" size="18.0" />
+                     </font>
+                  </Text>
+               </children>
+            </HBox>
+            <Line endX="-100.5" endY="182.0" layoutX="466.0" layoutY="99.0" startX="-100.5" startY="-68.5" stroke="#b2acac" />
+            <HBox layoutX="14.0" layoutY="72.0" prefHeight="223.0" prefWidth="338.0">
+               <children>
+                  <VBox prefHeight="214.0" prefWidth="169.0">
+                     <children>
+                        <Label text="Phí dịch vụ chung cư">
+                           <font>
+                              <Font name="Verdana" size="15.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="Phí quản lý chung cư">
+                           <font>
+                              <Font name="Verdana" size="15.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="Tổng tiền điện">
+                           <font>
+                              <Font name="Verdana" size="15.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="Tổng tiền nước">
+                           <font>
+                              <Font name="Verdana" size="15.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="Tổng tiền Internet">
+                           <font>
+                              <Font name="Verdana" size="15.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="Phí gửi xe máy">
+                           <font>
+                              <Font name="Verdana" size="15.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="Phí gửi Ô tô">
+                           <font>
+                              <Font name="Verdana" size="15.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="203.0" prefWidth="12.0">
+                     <children>
+                        <Text fx:id="ma_dot_thu2" strokeType="OUTSIDE" strokeWidth="0.0" text=":">
+                           <font>
+                              <Font name="Verdana Bold" size="15.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                        </Text>
+                        <Text fx:id="ma_dot_thu21" strokeType="OUTSIDE" strokeWidth="0.0" text=":">
+                           <font>
+                              <Font name="Verdana Bold" size="15.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                        </Text>
+                        <Text fx:id="ma_dot_thu31" strokeType="OUTSIDE" strokeWidth="0.0" text=":">
+                           <font>
+                              <Font name="Verdana Bold" size="15.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                        </Text>
+                        <Text fx:id="ma_dot_thu41" strokeType="OUTSIDE" strokeWidth="0.0" text=":">
+                           <font>
+                              <Font name="Verdana Bold" size="15.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                        </Text>
+                        <Text fx:id="ma_dot_thu51" strokeType="OUTSIDE" strokeWidth="0.0" text=":">
+                           <font>
+                              <Font name="Verdana Bold" size="15.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                        </Text>
+                        <Text fx:id="ma_dot_thu61" strokeType="OUTSIDE" strokeWidth="0.0" text=":">
+                           <font>
+                              <Font name="Verdana Bold" size="15.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                        </Text>
+                        <Text fx:id="ma_dot_thu611" strokeType="OUTSIDE" strokeWidth="0.0" text=":">
+                           <font>
+                              <Font name="Verdana Bold" size="15.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="223.0" prefWidth="155.0">
+                     <children>
+                        <Text fx:id="tien_nha" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="152.05322265625">
+                           <font>
+                              <Font name="Verdana Bold" size="15.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                        </Text>
+                        <Text fx:id="tien_dich_vu" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="153.05322265625">
+                           <font>
+                              <Font name="Verdana Bold" size="15.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                        </Text>
+                        <Text fx:id="tien_dien" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="152.05322265625">
+                           <font>
+                              <Font name="Verdana Bold" size="15.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                        </Text>
+                        <Text fx:id="tien_nuoc" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="153.05322265625">
+                           <font>
+                              <Font name="Verdana Bold" size="15.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                        </Text>
+                        <Text fx:id="tien_internet" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="154.05322265625">
+                           <font>
+                              <Font name="Verdana Bold" size="15.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                        </Text>
+                        <Text fx:id="phi_gui_xe_may" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="152.05322265625">
+                           <font>
+                              <Font name="Verdana Bold" size="15.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                        </Text>
+                        <Text fx:id="phi_gui_oto" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="152.05322265625">
+                           <font>
+                              <Font name="Verdana Bold" size="15.0" />
+                           </font>
+                        </Text>
+                     </children>
+                     <HBox.margin>
+                        <Insets />
+                     </HBox.margin>
+                  </VBox>
+               </children>
+            </HBox>
+            <HBox layoutX="381.0" layoutY="72.0" prefHeight="196.0" prefWidth="338.0">
+               <children>
+                  <VBox prefHeight="150.0" prefWidth="186.0">
+                     <children>
+                        <Label text="Diện tích chung cư">
+                           <font>
+                              <Font name="Verdana" size="15.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="Số lượng xe máy">
+                           <font>
+                              <Font name="Verdana" size="15.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="Số lượng Ô tô">
+                           <font>
+                              <Font name="Verdana" size="15.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="Tổng số điện">
+                           <font>
+                              <Font name="Verdana" size="15.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="Tổng số nước">
+                           <font>
+                              <Font name="Verdana" size="15.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                        </Label>
+                        <Label text="Tổng tiền ủng hộ">
+                           <font>
+                              <Font name="Verdana" size="15.0" />
+                           </font>
+                        </Label>
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="145.0" prefWidth="12.0">
+                     <children>
+                        <Text fx:id="ma_dot_thu21" strokeType="OUTSIDE" strokeWidth="0.0" text=":">
+                           <font>
+                              <Font name="Verdana Bold" size="15.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                        </Text>
+                        <Text fx:id="ma_dot_thu211" strokeType="OUTSIDE" strokeWidth="0.0" text=":">
+                           <font>
+                              <Font name="Verdana Bold" size="15.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                        </Text>
+                        <Text fx:id="ma_dot_thu311" strokeType="OUTSIDE" strokeWidth="0.0" text=":">
+                           <font>
+                              <Font name="Verdana Bold" size="15.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                        </Text>
+                        <Text fx:id="ma_dot_thu411" strokeType="OUTSIDE" strokeWidth="0.0" text=":">
+                           <font>
+                              <Font name="Verdana Bold" size="15.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                        </Text>
+                        <Text fx:id="ma_dot_thu511" strokeType="OUTSIDE" strokeWidth="0.0" text=":">
+                           <font>
+                              <Font name="Verdana Bold" size="15.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                        </Text>
+                        <Text fx:id="ma_dot_thu5111" strokeType="OUTSIDE" strokeWidth="0.0" text=":">
+                           <font>
+                              <Font name="Verdana Bold" size="15.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </VBox>
+                  <VBox prefHeight="154.0" prefWidth="131.0">
+                     <children>
+                        <Text fx:id="dien_tich_chung_cu" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="127.05322265625">
+                           <font>
+                              <Font name="Verdana Bold" size="15.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                        </Text>
+                        <Text fx:id="so_xe_may" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="129.05322265625">
+                           <font>
+                              <Font name="Verdana Bold" size="15.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                        </Text>
+                        <Text fx:id="so_oto" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="130.05322265625">
+                           <font>
+                              <Font name="Verdana Bold" size="15.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                        </Text>
+                        <Text fx:id="so_dien" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="129.05322265625">
+                           <font>
+                              <Font name="Verdana Bold" size="15.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                        </Text>
+                        <Text fx:id="so_nuoc" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="131.05322265625">
+                           <font>
+                              <Font name="Verdana Bold" size="15.0" />
+                           </font>
+                           <VBox.margin>
+                              <Insets bottom="10.0" />
+                           </VBox.margin>
+                        </Text>
+                        <Text fx:id="tien_ung_ho" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" wrappingWidth="131.05322265625">
+                           <font>
+                              <Font name="Verdana Bold" size="15.0" />
+                           </font>
+                        </Text>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
+            <Label layoutX="352.0" layoutY="306.0" text="Ngày đóng:">
+               <font>
+                  <Font name="Verdana Bold Italic" size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="ngay_dong" layoutX="494.0" layoutY="306.0" text="Text">
+               <font>
+                  <Font name="Verdana Bold Italic" size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <Label layoutX="204.0" layoutY="60.0" text="Chi tiết thông tin thu phí" AnchorPane.topAnchor="60.0">
+         <font>
+            <Font name="Verdana Bold" size="32.0" />
+         </font>
+      </Label>
+      <Button fx:id="back_btn" layoutX="69.0" layoutY="610.0" mnemonicParsing="false" onAction="#onBackBtn" prefHeight="43.0" prefWidth="124.0" style="-fx-background-color: #818a84;" styleClass="button_style" stylesheets="@../../styles/LoginForm.css" text="Quay lại">
+         <font>
+            <Font name="Calibri" size="18.0" />
+         </font></Button>
+      <HBox layoutX="192.0" layoutY="144.0" prefHeight="30.0" prefWidth="468.0">
+         <children>
+            <Label text="Chủ hộ:" textAlignment="CENTER">
+               <font>
+                  <Font name="Verdana Italic" size="18.0" />
+               </font>
+               <HBox.margin>
+                  <Insets right="20.0" />
+               </HBox.margin>
+            </Label>
+            <Label fx:id="ten_chu_ho" text="Phan Thế Toàn" textAlignment="CENTER">
+               <font>
+                  <Font name="Verdana Bold" size="18.0" />
+               </font>
+               <HBox.margin>
+                  <Insets right="20.0" />
+               </HBox.margin>
+            </Label>
+            <Label text="Căn hộ:" textAlignment="CENTER">
+               <font>
+                  <Font name="Verdana Italic" size="18.0" />
+               </font>
+               <HBox.margin>
+                  <Insets right="20.0" />
+               </HBox.margin>
+            </Label>
+            <Label fx:id="id_can_ho" text="1304" textAlignment="CENTER">
+               <font>
+                  <Font name="Verdana Bold Italic" size="18.0" />
+               </font>
+               <HBox.margin>
+                  <Insets right="20.0" />
+               </HBox.margin>
+            </Label>
+         </children>
+      </HBox>
+   </children>
+   <stylesheets>
+      <URL value="@../../styles/LoginForm.css" />
+      <URL value="@../../styles/Fee/FeeChiTiet.css" />
+   </stylesheets>
+</AnchorPane>

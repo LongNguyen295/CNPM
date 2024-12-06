@@ -1,8 +1,6 @@
 package com.example.citizenmanagement.models;
 
-import com.example.citizenmanagement.controllers.maincontrollers.NhankhauController.ThemMoiController;
 import com.example.citizenmanagement.views.ViewFactory;
-import javafx.beans.Observable;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
@@ -44,12 +42,19 @@ public class Model {
     }
 
     //thu phi
+    private final DanhSachThuPhiModel danhSachThuPhiModel;
     private final FeeKhoanThuModel feeKhoanThuModel;
+    private final FeeKhoanThuDotModel feeKhoanThuDotModel;
+    private final HoaDonModel hoaDonModel;
 
     private final ObservableList<FeeKhoanThuCell> danhSachKhoanThu;
+    private final ObservableList<FeeKhoanThuDotCell> danhSachKhoanThuDot;
 
     private final ObservableList<FeeHoKhauCell> danhSachDaDongPhi;
     private final ObservableList<FeeHoKhauCell> danhSachChuaDongPhi;
+
+    private final ObservableList<FeeHoKhauCellDot> danhSachDaDongPhiDot;
+    private final ObservableList<FeeHoKhauCellDot> danhSachChuaDongPhiDot;
 
 
     private Model() {
@@ -57,14 +62,19 @@ public class Model {
         this.danhsachnhankhau = FXCollections.observableArrayList();
         this.viewFactory = new ViewFactory();
         this.databaseConnection = new DatabaseConnection();
-
+        this.hoaDonModel = new HoaDonModel();
         this.citizenManager = new CitizenManager();
+        this.feeKhoanThuDotModel = new FeeKhoanThuDotModel();
         this.feeKhoanThuModel = new FeeKhoanThuModel();
+        this.danhSachThuPhiModel = new DanhSachThuPhiModel();
+        this.danhSachKhoanThuDot = FXCollections.observableArrayList();
         this.danhSachKhoanThu = FXCollections.observableArrayList();
         this.danhSachDaDongPhi = FXCollections.observableArrayList();
         this.danhSachChuaDongPhi = FXCollections.observableArrayList();
-
+        this.danhSachDaDongPhiDot = FXCollections.observableArrayList();
+        this.danhSachChuaDongPhiDot = FXCollections.observableArrayList();
         initDanhSachKhoanThu();
+        innitDanhSachThuPhiDot();
 
         imageObjectProperty = new SimpleObjectProperty<>();
 
@@ -535,13 +545,31 @@ public class Model {
         Model.thanhVienCuaHoCell = thanhVienCuaHoCell;
     }
 
+
+
     /*************************************************************************************************/
     //Thu phí
+    public HoaDonModel getHoaDonModel() {
+        return hoaDonModel;
+    }
+
+    public DanhSachThuPhiModel getDanhSachThuPhiModel() {
+        return danhSachThuPhiModel;
+    }
+
     public FeeKhoanThuModel getFeeKhoanThuModel() {
         return feeKhoanThuModel;
     }
 
+    public FeeKhoanThuDotModel getFeeKhoanThuDotModel() {
+        return feeKhoanThuDotModel;
+    }
+
     public ObservableList<FeeKhoanThuCell> getDanhSachKhoanThu() {return danhSachKhoanThu;}
+
+    public ObservableList<FeeKhoanThuDotCell> getDanhSachKhoanThuDot() {
+        return danhSachKhoanThuDot;
+    }
 
     public ObservableList<FeeHoKhauCell> getDanhSachDaDongPhi() {
         return danhSachDaDongPhi;
@@ -550,6 +578,15 @@ public class Model {
     public ObservableList<FeeHoKhauCell> getDanhSachChuaDongPhi() {
         return danhSachChuaDongPhi;
     }
+
+    public ObservableList<FeeHoKhauCellDot> getDanhSachDaDongPhiDot() {
+        return danhSachDaDongPhiDot;
+    }
+
+    public ObservableList<FeeHoKhauCellDot> getDanhSachChuaDongPhiDot() {
+        return danhSachChuaDongPhiDot;
+    }
+
     private void initDanhSachKhoanThu() {
         ResultSet resultSet = databaseConnection.getDanhSachKhoanThu();
         try {
@@ -560,15 +597,32 @@ public class Model {
                     int batBuoc = resultSet.getInt(3);
                     int soTienCanDong = resultSet.getInt(4);
                     String ngayTao = resultSet.getString(5);
-
-                    danhSachKhoanThu.add(new FeeKhoanThuCell(maKhoanThu, tenKhoanThu, batBuoc, soTienCanDong, ngayTao));
+                    int id = resultSet.getInt(7);
+                    danhSachKhoanThu.add(new FeeKhoanThuCell(id,maKhoanThu, tenKhoanThu, ngayTao));
                 }
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
     }
+    private void innitDanhSachThuPhiDot(){
+        ResultSet resultSet = databaseConnection.getDanhSachKhoanThuDot();
+        try {
+            if (resultSet.isBeforeFirst()) {
+                while (resultSet.next()) {
+                    int maDotThu = resultSet.getInt(1);
+                    String tenKhoanThu = resultSet.getNString(2);
+//                    int batBuoc = resultSet.getInt(3);
+//                    int soTienCanDong = resultSet.getInt(4);
+                    String ngayTao = resultSet.getString(4);
 
+                    danhSachKhoanThuDot.add(new FeeKhoanThuDotCell(maDotThu, tenKhoanThu, ngayTao));
+                }
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
     public int getTongSoTienDaThuPhi(){
         int res = 0;
         ResultSet resultSet = databaseConnection.getTongSoTienDaThuPhi();
@@ -590,7 +644,7 @@ public class Model {
             if(resultSet.isBeforeFirst()){
                 resultSet.next();
                 res = resultSet.getInt(1);
-            }   
+            }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

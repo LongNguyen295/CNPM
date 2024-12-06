@@ -65,11 +65,12 @@ public class FeeDSChuaHoanThanhPhi implements Initializable {
 
                             Optional<ButtonType> result2 = alert.showAndWait();
                             if (result2.get() == ButtonType.OK) {
-
-                                Model.getInstance().getDatabaseConnection().updateNopPhi(selectedItem.getMaHoKhau(), Model.getInstance().getFeeKhoanThuModel().getMaKhoanThu().get(), soTien);
-
+                                System.out.println("Dang run");
+                                Model.getInstance().getDatabaseConnection().updateNopPhiUNGHO(selectedItem.getMaHoKhau(), Model.getInstance().getFeeKhoanThuModel().getMaKhoanThu().get(), soTien, Model.getInstance().getFeeKhoanThuModel().getId());
+                                //Model.getInstance().getDatabaseConnection().updateUngHoFee(Model.getInstance().getFeeKhoanThuModel().getMaKhoanThu().get(),selectedItem.getMaHoKhau(), Integer.parseInt(soTien));
                                 Model.getInstance().getDanhSachChuaDongPhi().remove(selectedItem);
                                 showDanhSach();
+                                System.out.println("Đã Run");
                             }
                         });
                     }
@@ -104,7 +105,7 @@ public class FeeDSChuaHoanThanhPhi implements Initializable {
             }
             else {
                 ResultSet resultSet = Model.getInstance().getDatabaseConnection().danhSachChuaDongPhi_timKiem(
-                        Model.getInstance().getFeeKhoanThuModel().getMaKhoanThu().get(),newValue);
+                        Model.getInstance().getFeeKhoanThuModel().getId(),newValue);
                 listView.getItems().clear();
                     try {
                         if (resultSet.isBeforeFirst()){
@@ -127,7 +128,7 @@ public class FeeDSChuaHoanThanhPhi implements Initializable {
 
     private void initDanhSach() {
         Model.getInstance().getDanhSachChuaDongPhi().clear();
-        ResultSet resultSet = Model.getInstance().getDatabaseConnection().getDanhSachChuaDongPhi(Model.getInstance().getFeeKhoanThuModel().getMaKhoanThu().get());
+        ResultSet resultSet = Model.getInstance().getDatabaseConnection().getDanhSachChuaDongPhi(Model.getInstance().getFeeKhoanThuModel().getId());
         try {
             if(resultSet.isBeforeFirst()) {
                 while (resultSet.next()) {

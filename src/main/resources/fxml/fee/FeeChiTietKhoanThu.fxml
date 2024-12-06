@@ -9,9 +9,9 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="750.0" prefWidth="850.0" styleClass="background_form" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.citizenmanagement.controllers.feecontrollers.FeeChiTietKhoanThu">
+<AnchorPane prefHeight="750.0" prefWidth="850.0" styleClass="background_form" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.citizenmanagement.controllers.feecontrollers.FeeChiTietKhoanThu">
    <children>
-      <AnchorPane fx:id="da_hoan_thanh_btn" layoutX="89.0" layoutY="208.0" onMouseClicked="#onDaHoanThanhBtn" prefHeight="150.0" prefWidth="250.0" styleClass="button_ds" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="200.0">
+      <AnchorPane fx:id="da_hoan_thanh_btn" layoutX="549.0" layoutY="145.0" onMouseClicked="#onDaHoanThanhBtn" prefHeight="150.0" prefWidth="250.0" styleClass="button_ds" AnchorPane.rightAnchor="51.0" AnchorPane.topAnchor="145.0">
          <children>
             <Label layoutX="57.0" layoutY="14.0" text="Đã hoàn thành" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
                <font>
@@ -28,7 +28,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </AnchorPane>
-      <AnchorPane fx:id="chua_hoan_thanh_btn" layoutX="78.0" layoutY="482.0" onMouseClicked="#onChuaHoanThanhBtn" prefHeight="150.0" prefWidth="250.0" styleClass="button_ds" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="400.0">
+      <AnchorPane fx:id="chua_hoan_thanh_btn" layoutX="549.0" layoutY="333.0" onMouseClicked="#onChuaHoanThanhBtn" prefHeight="150.0" prefWidth="250.0" styleClass="button_ds" AnchorPane.rightAnchor="51.0" AnchorPane.topAnchor="333.0">
          <children>
             <Label layoutX="25.0" layoutY="14.0" text="Chưa hoàn thành" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
                <font>
@@ -47,69 +47,59 @@
       </AnchorPane>
       <AnchorPane layoutX="384.0" layoutY="208.0" prefHeight="350.0" prefWidth="450.0" styleClass="info" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="200.0">
          <children>
-            <Label layoutX="38.0" layoutY="31.0" text="Mã khoản thu:" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="30.0">
+            <Label layoutX="13.0" layoutY="60.0" text="Mã khoản thu:" AnchorPane.leftAnchor="13.0" AnchorPane.topAnchor="60.0">
                <font>
                   <Font name="Verdana" size="15.0" />
                </font>
             </Label>
-            <Label layoutX="38.0" layoutY="60.0" text="Tên khoản thu:" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="80.0">
+            <Label layoutX="14.0" layoutY="102.0" text="Tên khoản thu:" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="102.0">
                <font>
                   <Font name="Verdana" size="15.0" />
                </font>
             </Label>
-            <Label layoutX="37.0" layoutY="98.0" text="Bắt buộc:" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="130.0">
+            <Label layoutX="14.0" layoutY="148.0" text="Ngày tạo:" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="148.0">
                <font>
                   <Font name="Verdana" size="15.0" />
                </font>
             </Label>
-            <Label layoutX="37.0" layoutY="134.0" text="Số tiền cần đóng/người :" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="180.0">
-               <font>
-                  <Font name="Verdana" size="15.0" />
-               </font>
-            </Label>
-            <Label layoutX="37.0" layoutY="166.0" text="Ngày tạo:" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="230.0">
-               <font>
-                  <Font name="Verdana" size="15.0" />
-               </font>
-            </Label>
-            <Text fx:id="ma_khoan_thu" layoutX="150.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="30.0">
+            <Text fx:id="ma_khoan_thu" layoutX="143.0" layoutY="75.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" AnchorPane.leftAnchor="143.0" AnchorPane.topAnchor="61.5">
                <font>
                   <Font name="Calibri Bold Italic" size="18.0" />
                </font>
             </Text>
-            <Text fx:id="ten_khoan_thu" layoutX="166.0" layoutY="74.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="80.0">
+            <Text fx:id="ten_khoan_thu" layoutX="144.0" layoutY="116.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" AnchorPane.leftAnchor="144.0" AnchorPane.topAnchor="102.5">
                <font>
                   <Font name="Calibri Bold Italic" size="18.0" />
                </font>
             </Text>
-            <Text fx:id="bat_buoc" layoutX="114.0" layoutY="112.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="130.0">
+            <Text fx:id="ngay_tao" layoutX="144.0" layoutY="166.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" AnchorPane.leftAnchor="144.0" AnchorPane.topAnchor="152.5">
                <font>
                   <Font name="Calibri Bold Italic" size="18.0" />
                </font>
             </Text>
-            <Text fx:id="so_tien_can_dong" layoutX="231.0" layoutY="214.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" AnchorPane.leftAnchor="230.0" AnchorPane.topAnchor="180.0">
-               <font>
-                  <Font name="Calibri Bold Italic" size="18.0" />
-               </font>
-            </Text>
-            <Text fx:id="ngay_tao" layoutX="134.0" layoutY="264.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text" AnchorPane.leftAnchor="150.0" AnchorPane.topAnchor="230.0">
-               <font>
-                  <Font name="Calibri Bold Italic" size="18.0" />
-               </font>
-            </Text>
-            <Label layoutX="20.0" layoutY="270.0" text="Mô tả:" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="280.0">
+            <Label layoutX="14.0" layoutY="198.0" text="Mô tả:" AnchorPane.leftAnchor="14.0" AnchorPane.topAnchor="198.0">
                <font>
                   <Font name="Verdana" size="15.0" />
                </font>
             </Label>
-            <TextArea fx:id="mo_ta" disable="true" layoutX="94.0" layoutY="271.0" prefHeight="63.0" prefWidth="300.0" wrapText="true" AnchorPane.leftAnchor="100.0" AnchorPane.topAnchor="280.0">
+            <TextArea fx:id="mo_ta" disable="true" layoutX="94.0" layoutY="198.0" prefHeight="138.0" prefWidth="300.0" wrapText="true" AnchorPane.leftAnchor="94.0" AnchorPane.topAnchor="198.0">
                <font>
                   <Font name="Calibri Light" size="16.0" />
                </font>
             </TextArea>
+            <Label layoutX="14.0" layoutY="21.0" text="Mã đợt thu">
+               <font>
+                  <Font name="Verdana" size="15.0" />
+               </font>
+            </Label>
+            <Text fx:id="ma_dot_thu" layoutX="144.0" layoutY="35.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
+               <font>
+                  <Font name="Calibri Bold Italic" size="18.0" />
+               </font>
+            </Text>
          </children>
       </AnchorPane>
-      <Label layoutX="135.0" layoutY="67.0" text="Xem thông tin chi tiết khoản phí" AnchorPane.topAnchor="67.0">
+      <Label layoutX="135.0" layoutY="67.0" text="Xem thông tin chi tiết khoản thu" AnchorPane.topAnchor="67.0">
          <font>
             <Font name="Verdana Bold" size="32.0" />
          </font>
@@ -122,6 +112,28 @@
          <font>
             <Font name="Calibri" size="18.0" />
          </font></Button>
+      <AnchorPane layoutX="549.0" layoutY="535.0" prefHeight="150.0" prefWidth="250.0" styleClass="button_ds">
+         <children>
+            <Label layoutX="25.0" layoutY="14.0" text="Tiền đã thu" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+               <font>
+                  <Font name="Verdana" size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="tong_tien_da_thu" layoutX="10.0" layoutY="52.0" prefHeight="51.0" prefWidth="230.0" text="1000000" AnchorPane.bottomAnchor="47.0" AnchorPane.rightAnchor="10.0">
+               <font>
+                  <Font name="Verdana" size="40.0" />
+               </font>
+            </Label>
+            <Text layoutX="172.0" layoutY="129.0" strokeType="OUTSIDE" strokeWidth="0.0" text="VNĐ">
+               <font>
+                  <Font size="24.0" />
+               </font>
+            </Text>
+         </children>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </AnchorPane>
    </children>
    <stylesheets>
       <URL value="@../../styles/LoginForm.css" />

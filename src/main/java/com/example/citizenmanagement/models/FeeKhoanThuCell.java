@@ -3,32 +3,42 @@ package com.example.citizenmanagement.models;
 import javafx.beans.property.*;
 
 public class FeeKhoanThuCell {
+    private final IntegerProperty id = new SimpleIntegerProperty();
     private final IntegerProperty maKhoanThu = new SimpleIntegerProperty();
     private final StringProperty tenKhoanThu = new SimpleStringProperty();
-    private final IntegerProperty batBuoc = new SimpleIntegerProperty();
-    private final LongProperty soTienCanDong = new SimpleLongProperty();
     private final StringProperty ngayTao = new SimpleStringProperty();
 
     public FeeKhoanThuCell() {
     }
-    public FeeKhoanThuCell(int maKhoanThu, String tenKhoanThu, int batBuoc, long soTienCanDong, String ngayTao) {
+    public FeeKhoanThuCell(int id, int maKhoanThu, String tenKhoanThu,  String ngayTao) {
+        this.id.setValue(id);
         this.maKhoanThu.setValue(maKhoanThu);
         this.tenKhoanThu.setValue(tenKhoanThu);
-        this.batBuoc.setValue(batBuoc);
-        this.soTienCanDong.setValue(soTienCanDong);
         this.ngayTao.setValue(ngayTao);
     }
 
-    public int getMaKhoanThu() {
+    public int getId() {
+        return id.get();
+    }
+
+    public IntegerProperty idProperty() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id.set(id);
+    }
+
+    public int getMaDotThu() {
         return maKhoanThu.get();
     }
 
-    public IntegerProperty maKhoanThuProperty() {
+    public IntegerProperty maDotThuProperty() {
         return maKhoanThu;
     }
 
-    public void setMaKhoanThu(int maKhoanThu) {
-        this.maKhoanThu.set(maKhoanThu);
+    public void setMaDotThu(int maDotThu) {
+        this.maKhoanThu.set(maDotThu);
     }
 
     public String getTenKhoanThu() {
@@ -43,29 +53,7 @@ public class FeeKhoanThuCell {
         this.tenKhoanThu.set(tenKhoanThu);
     }
 
-    public int getBatBuoc() {
-        return batBuoc.get();
-    }
 
-    public IntegerProperty batBuocProperty() {
-        return batBuoc;
-    }
-
-    public void setBatBuoc(int batBuoc) {
-        this.batBuoc.set(batBuoc);
-    }
-
-    public long getSoTienCanDong() {
-        return soTienCanDong.get();
-    }
-
-    public LongProperty soTienCanDongProperty() {
-        return soTienCanDong;
-    }
-
-    public void setSoTienCanDong(int soTienCanDong) {
-        this.soTienCanDong.set(soTienCanDong);
-    }
 
     public String getNgayTao() {
         return ngayTao.get();

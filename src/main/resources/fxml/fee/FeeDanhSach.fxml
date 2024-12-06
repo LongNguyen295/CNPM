@@ -5,10 +5,11 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.Glow?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="750.0" prefWidth="850.0" styleClass="my-background" stylesheets="@../../styles/Fee/FeeDanhSach.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.citizenmanagement.controllers.feecontrollers.FeeDanhSachController">
+<AnchorPane prefHeight="750.0" prefWidth="850.0" styleClass="my-background" stylesheets="@../../styles/Fee/FeeDanhSach.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.citizenmanagement.controllers.feecontrollers.FeeDanhSachController">
     <TextField fx:id="search_textfield" layoutX="25.0" layoutY="107.0" prefHeight="30.0" prefWidth="250.0" promptText="Tìm kiếm khoản thu" styleClass="input_text_field" stylesheets="@../../styles/LoginForm.css" AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="115.0">
         <font>
           <Font size="17.0" />
@@ -22,31 +23,30 @@
    </Label>
    <AnchorPane layoutX="55.0" layoutY="177.0" prefHeight="50.0" prefWidth="800.0" styleClass="tieu_de" AnchorPane.leftAnchor="35.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="170.0">
       <children>
-         <Text layoutX="7.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Mã khoản thu">
-            <font>
-               <Font name="Verdana Bold" size="15.0" />
-            </font>
-         </Text>
-         <Text layoutX="173.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tên khoản thu">
-            <font>
-               <Font name="Verdana Bold" size="15.0" />
-            </font>
-         </Text>
-         <Text layoutX="355.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bắt buộc">
-            <font>
-               <Font name="Verdana Bold" size="15.0" />
-            </font>
-         </Text>
-         <Text layoutX="491.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Số tiền/người">
-            <font>
-               <Font name="Verdana Bold" size="15.0" />
-            </font>
-         </Text>
-         <Text layoutX="675.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ngày tạo">
-            <font>
-               <Font name="Verdana Bold" size="15.0" />
-            </font>
-         </Text>
+         <HBox layoutY="14.0" prefHeight="20.0" prefWidth="758.0">
+            <children>
+               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Mã khoản thu" wrappingWidth="199.4482421875">
+                  <font>
+                     <Font name="Verdana Bold" size="15.0" />
+                  </font>
+               </Text>
+               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Mã Đợt thu" wrappingWidth="204.27783203125">
+                  <font>
+                     <Font name="Verdana Bold" size="15.0" />
+                  </font>
+               </Text>
+               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Tên khoản thu" wrappingWidth="276.083984375">
+                  <font>
+                     <Font name="Verdana Bold" size="15.0" />
+                  </font>
+               </Text>
+               <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Ngày tạo">
+                  <font>
+                     <Font name="Verdana Bold" size="15.0" />
+                  </font>
+               </Text>
+            </children>
+         </HBox>
       </children>
    </AnchorPane>
    <Label contentDisplay="CENTER" layoutX="750.0" layoutY="36.0" opacity="0.6" rotate="45.0" text="jwannasleep" textFill="#c41313" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="40.0">

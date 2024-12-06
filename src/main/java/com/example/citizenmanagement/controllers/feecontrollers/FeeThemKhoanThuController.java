@@ -27,14 +27,13 @@ public class FeeThemKhoanThuController implements Initializable {
     private Button next_page_btn;
 
     @FXML
-    private TextField so_tien_can_dong;
-
+    private TextField ma_khoan_thu;
     @FXML
     private TextField ten_khoan_thu;
     private Alert alert;
+    private boolean check = false;
     private ObservableList<String> choices = FXCollections.observableArrayList(
-            "Không Bắt Buộc",
-            "Bắt Buộc"
+            "Không Bắt Buộc"
     );
 
     private int luaChon;
@@ -42,8 +41,9 @@ public class FeeThemKhoanThuController implements Initializable {
     private void onFeeCreateTiepBtn() {
         if(checkThongTin()) {
             Model.getInstance().getFeeKhoanThuModel().setFeeKhoanThuModel(
+                    Integer.parseInt(ma_khoan_thu.getText()),
                     ten_khoan_thu.getText(),
-                    luaChon, Long.parseLong(so_tien_can_dong.getText()),
+                    luaChon,
                     LocalDate.now().toString(),
                     mo_ta.getText());
             Model.getInstance().getViewFactory().getFeeSelectedMenuItem().set(FeeMenuOptions.DANH_SACH_HO_KHAU_CAN_THU_PHI);
@@ -52,10 +52,9 @@ public class FeeThemKhoanThuController implements Initializable {
     }
 
     public void onResetBtn() {
+        ma_khoan_thu.setText("");
         ten_khoan_thu.setText("");
         bat_buoc.setValue(choices.get(0));
-        so_tien_can_dong.setText("0");
-        so_tien_can_dong.setDisable(true);
         mo_ta.setText("");
     }
 
@@ -63,59 +62,55 @@ public class FeeThemKhoanThuController implements Initializable {
         if (ten_khoan_thu.getText().isEmpty()) {
             alert = new Alert(Alert.AlertType.WARNING);
             alert.setHeaderText(null);
-            alert.setContentText("Vui lòng điền đủ thông tin Tên khoản thu!");
+            alert.setContentText("Vui lòng điền đủ thông tin TÊN KHOẢN THU !");
             alert.showAndWait();
             return false;
         }
-        else if (luaChon == 1 && so_tien_can_dong.getText().isEmpty()) {
+        else if(!isValidInteger(ma_khoan_thu.getText())){
             alert = new Alert(Alert.AlertType.WARNING);
             alert.setHeaderText(null);
-            alert.setContentText("Vui lòng điền đủ thông tin Số tiền cần đóng trên một người!");
+            alert.setContentText("Vui lòng điền MÃ ĐỢT THU là một số !");
+            alert.showAndWait();
+            return false;
+        }
+//        else {
+////            int s = Integer.parseInt(ma_khoan_thu.getText());
+////            if(Model.getInstance().getDatabaseConnection().checkMaKhoanThu(s)){
+////                alert = new Alert(Alert.AlertType.WARNING);
+////                alert.setHeaderText(null);
+////                alert.setContentText("MÃ KHOẢN THU này đã tồn tại !");
+////                alert.showAndWait();
+////                return false;
+////            }
+//        }
+        if(!check){
+            check = true;
+            alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setHeaderText(null);
+            alert.setContentText("Lưu ý: Mã đợt thu tiền ủng hộ cần phải trùng với mã đợt thu phí ! ");
             alert.showAndWait();
             return false;
         }
         return true;
     }
-
+    public boolean isValidInteger(String input) {
+        try {
+            Integer.parseInt(input);
+            return true; // Nếu chuyển đổi thành công, trả về true
+        } catch (NumberFormatException e) {
+            return false; // Nếu có lỗi, trả về false
+        }
+    }
     @Override
     public void initialize(URL location, ResourceBundle resources) {
 
         luaChon = 0;
-        so_tien_can_dong.setText("0");
-        so_tien_can_dong.setDisable(true);
         bat_buoc.setItems(choices);
         bat_buoc.setValue(choices.get(0));
-
-        bat_buoc.setOnAction(event -> {
-            if (bat_buoc.getValue().equals(choices.get(0))) {
-                luaChon = 0;
-                so_tien_can_dong.setText("0");
-                so_tien_can_dong.setDisable(true);
-            }
-            else if (bat_buoc.getValue().equals(choices.get(1))) {
-                luaChon = 1;
-                so_tien_can_dong.setText("");
-                so_tien_can_dong.setDisable(false);
-            }
-        });
-
-
 
         FeeKhoanThuModel fee = Model.getInstance().getFeeKhoanThuModel();
         fee.getTenKhoanThu().addListener((observable, oldValue, newValue) -> {
             ten_khoan_thu.setText(newValue.toString());
-        });
-        fee.getBatBuoc().addListener((observable, oldValue, newValue) -> {
-            if (newValue.intValue() == 1) {
-                bat_buoc.setValue(choices.get(1));
-                so_tien_can_dong.setText("");
-                so_tien_can_dong.setDisable(false);
-            }
-            else if (newValue.intValue() == 0) {
-                bat_buoc.setValue(choices.get(0));
-                so_tien_can_dong.setText("0");
-                so_tien_can_dong.setDisable(true);
-            }
         });
         fee.getMoTa().addListener((observable, oldValue, newValue) -> {
             mo_ta.setText(newValue.toString());

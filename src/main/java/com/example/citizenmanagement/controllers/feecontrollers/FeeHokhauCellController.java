@@ -49,7 +49,6 @@ public class FeeHokhauCellController implements Initializable {
         ten_chu_ho.setText(feeHoKhauCell.getTenChuHo());
         dia_chi.setText(feeHoKhauCell.getDiaChi());
         so_thanh_vien.setText(String.valueOf(feeHoKhauCell.getSoThanhVien()));
-        so_tien.setText(String.valueOf(feeHoKhauCell.getSoTien()));
 
         feeHoKhauCell.getPropertySelected().addListener((observable, oldValue, newValue) -> {
             if(newValue != null) {

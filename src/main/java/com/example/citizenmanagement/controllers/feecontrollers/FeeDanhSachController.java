@@ -46,7 +46,8 @@ public class FeeDanhSachController implements Initializable {
             if (event.getClickCount() == 2) { // double-click
                 FeeKhoanThuCell selectedItem = listView.getSelectionModel().getSelectedItem();
                 if (selectedItem != null) {
-                    Model.getInstance().getFeeKhoanThuModel().setMaKhoanThu(selectedItem.getMaKhoanThu());
+                    Model.getInstance().getFeeKhoanThuModel().setId(-1);
+                    Model.getInstance().getFeeKhoanThuModel().setId(selectedItem.getId());
                     Model.getInstance().getViewFactory().getFeeSelectedMenuItem().set(FeeMenuOptions.CHI_TIET_KHOAN_THU);
                 }
             }
@@ -67,11 +68,11 @@ public class FeeDanhSachController implements Initializable {
                         while (resultSet.next()) {
                             int maKhoanThu = resultSet.getInt(1);
                             String tenKhoanThu = resultSet.getNString(2);
-                            int batBuoc = resultSet.getInt(3);
-                            long soTienCanDong = resultSet.getLong(4);
+//                            int batBuoc = resultSet.getInt(3);
+//                            long soTienCanDong = resultSet.getLong(4);
                             String ngayTao = resultSet.getString(5);
-
-                            listView.getItems().add(new FeeKhoanThuCell(maKhoanThu, tenKhoanThu, batBuoc, soTienCanDong, ngayTao));
+                            int id = resultSet.getInt(7);
+                            listView.getItems().add(new FeeKhoanThuCell(id,maKhoanThu, tenKhoanThu, ngayTao));
                         }
                     }
                 } catch (SQLException e) {

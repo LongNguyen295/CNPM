@@ -7,6 +7,7 @@ import javafx.collections.ObservableList;
 import javafx.scene.control.Dialog;
 
 
+import java.security.PublicKey;
 import java.sql.*;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -16,11 +17,17 @@ public class DatabaseConnection {
 
     public DatabaseConnection() {
         String dbName = "QUANLYDANCU";
-        String dbUser = "sa";
-        String dbPassword = "123";
+        String dbUser = "group11";
+        String dbPassword = "group11";
 
-        String url = "jdbc:sqlserver://DESKTOP-SM2FAUO:1433;databaseName=" + dbName +
+        String url = "jdbc:sqlserver://LAPTOP-10MBD6CH\\dbo:1433;databaseName=" + dbName +
                 ";encrypt=true;integratedSecurity=false;trustServerCertificate=true";
+
+//        String dbUser = "sa";
+//        String dbPassword = "123";
+//        String url = "jdbc:sqlserver://DESKTOP-SM2FAUO:1433;databaseName=" + dbName +
+//                ";encrypt=true;integratedSecurity=false;trustServerCertificate=true";
+
 
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
@@ -29,6 +36,10 @@ public class DatabaseConnection {
             System.out.println("loi o dayyyy");
             throw new RuntimeException(e);
         }
+    }
+
+    public Connection getConnection() {
+        return connection;
     }
 
     private ResultSet executeQuery(String query) {
@@ -674,8 +685,58 @@ public class DatabaseConnection {
         String query = "SELECT HK.MAHOKHAU, NK.HOTEN, HK.DIACHI, COUNT(TV.MANHANKHAU)\n" +
                 "FROM HOKHAU HK INNER JOIN NHANKHAU NK ON HK.IDCHUHO = NK.MANHANKHAU\n" +
                 "\tINNER JOIN THANHVIENCUAHO TV ON HK.MAHOKHAU = TV.MAHOKHAU\n" +
-                "GROUP BY HK.MAHOKHAU, NK.HOTEN, HK.DIACHI";
+                "GROUP BY HK.MAHOKHAU, NK.HOTEN, HK.DIACHI ORDER BY HK.MAHOKHAU";
         return executeQuery(query);
+    }
+    public FeeHoaDon getFeeHoaDonSummary() throws SQLException {
+        String query =
+                "SELECT SUM(TIENNHA) AS [TIENNHA], " +
+                        "SUM(TIENDICHVU) AS [TIENQUANLY], " +
+                        "SUM(TIENXEMAY) AS [TIENXEMAY], " +
+                        "SUM(TIENOTO) AS [TIENOTO], " +
+                        "SUM(TIENDIEN) AS [TIENDIEN], " +
+                        "SUM(TIENNUOC) AS [TIENNUOC], " +
+                        "SUM(TIENINTERNET) AS [TIENINTERNET], " +
+                        "SUM(DS.SOTIENDADONG) AS [SOTIENDADONG] " +
+                        "FROM DANHSACHTHUPHI DS;";
+
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return new FeeHoaDon(
+                            rs.getInt("TIENNHA"),
+                            rs.getInt("TIENQUANLY"),
+                            rs.getInt("TIENDIEN"),
+                            rs.getInt("TIENNUOC"),
+                            rs.getInt("TIENINTERNET"),
+                            rs.getInt("TIENXEMAY"),
+                            rs.getInt("TIENOTO"),
+                            rs.getString("SOTIENDADONG") // Tổng số tiền được trả dưới dạng chuỗi
+                    );
+                } else {
+                    return null; // Không tìm thấy dữ liệu
+                }
+            }
+        }
+    }
+    public FeeHoaDon getFeeHoaDonDongGopSummary() throws SQLException {
+        String query =
+                "SELECT COUNT(DISTINCT MAKHOANTHU) AS [TONGLOAIPHI], " +
+                        "SUM(SOTIENDADONG) AS [TONGTIEN] " +
+                        "FROM DONGGOP;";
+
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return new FeeHoaDon(
+                            rs.getInt("TONGTIEN"),
+                            rs.getInt("TONGLOAIPHI")
+                    );
+                } else {
+                    return null; // Không tìm thấy dữ liệu
+                }
+            }
+        }
     }
 
     public ResultSet danhsachdongphi_timKiem(String condition) {
@@ -688,60 +749,253 @@ public class DatabaseConnection {
                 "GROUP BY HK.MAHOKHAU, NK.HOTEN, HK.DIACHI";
         return executeQuery(query);
     }
-    public void themKhoanThuPhi(String tenKhoanThu, int batBuoc, long soTienCanDong, LocalDate ngayTao, String moTa) {
-        String query = "INSERT INTO LOAIPHI(TEN, BATBUOC, SOTIENTRENMOTNGUOI, NGAYTAO, MOTA)\n" +
-                "VALUES (N'" + tenKhoanThu + "', " + batBuoc + ", "+ soTienCanDong + ", '" + ngayTao.toString() + "', N'" + moTa +"')";
+    public void themKhoanThuPhi(int maKhoanThu,String tenKhoanThu, int batBuoc, long soTienCanDong, LocalDate ngayTao, String moTa) {
+        String query = "INSERT INTO LOAIPHI(MAKHOANTHU,TEN, BATBUOC, SOTIENTRENMOTNGUOI, NGAYTAO, MOTA)\n" +
+                "VALUES ("+maKhoanThu+ ",N'" + tenKhoanThu + "', " + batBuoc + ", "+ soTienCanDong + ", '" + ngayTao.toString() + "', N'" + moTa +"')";
         executeUpdate(query);
     }
-
-    public int layMaKhoanThu(String tenKhoanThu,int batBuoc, long soTienCanDong, LocalDate ngayTao, String moTa) {
-        int maKhoanThu = -1;
-
-        String query = "SELECT MAKHOANTHU\n" +
-                "FROM LOAIPHI\n" +
-                "WHERE TEN = N'" + tenKhoanThu + "' AND BATBUOC = " + batBuoc +
-                " AND SOTIENTRENMOTNGUOI = " + soTienCanDong + " AND NGAYTAO = '" + ngayTao.toString() + "' AND MOTA = N'" + moTa +"'";
-        Statement statement;
-        ResultSet resultSet = null;
-        try {
-            statement = connection.createStatement();
-            resultSet = statement.executeQuery(query);
-            if (resultSet.isBeforeFirst()){
-                resultSet.next();
-                maKhoanThu = resultSet.getInt(1);
-            }
+    public void themKhoanThuPhiDot(int maDotThu, String tenDotThu, int batBuoc, LocalDate ngayTao, String moTa){
+        String query = "INSERT INTO DOTTHUPHI(MADOTTHU,TEN, BATBUOC,NGAYTAO, MOTA)\n" +
+                "VALUES ("+maDotThu+ ",N'" + tenDotThu + "', " + batBuoc + ", '" + ngayTao.toString() + "', N'" + moTa +"')";
+        executeUpdate(query);
+    }
+    public boolean checkMaKhoanThu(int maKhoanThu){
+        String query = "SELECT 1 FROM LOAIPHI WHERE MAKHOANTHU = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, maKhoanThu);
+            ResultSet rs = stmt.executeQuery();
+            return rs.next(); // Nếu rs.next() trả về true, tức là có bản ghi thỏa mãn điều kiện
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
+            return false; // Nếu có lỗi xảy ra, trả về false
         }
-        return maKhoanThu;
     }
-    public void themDanhSachThuPhi(int maHoKhau, int maKhoanThu, int trangThai) {
-        String query = "EXEC INSERT_DONGGOP " + maHoKhau + ", " + maKhoanThu + ", " + trangThai;
+//    public int layMaKhoanThu(String tenKhoanThu,int batBuoc, long soTienCanDong, LocalDate ngayTao, String moTa) {
+//        int maKhoanThu = -1;
+//
+//        String query = "SELECT MAKHOANTHU\n" +
+//                "FROM LOAIPHI\n" +
+//                "WHERE TEN = N'" + tenKhoanThu + "' AND BATBUOC = " + batBuoc +
+//                " AND SOTIENTRENMOTNGUOI = " + soTienCanDong + " AND NGAYTAO = '" + ngayTao.toString() + "' AND MOTA = N'" + moTa +"'";
+//        Statement statement;
+//        ResultSet resultSet = null;
+//        try {
+//            statement = connection.createStatement();
+//            resultSet = statement.executeQuery(query);
+//            if (resultSet.isBeforeFirst()){
+//                resultSet.next();
+//                maKhoanThu = resultSet.getInt(1);
+//            }
+//        } catch (SQLException e) {
+//            throw new RuntimeException(e);
+//        }
+//        return maKhoanThu;
+//    }
+    public ResultSet getFeeCoDinh(int maHoKhau){
+        String query =
+                "SELECT \n" +
+                        "\tGIATIENLOAICANHO, -- TIEN NHA\n" +
+                        "\tFEEQLCHUNGCU, -- TIEN DICH VU QUAN LY\n" +
+                        "\tPHIXEDAP*(CONVERT(INT,HK.XEMAY)) AS[TIENXEDAP], -- TIEN XE DAP\n" +
+                        "\tPHIXEOTO*(CONVERT(INT,HK.OTO)) AS[TIENXEOTO]\t-- TIEN XE OTO\n" +
+                        "FROM PHICODINH P JOIN HOKHAU HK ON P.LOAICANHO = CONVERT(INT,SUBSTRING(HK.DIACHI,1,4))\n" +
+                        "WHERE MAHOKHAU = "+maHoKhau;
+        return executeQuery(query);
+    }
+//    public ResultSet getFeeCoDinh_ThuHo(int maHoKhau, int maDotThu) throws SQLException {
+//        String query =
+//                "SELECT TENCHUHO, \n" +
+//                        "P.GIATIENLOAICANHO,P.FEEQLCHUNGCU, \n" +
+//                        "P.PHIXEDAP*(CONVERT(INT,HK.XEMAY)) AS[TIENXEMAY],\n" +
+//                        "P.PHIXEOTO*(CONVERT(INT,HK.OTO)) AS[TIENOTO],\n" +
+//                        "THANHTIENDIEN, TONGSODIEN,\n" +
+//                        "THANHTIENNUOC, TONGSONUOC,\n" +
+//                        "THANHTIENINTERNET\n" +
+//                        "FROM FEETHUHO FH JOIN HOKHAU HK ON FH.IDCANHO = CONVERT(INT,SUBSTRING(HK.DIACHI,1,4))\n" +
+//                        "\t\tJOIN PHICODINH P ON P.LOAICANHO = FH.IDCANHO\n" +
+//                        "WHERE MADOTTHU = ? AND HK.MAHOKHAU = ?;";
+//
+//        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+//            stmt.setInt(1, maDotThu); // Set the MADOTTHU parameter
+//            stmt.setInt(2, maHoKhau); // Set the MAHOKHAU parameter
+//
+//            return stmt.executeQuery(); // Execute the query
+//        }
+//    }
+public DanhSachThuPhiModel getFeeCoDinh_ThuHo(int maHoKhau, int maDotThu) throws SQLException {
+    String query =
+            "SELECT TENCHUHO, \n" +
+                    "P.GIATIENLOAICANHO, P.FEEQLCHUNGCU, \n" +
+                    "P.PHIXEDAP*(CONVERT(INT,HK.XEMAY)) AS [TIENXEMAY],\n" +
+                    "P.PHIXEOTO*(CONVERT(INT,HK.OTO)) AS [TIENOTO],\n" +
+                    "THANHTIENDIEN, TONGSODIEN,\n" +
+                    "THANHTIENNUOC, TONGSONUOC,\n" +
+                    "THANHTIENINTERNET\n" +
+                    "FROM FEETHUHO FH JOIN HOKHAU HK ON FH.IDCANHO = CONVERT(INT,SUBSTRING(HK.DIACHI,1,4))\n" +
+                    "\t\tJOIN PHICODINH P ON P.LOAICANHO = FH.IDCANHO\n" +
+                    "WHERE MADOTTHU = ? AND HK.MAHOKHAU = ?;";
+
+    try (PreparedStatement stmt = connection.prepareStatement(query)) {
+        stmt.setInt(1, maDotThu);
+        stmt.setInt(2, maHoKhau);
+
+        try (ResultSet rs = stmt.executeQuery()) {
+            if (rs.next()) {
+                return new DanhSachThuPhiModel(
+                        rs.getString("TENCHUHO"),
+                        rs.getInt("GIATIENLOAICANHO"),
+                        rs.getInt("FEEQLCHUNGCU"),
+                        rs.getInt("TIENXEMAY"),
+                        rs.getInt("TIENOTO"),
+                        rs.getInt("THANHTIENDIEN"),
+                        rs.getInt("TONGSODIEN"),
+                        rs.getInt("THANHTIENNUOC"),
+                        rs.getInt("TONGSONUOC"),
+                        rs.getInt("THANHTIENINTERNET")
+                );
+            } else {
+                return null; // Không có dữ liệu
+            }
+        }
+    }
+}
+
+    public void insertDANHSACHTHUPHI(
+            int maDotThu, int hoKhau, String chuHo,
+            int tienNha, int tienDv,
+            int tienXeMay, int tienOto,
+            int tienDien, int soDien,
+            int tienNuoc, int soNuoc,
+            int tienInternet
+    ) throws SQLException {
+        String query =
+                "INSERT INTO DANHSACHTHUPHI(\n" +
+                        "MADOTTHU,IDCANHO,CHUHO,\n" +
+                        "TIENNHA,TIENDICHVU,\n" +
+                        "TIENUNGHO,\n" +
+                        "TIENXEMAY,TIENOTO,\n" +
+                        "TIENDIEN,SODIEN,\n" +
+                        "TIENNUOC,SONUOC,\n" +
+                        "TIENINTERNET)\n" +
+                        "VALUES(?,?,?,?,?,0,?,?,?,?,?,?,?)";
+        try (PreparedStatement st = connection.prepareStatement(query)){
+            st.setInt(1,maDotThu);
+            st.setInt(2,hoKhau);
+            st.setString(3,chuHo);
+            st.setInt(4,tienNha);
+            st.setInt(5,tienDv);
+            st.setInt(6,tienXeMay);
+            st.setInt(7,tienOto);
+            st.setInt(8,tienDien);
+            st.setInt(9,soDien);
+            st.setInt(10,tienNuoc);
+            st.setInt(11,soNuoc);
+            st.setInt(12,tienInternet);
+            int s = st.executeUpdate();
+            System.out.println("Number of rows inserted: " + s);
+        }catch (SQLException e) {
+            if (connection != null) {
+                try {
+                    connection.rollback(); // Rollback nếu có lỗi xảy ra
+                } catch (SQLException rollbackEx) {
+                    System.out.println("Rollback failed: " + rollbackEx.getMessage());
+                }
+            }
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+    public ResultSet getChuHo(int maHoKhau){
+        String query = "SELECT TENCHUHO FROM HOKHAU K \n" +
+                "WHERE K.MAHOKHAU = "+maHoKhau;
+        return executeQuery(query);
+    }
+    public void themDanhSachThuPhi(int maHoKhau, int maKhoanThu, int trangThai, int id) {
+        String query = "EXEC INSERT_DONGGOP " + maHoKhau + ", " + maKhoanThu + ", " + trangThai +", "+id;
         executeUpdate(query);
     }
 
+    public void updateFeeCoDinh(int maDotThu,int idCanHo, int tienungho,int tienNha, int tienDichVu, int tienxemay, int tienoto){
+        String query = "EXEC UpdateFeesCODINH "+maDotThu+","+idCanHo+","+tienungho+" , "+tienNha+", "+tienDichVu+", "+tienxemay+" ,"+tienoto;
+        executeUpdate(query);
+    }
+    public void setDanhSachFeeThu(int maDotThu,int idCanHo, int tienungho,int tienNha, int tienDichVu, int tienxemay, int tienoto){
+        String query = "INSERT INTO DANHSACHTHUPHI(MADOTTHU,IDCANHO,TIENUNGHO,TIENNHA,TIENDICHVU,TIENXEMAY,TIENOTO)\n" +
+                "VALUES ("+maDotThu+","+idCanHo+","+tienungho+","+tienNha+","+tienDichVu+","+tienxemay+","+tienoto+")";
+        executeUpdate(query);
+    }
+    public void updateFeeDienNuoc(int maDothu, int idCanHo, int tiendien, int sodien, int tiennuoc, int sonuoc, int tieninternet){
+        String query = "EXEC UPDATE_DIENNUOC "+maDothu+","+idCanHo+","+tiendien+","+sodien+","+tiennuoc+","+sonuoc+","+tieninternet;
+        executeUpdate(query);
+    }
+    public void updateUngHoFee(int makhoanthu, int maHoKhau, int tienUngHo){
+        String query = "" +
+                "EXEC UPDATE_UNGHO "+makhoanthu+" , "+maHoKhau+" , "+ tienUngHo;
+        executeUpdate(query);
+    }
     public ResultSet getDanhSachKhoanThu() {
         String query = "SELECT * FROM LOAIPHI";
+        return executeQuery(query);
+    }
+    public ResultSet getDanhSachKhoanThuDot() {
+        String query = "SELECT * FROM DOTTHUPHI";
         return executeQuery(query);
     }
 
     public ResultSet getKhoanThuPhi(int maKhoanThu) {
         String query = "SELECT * FROM LOAIPHI\n" +
-                "WHERE MAKHOANTHU LIKE '" + maKhoanThu + "'";
+                "WHERE ID LIKE " + maKhoanThu  ;
+        return executeQuery(query);
+    }
+    public int getIdKhoanThu(int makhoanthu, String tenKhoanThu, int batBuoc, long SotienCanDong, LocalDate ngay, String Mota) {
+        int id = -1;
+        String query =
+                "SELECT LOAIPHI.ID " +
+                        "FROM LOAIPHI " +
+                        "WHERE MAKHOANTHU = " + makhoanthu + " AND " +
+                        "TEN = N'" + tenKhoanThu + "' AND " +
+                        "BATBUOC = " + batBuoc + " AND " +
+                        "SOTIENTRENMOTNGUOI = " + SotienCanDong + " AND " +
+                        "NGAYTAO = '" + ngay.toString() + "' AND " +
+                        "MOTA = N'" + Mota + "';";
+
+        Statement statement;
+        ResultSet resultSet = null;
+        try {
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(query);
+            if (resultSet.isBeforeFirst()) {
+                resultSet.next();
+                id = resultSet.getInt(1);
+                System.out.println("ID KhoanThu: "+id);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return id;
+    }
+
+    public ResultSet getKhoanThuDot(int maKhoanThuDot){
+        String query = "SELECT * FROM DOTTHUPHI\n" +
+                "WHERE MADOTTHU LIKE "+maKhoanThuDot;
         return executeQuery(query);
     }
     public ResultSet danhSachKhoanThu_timKiem(String condition) {
         String query = "SELECT * FROM LOAIPHI\n" +
-                "WHERE MAKHOANTHU LIKE '%" + condition + "%' OR TEN LIKE N'%" + condition + "%'";
+                "WHERE MAKHOANTHU LIKE '%" + condition + "%' OR TEN LIKE N'%" + condition + "%' OR ID LIKE '%"+condition+"%'";
+        return executeQuery(query);
+    }
+    public ResultSet danhSachKhoanThu_timKiemDot(String condition) {
+        String query = "SELECT * FROM DOTTHUPHI\n" +
+                "WHERE MADOTTHU LIKE '%" + condition + "%' OR TEN LIKE N'%" + condition + "%' OR NGAYTAO LIKE '%"+condition+"%'";
         return executeQuery(query);
     }
 
-    public int getSoLuongHoDaDongPhi(int maKhoanThu) {
+    public int getSoLuongHoDaDongPhi(int id) {
 
         int res = 0;
 
         String query = "SELECT COUNT(MAHOKHAU) FROM DONGGOP\n" +
-                "WHERE MAKHOANTHU LIKE '" + maKhoanThu + "' AND TRANGTHAI = 1";
+                "WHERE ID LIKE '" + id + "' AND TRANGTHAI = 1";
         Statement statement;
         ResultSet resultSet;
         try {
@@ -757,12 +1011,31 @@ public class DatabaseConnection {
         return res;
     }
 
-    public int getSoLuongHoChuaDongPhi(int maKhoanThu) {
+    public int getSoLuongHoChuaDongPhi(int id) {
 
         int res = 0;
 
         String query = "SELECT COUNT(MAHOKHAU) FROM DONGGOP\n" +
-                "WHERE MAKHOANTHU LIKE '" + maKhoanThu + "' AND TRANGTHAI = 0";
+                "WHERE ID LIKE " + id + " AND TRANGTHAI = 0";
+        Statement statement;
+        ResultSet resultSet;
+        try {
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(query);
+            if (resultSet.isBeforeFirst()) {
+                resultSet.next();
+                res = resultSet.getInt(1);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return res;
+    }
+    public int getSoLuongHoChuaDongPhiDot(int id) {
+        int res = 0;
+
+        String query = "SELECT COUNT(IDCANHO) FROM DANHSACHTHUPHI\n" +
+                "WHERE MADOTTHU LIKE '" + id + "' AND TRANGTHAI = 0";
         Statement statement;
         ResultSet resultSet;
         try {
@@ -778,12 +1051,53 @@ public class DatabaseConnection {
         return res;
     }
 
-    public int getSoLuongHoDongPhi(int maKhoanThu) {
+    public int getSoLuongHoDongPhi(int id) {
 
         int res = 0;
 
         String query = "SELECT COUNT(MAHOKHAU) FROM DONGGOP\n" +
-                "WHERE MAKHOANTHU = " + maKhoanThu;
+                "WHERE ID = " + id;
+        Statement statement;
+        ResultSet resultSet;
+        try {
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(query);
+            if (resultSet.isBeforeFirst()) {
+                resultSet.next();
+                res = resultSet.getInt(1);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return res;
+    }
+
+    public int getTongSoLuongHoDongPhiDot(int id) {
+
+        int res = 0;
+
+        String query = "SELECT COUNT(IDCANHO) FROM DANHSACHTHUPHI\n" +
+                "WHERE MADOTTHU = " + id;
+        Statement statement;
+        ResultSet resultSet;
+        try {
+            statement = connection.createStatement();
+            resultSet = statement.executeQuery(query);
+            if (resultSet.isBeforeFirst()) {
+                resultSet.next();
+                res = resultSet.getInt(1);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return res;
+    }
+    public int getSoLuongHoDongPhiDot(int id) {
+
+        int res = 0;
+
+        String query = "SELECT COUNT(IDCANHO) FROM DANHSACHTHUPHI\n" +
+                "WHERE MADOTTHU = " + id +"AND TRANGTHAI =1";
         Statement statement;
         ResultSet resultSet;
         try {
@@ -813,11 +1127,36 @@ public class DatabaseConnection {
             throw new RuntimeException(e);
         }
     }
+    public void deleteDotThuPhi(int maDotThu) {
+        String query1 = "DELETE FROM DONGGOP WHERE MAKHOANTHU = ?";
+        String query2 = "DELETE FROM LOAIPHI WHERE MAKHOANTHU = ?";
+        String query3 = "DELETE FROM DANHSACHTHUPHI WHERE MADOTTHU = ?";
+
+        try (PreparedStatement stmt1 = connection.prepareStatement(query1);
+             PreparedStatement stmt2 = connection.prepareStatement(query2);
+             PreparedStatement stmt3 = connection.prepareStatement(query3)) {
+
+            // Set the parameters for each query
+            stmt1.setInt(1, maDotThu);
+            stmt2.setInt(1, maDotThu);
+            stmt3.setInt(1, maDotThu);
+
+            // Execute the queries
+            stmt1.executeUpdate();
+            stmt2.executeUpdate();
+            stmt3.executeUpdate();
+        } catch (SQLException e) {
+            // Log detailed error message
+            System.err.println("Error while deleting DotThuPhi with maDotThu = " + maDotThu);
+            e.printStackTrace();
+            throw new RuntimeException("Failed to delete DotThuPhi", e);
+        }
+    }
 
     public ResultSet getTongSoTienDaThuPhi(){
         ResultSet resultSet = null;
         Statement statement;
-        String query = "SELECT SUM(SOTIENCANDONG) FROM DONGGOP WHERE TRANGTHAI = 1";
+        String query = "SELECT SUM(SOTIENDADONG) FROM DONGGOP WHERE TRANGTHAI = 1";
         try {
             statement = connection.createStatement();
             resultSet = statement.executeQuery(query);
@@ -830,15 +1169,21 @@ public class DatabaseConnection {
     public ResultSet getDanhSachChuaDongPhi(int maKhoanThu) {
         String query = "select MAHOKHAU, TENCHUHO, DIACHI, SOTHANHVIEN, SOTIENCANDONG\n" +
                 "from DONGGOP\n" +
-                "WHERE MAKHOANTHU = " + maKhoanThu + " AND TRANGTHAI = 0";
+                "WHERE ID = " + maKhoanThu + " AND TRANGTHAI = 0";
+        return executeQuery(query);
+    }
+    public ResultSet getDanhSachChuaDongPhiDot( int madothu) {
+        String query = "SELECT IDCANHO, CHUHO, HK.DIACHI, (TIENNHA+TIENDICHVU+TIENXEMAY+TIENOTO+TIENDIEN+TIENNUOC+TIENINTERNET) AS [SOTIENCANDONG], MADOTTHU\n" +
+                "FROM DANHSACHTHUPHI DS JOIN HOKHAU HK ON DS.IDCANHO = HK.MAHOKHAU\n" +
+                "WHERE  MADOTTHU = "+madothu +"  AND TRANGTHAI = 0";
         return executeQuery(query);
     }
 
-    public ResultSet danhSachChuaDongPhi_timKiem(int maKhoanThu, String condition) {
-        String query = "select MAHOKHAU, TENCHUHO, DIACHI, SOTHANHVIEN, SOTIENCANDONG\n" +
+    public ResultSet danhSachChuaDongPhi_timKiem(int ID, String q) {
+        String query = "select MAHOKHAU, TENCHUHO, DIACHI, SOTHANHVIEN, SOTIENDADONG\n" +
                 "from DONGGOP\n" +
-                "WHERE MAKHOANTHU = " + maKhoanThu + " AND TRANGTHAI = 0\n" +
-                "\tAND MAHOKHAU LIKE '%" + condition + "%' OR TENCHUHO LIKE N'%" + condition + "%' OR DIACHI LIKE N'%" + condition + "%'";
+                "WHERE ID =" + ID + "AND TRANGTHAI = 0\n" +
+                "AND (TENCHUHO LIKE N'%" + q + "%' OR DIACHI LIKE N'%" + q + "%' OR MAHOKHAU LIKE '%"+q+"%')";
         return executeQuery(query);
     }
 
@@ -848,9 +1193,21 @@ public class DatabaseConnection {
                 "WHERE MAHOKHAU = " + maHoKhau + " AND MAKHOANTHU = " + maKhoanThu;
         executeUpdate(query);
     }
-    public String getNgayNopPhi(int maHoKhau, int maKhoanThu) {
+    public void updateNopPhiUNGHO(int maHoKhau, int maKhoanThu, String soTien,int id) {
+        String query = "UPDATE DONGGOP\n" +
+                "SET TRANGTHAI = 1, NGAYDONG = GETDATE(), SOTIENDADONG = " + soTien + "\n" +
+                "WHERE MAHOKHAU = " + maHoKhau + " AND MAKHOANTHU = " + maKhoanThu +"AND ID ="+id;
+        executeUpdate(query);
+    }
+    public void updateNopPhiTong(int maDotthu, int idHokhau,int tongSoTien){
+        String query = "UPDATE DANHSACHTHUPHI \n"+
+                "SET TRANGTHAI = 1, NGAYDONG = GETDATE(), SOTIENDADONG = "+ tongSoTien +"\n"+
+                "WHERE MADOTTHU = "+maDotthu+" AND IDCANHO = "+idHokhau;
+        executeUpdate(query);
+    }
+    public String getNgayNopPhi(int maHoKhau, int maKhoanThu,int id) {
         String query = "SELECT NGAYDONG FROM DONGGOP\n" +
-                "WHERE MAHOKHAU = " + maHoKhau + " AND MAKHOANTHU = " + maKhoanThu;
+                "WHERE MAHOKHAU = " + maHoKhau + " AND MAKHOANTHU = " + maKhoanThu +"AND ID = "+id;
         String ngayNopPhi = "";
         ResultSet resultSet = executeQuery(query);
         try {
@@ -864,21 +1221,40 @@ public class DatabaseConnection {
         return ngayNopPhi;
     }
 
-    public ResultSet danhSachDaDongPhi_timKiem(int maKhoanThu, String condition) {
+    public ResultSet danhSachDaDongPhi_timKiem(String q, int ID) {
         String query = "select MAHOKHAU, TENCHUHO, DIACHI, SOTHANHVIEN, SOTIENDADONG\n" +
                 "from DONGGOP\n" +
-                "WHERE MAKHOANTHU = " + maKhoanThu + " AND TRANGTHAI = 1\n" +
-                "\tAND MAHOKHAU LIKE '%" + condition + "%' OR TENCHUHO LIKE N'%" + condition + "%' OR DIACHI LIKE N'%" + condition + "%'";
+                "WHERE ID =" + ID + "AND TRANGTHAI = 1\n" +
+                "AND (TENCHUHO LIKE N'%" + q + "%' OR DIACHI LIKE N'%" + q + "%' OR MAHOKHAU LIKE '%"+q+"%')";
+        return executeQuery(query);
+    }
+    public ResultSet danhSachDaDongPhi_timKiemDot(String q, int maDotThu) {
+        String query = "select DANHSACHTHUPHI.IDCANHO, DANHSACHTHUPHI.CHUHO, K.DIACHI,  DANHSACHTHUPHI.SOTIENDADONG, DANHSACHTHUPHI.NGAYDONG\n" +
+                "from DANHSACHTHUPHI join HOKHAU K ON DANHSACHTHUPHI.IDCANHO = K.MAHOKHAU\n" +
+                "WHERE MADOTTHU =" + maDotThu + "AND TRANGTHAI = 1\n" +
+                "AND (CHUHO LIKE N'%" + q + "%' OR IDCANHO LIKE '%" + q + "%' OR NGAYDONG LIKE N'%"+q+"%')";
+        return executeQuery(query);
+    }
+    public ResultSet danhSachChuaDongPhi_timKiemDot(String q, int maDotThu) {
+        String query = "select DANHSACHTHUPHI.IDCANHO, DANHSACHTHUPHI.CHUHO, K.DIACHI,  DANHSACHTHUPHI.SOTIENDADONG, DANHSACHTHUPHI.NGAYDONG\n" +
+                "from DANHSACHTHUPHI join HOKHAU K ON DANHSACHTHUPHI.IDCANHO = K.MAHOKHAU\n" +
+                "WHERE MADOTTHU =" + maDotThu + "AND TRANGTHAI = 0\n" +
+                "AND (CHUHO LIKE N'%" + q + "%' OR IDCANHO LIKE '%" + q + "%' OR NGAYDONG LIKE N'%"+q+"%')";
         return executeQuery(query);
     }
 
-    public ResultSet getDanhSachDaDongPhi(int maKhoanThu) {
+    public ResultSet getDanhSachDaDongPhi(int maKhoanThu, int id) {
         String query = "Select MAHOKHAU, TENCHUHO, DIACHI, SOTHANHVIEN, SOTIENDADONG\n" +
                 "from DONGGOP\n" +
-                "WHERE MAKHOANTHU = " + maKhoanThu + " AND TRANGTHAI = 1";
+                "WHERE MAKHOANTHU = " + maKhoanThu + " AND TRANGTHAI = 1 AND ID = "+id;
         return executeQuery(query);
     }
-
+    public ResultSet getDanhSachDaDongPhiDot(int maDotThu) {
+        String query = "Select MADOTTHU, IDCANHO,CHUHO ,DIACHI, SOTIENDADONG, NGAYDONG\n" +
+                "from DANHSACHTHUPHI ds JOIN HOKHAU HK ON HK.MAHOKHAU = ds.IDCANHO \n" +
+                "WHERE MADOTTHU = " + maDotThu + " AND TRANGTHAI = 1";
+        return executeQuery(query);
+    }
     public ResultSet getDSNguoiChet() {
         String query = "select MANHANKHAU, SOCANCUOC, HOTEN, GIOITINH, NGAYSINH, NOITHUONGTRU\n" +
                 "from NHANKHAU INNER JOIN KHAITU ON NHANKHAU.MANHANKHAU = KHAITU.MANHANKHAUNGUOICHET";
@@ -932,6 +1308,7 @@ public class DatabaseConnection {
         }
     }
 
+
     public int xoaNhanKhau(String soNhanKhau) {
         String query = "DECLARE @OUTPUT INT\n" +
                 "EXEC DELETE_NHANKHAU " + soNhanKhau + ", @OUTPUT OUTPUT\n" +
@@ -947,7 +1324,75 @@ public class DatabaseConnection {
             throw new RuntimeException(e);
         }
     }
+    public int getTongUngHoById(int maKhoanThu, int id) throws SQLException {
+        String query =
+                "SELECT SUM(SOTIENDADONG) AS [TONGTIEN] FROM DONGGOP\n" +
+                        "WHERE MAKHOANTHU = "+ maKhoanThu + " AND ID = "+id;
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery(query);
+        resultSet.next();
+        return resultSet.getInt(1);
+    }
+    public int getTongThuPhiByDot(int maDot) throws SQLException {
+        String query =
+                "SELECT SUM(SOTIENDADONG) AS [TONGTIEN] FROM DANHSACHTHUPHI\n" +
+                        "WHERE MADOTTHU = "+ maDot;
+        Statement statement = connection.createStatement();
+        ResultSet resultSet = statement.executeQuery(query);
+        resultSet.next();
+        return resultSet.getInt(1);
+    }
+    public FeeHoaDon getFeeHoaDon(int maDotThu, int idCanHo) throws SQLException {
+        String query =
+                "SELECT CHUHO, SUBSTRING(HOKHAU.DIACHI,1,4) AS[IDCANHO], danhsachthuphi.MADOTTHU, " +
+                        "TEN, TIENDICHVU, TIENNHA, " +
+                        "TIENDIEN, TIENNUOC, TIENINTERNET, " +
+                        "TIENXEMAY, TIENOTO, " +
+                        "CASE " +
+                        "    WHEN DIACHI LIKE '%01%' OR DIACHI LIKE '%02%' OR DIACHI LIKE '%03%' THEN 60 " +
+                        "    WHEN DIACHI LIKE '%04%' OR DIACHI LIKE '%05%' THEN 90 " +
+                        "    ELSE 360 " +
+                        "END AS DIENTICH, " +
+                        "XEMAY, OTO, " +
+                        "SONUOC, SODIEN, NGAYDONG, " +
+                        "CAST(TIENDICHVU + TIENNHA + TIENDIEN + TIENNUOC + TIENINTERNET + TIENXEMAY + TIENOTO AS VARCHAR) AS TONGSOTIEN " +
+                        "FROM DANHSACHTHUPHI " +
+                        "JOIN DOTTHUPHI ON DANHSACHTHUPHI.MADOTTHU = DOTTHUPHI.MADOTTHU " +
+                        "JOIN HOKHAU ON HOKHAU.MAHOKHAU = DANHSACHTHUPHI.IDCANHO " +
+                        "WHERE DANHSACHTHUPHI.MADOTTHU = ? AND IDCANHO = ?;";
 
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, maDotThu);
+            stmt.setInt(2, idCanHo);
+
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return new FeeHoaDon(
+                            rs.getString("CHUHO"),
+                            rs.getString("IDCANHO"),
+                            rs.getInt("MADOTTHU"),
+                            rs.getString("TEN"),
+                            rs.getInt("TIENNHA"),
+                            rs.getInt("TIENDICHVU"),
+                            rs.getInt("TIENDIEN"),
+                            rs.getInt("TIENNUOC"),
+                            rs.getInt("TIENINTERNET"),
+                            rs.getInt("TIENXEMAY"),
+                            rs.getInt("TIENOTO"),
+                            rs.getInt("DIENTICH"),
+                            rs.getInt("XEMAY"),
+                            rs.getInt("OTO"),
+                            rs.getInt("SODIEN"),
+                            rs.getInt("SONUOC"),
+                            rs.getString("NGAYDONG"),
+                            rs.getString("TONGSOTIEN")
+                    );
+                } else {
+                    return null; // No data found
+                }
+            }
+        }
+    }
     public boolean checkKhaiTu(String maNhanKhau) {
         String query = "SELECT COUNT(MAGIAYKHAITU) FROM KHAITU WHERE MANHANKHAUNGUOICHET = " + maNhanKhau;
         ResultSet resultSet = executeQuery(query);

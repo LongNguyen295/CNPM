@@ -11,50 +11,65 @@ import java.util.ResourceBundle;
 
 public class FeeKhoanThuModel{
     // lưu tạm thời khoản thu phí
-    private IntegerProperty maKhoanThu;
+    private IntegerProperty id; // Mã khoản thu
+    private IntegerProperty maKhoanThu; // Đợt thu
     private StringProperty tenKhoanThu;
     private IntegerProperty batBuoc;
 
-    private LongProperty soTienTrenMotNguoi;
     private StringProperty ngayTao;
     private StringProperty moTa;
 
     public FeeKhoanThuModel() {
+        id = new SimpleIntegerProperty(-1);
         maKhoanThu = new SimpleIntegerProperty(-1);
         tenKhoanThu = new SimpleStringProperty("");
         batBuoc = new SimpleIntegerProperty(0);
-        soTienTrenMotNguoi = new SimpleLongProperty(0);
         ngayTao = new SimpleStringProperty(LocalDate.now().toString());
         moTa = new SimpleStringProperty("");
-
-        maKhoanThu.addListener((observable, oldValue, newValue) -> {
+        id.addListener((observable, oldValue, newValue) -> {
             changeData(newValue.intValue());
         });
     }
 
     private void changeData(int maHK) {
-        ResultSet resultSet = Model.getInstance().getDatabaseConnection().getKhoanThuPhi(maHK);
         try {
-            if(resultSet.isBeforeFirst()){
+            ResultSet resultSet = Model.getInstance().getDatabaseConnection().getKhoanThuPhi(maHK);
+            if (resultSet.isBeforeFirst()) {
                 resultSet.next();
-
+                maKhoanThu.set(resultSet.getInt(1));
                 tenKhoanThu.set(resultSet.getNString(2));
                 batBuoc.set(resultSet.getInt(3));
-                soTienTrenMotNguoi.set(resultSet.getLong(4));
                 ngayTao.set(resultSet.getString(5));
                 moTa.set(resultSet.getNString(6));
+                System.out.println("Data updated: " + maHK);
+            } else {
+                System.out.println("No data found for maHK: " + maHK);
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
     }
 
-    public void setFeeKhoanThuModel(String tenKhoanThu, int batBuoc, long soTienTrenMotNguoi, String ngayTao, String moTa) {
+
+    public void setFeeKhoanThuModel(int maKhoanThu,String tenKhoanThu, int batBuoc, String ngayTao, String moTa) {
+        this.maKhoanThu.setValue(maKhoanThu);
         this.tenKhoanThu.setValue(tenKhoanThu);
         this.batBuoc.setValue(batBuoc);
-        this.soTienTrenMotNguoi.setValue(soTienTrenMotNguoi);
         this. ngayTao.setValue(ngayTao);
         this.moTa.setValue(moTa);
+
+    }
+
+    public int getId() {
+        return id.get();
+    }
+
+    public IntegerProperty idProperty() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id.set(id);
     }
 
     public StringProperty getTenKhoanThu() {
@@ -73,13 +88,6 @@ public class FeeKhoanThuModel{
         this.batBuoc.setValue(batBuoc);
     }
 
-    public LongProperty getSoTienTrenMotNguoi() {
-        return soTienTrenMotNguoi;
-    }
-
-    public void setSoTienTrenMotNguoi(long soTienTrenMotNguoi) {
-        this.soTienTrenMotNguoi.setValue(soTienTrenMotNguoi);
-    }
 
     public StringProperty getNgayTao() {
         return ngayTao;

@@ -35,6 +35,9 @@ public class FeeThemHoKhauController implements Initializable {
     private List<FeeHoKhauCell> toanBoDanhSach = new ArrayList<>();
 
     private boolean reloadListView = false;
+    @FXML
+    private Button select_all;
+
 
     private Alert alert;
 
@@ -42,7 +45,28 @@ public class FeeThemHoKhauController implements Initializable {
     private void onQuayLaiBtn() {
         Model.getInstance().getViewFactory().getFeeSelectedMenuItem().set(FeeMenuOptions.THEM_KHOAN_THU_PHI);
     }
+    @FXML
+    private void unCheckAll(){
+        for (FeeHoKhauCell item : toanBoDanhSach) {
+            item.setSelected(false);
+        }
 
+        // Cập nhật giao diện của ListView để phản ánh thay đổi
+        listView.getItems().clear();
+        listView.getItems().addAll(toanBoDanhSach);
+        listView.setCellFactory(param -> new FeeHoKhauCellFactory());
+    }
+    @FXML
+    private void onSelectAll(){
+        for (FeeHoKhauCell item : toanBoDanhSach) {
+            item.setSelected(true);
+        }
+
+        // Cập nhật giao diện của ListView để phản ánh thay đổi
+        listView.getItems().clear();
+        listView.getItems().addAll(toanBoDanhSach);
+        listView.setCellFactory(param -> new FeeHoKhauCellFactory());
+    }
     @FXML
     private void onHoanThanhBtn(){
         if (!checkDanhSach()) {
@@ -62,26 +86,26 @@ public class FeeThemHoKhauController implements Initializable {
             //add loại phí
             String tenKhoanThu = Model.getInstance().getFeeKhoanThuModel().getTenKhoanThu().getValue();
             int batBuoc = Model.getInstance().getFeeKhoanThuModel().getBatBuoc().getValue();
-            long soTienCanDong = Model.getInstance().getFeeKhoanThuModel().getSoTienTrenMotNguoi().getValue();
+
             LocalDate now = LocalDate.now();
             String moTa = Model.getInstance().getFeeKhoanThuModel().getMoTa().getValue();
-            Model.getInstance().getDatabaseConnection().themKhoanThuPhi(tenKhoanThu, batBuoc, soTienCanDong, now, moTa);
-            int maKhoanThu = Model.getInstance().getDatabaseConnection().layMaKhoanThu(tenKhoanThu, batBuoc, soTienCanDong, now, moTa);
-            Model.getInstance().getDanhSachKhoanThu().add(new FeeKhoanThuCell(maKhoanThu, tenKhoanThu, batBuoc, soTienCanDong, now.toString()));
+            int maKhoanThu = Model.getInstance().getFeeKhoanThuModel().getMaKhoanThu().getValue();
+            Model.getInstance().getDatabaseConnection().themKhoanThuPhi(maKhoanThu,tenKhoanThu, batBuoc, 0, now, moTa);
+            int id = Model.getInstance().getDatabaseConnection().getIdKhoanThu(maKhoanThu,tenKhoanThu,batBuoc,0,now,moTa);
+            Model.getInstance().getDanhSachKhoanThu().add(new FeeKhoanThuCell(id, maKhoanThu, tenKhoanThu, now.toString()));
 
 
             // add danh sách thu phí
             for (FeeHoKhauCell item : toanBoDanhSach) {
-
                 if (item.getSelected())
                     Model.getInstance().getDatabaseConnection().themDanhSachThuPhi(
-                            item.getMaHoKhau(), maKhoanThu, 0);
+                            item.getMaHoKhau(), maKhoanThu, 0,id);
             }
 
             toanBoDanhSach.clear();
             initDanhSach();
 
-            Model.getInstance().getFeeKhoanThuModel().setFeeKhoanThuModel("", 0, 0, LocalDate.now().toString(), "");
+            Model.getInstance().getFeeKhoanThuModel().setFeeKhoanThuModel(-1,"", 0, LocalDate.now().toString(), "");
             Model.getInstance().getViewFactory().getFeeSelectedMenuItem().set(FeeMenuOptions.DANH_SACH_KHOAN_THU);
         }
     }
@@ -103,8 +127,7 @@ public class FeeThemHoKhauController implements Initializable {
                     String tenChuHo = resultSet.getNString(2);
                     String diaChi = resultSet.getNString(3);
                     int soThanhVien = resultSet.getInt(4);
-                    long soTienCanDong = Model.getInstance().getFeeKhoanThuModel().getSoTienTrenMotNguoi().get() * soThanhVien;
-                    toanBoDanhSach.add(new FeeHoKhauCell(false, maHoKhau, tenChuHo, diaChi, soThanhVien, soTienCanDong));
+                    toanBoDanhSach.add(new FeeHoKhauCell(false, maHoKhau, tenChuHo, diaChi, soThanhVien,0));
                 }
             }
         } catch (SQLException e) {

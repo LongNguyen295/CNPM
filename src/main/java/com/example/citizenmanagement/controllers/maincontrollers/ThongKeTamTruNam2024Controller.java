@@ -17,7 +17,7 @@ import javafx.scene.text.Text;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ThongKeTamTruNam2023Controller implements Initializable {
+public class ThongKeTamTruNam2024Controller implements Initializable {
 
     public TextField timkiemnam_textfield;
     public Button timkiemnam_btn;

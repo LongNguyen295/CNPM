@@ -69,6 +69,14 @@ public class ViewFactory {
     private AnchorPane feeDSHoanThanhPhiView;
     private AnchorPane feeDSChuaHoanThanhPhiView;
     private AnchorPane feeProfileView;
+    private AnchorPane feeThemDotThuView;
+    private AnchorPane feeThemHoKhauDotView;
+    private AnchorPane feeDanhSachDotThuView;
+    private AnchorPane feeDSHoanThanhPhiDotView;
+    private AnchorPane feeThongTinDotThuView;
+    private AnchorPane feeThongTinChiTietHoaDon;
+    private AnchorPane feeDSChuaHoanThanhPhiDotView;
+
     /********************************************************************************************/
     public ViewFactory(){
         this.selectedMenuItem = new SimpleObjectProperty<>();
@@ -224,6 +232,27 @@ public class ViewFactory {
         }
         return feeThemKhoanThuView;
     }
+    public AnchorPane getFeeThemDotThuView(){
+        if(feeThemDotThuView == null){
+            try {
+                feeThemDotThuView = new FXMLLoader(getClass().getResource("/fxml/fee/FeeThemKhoanThuDot.fxml")).load();
+            }catch (IOException e){
+                throw new RuntimeException(e);
+            }
+        }
+        return feeThemDotThuView;
+    }
+    public AnchorPane getFeeDanhSachDotThuView(){
+        if(feeDanhSachDotThuView == null){
+            try {
+                feeDanhSachDotThuView = new FXMLLoader(getClass().getResource("/fxml/fee/FeeDanhSachDot.fxml")).load();
+            }catch (IOException e){
+                throw new RuntimeException(e);
+            }
+        }
+        return feeDanhSachDotThuView;
+    }
+
 
     public AnchorPane getFeeThemHoKhauView() {
         try {
@@ -234,6 +263,15 @@ public class ViewFactory {
 
         return feeThemHoKhauView;
     }
+    public AnchorPane getFeeThemHoKhauDotView() {
+        try {
+            feeThemHoKhauDotView = new FXMLLoader(getClass().getResource("/fxml/fee/FeeThemHoKhauDot.fxml")).load();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+        return feeThemHoKhauDotView;
+    }
 
     public AnchorPane getFeeXemChiTietKhoanThuView() {
         try {
@@ -242,6 +280,42 @@ public class ViewFactory {
             throw new RuntimeException(e);
         }
         return feeXemChiTietKhoanThuView;
+    }
+    public AnchorPane getFeeThongTinDotThuView(){
+        try{
+            feeThongTinDotThuView = new FXMLLoader(getClass().getResource("/fxml/fee/FeeChiTietKhoanThuDot.fxml")).load();
+        }
+        catch (IOException e){
+            throw new RuntimeException(e);
+        }
+        return feeThongTinDotThuView;
+    }
+    public AnchorPane getFeeDSHoanThanhPhiDotView(){
+        try{
+            feeDSHoanThanhPhiDotView = new FXMLLoader(getClass().getResource("/fxml/fee/FeeDSHoanThanhPhiDot.fxml")).load();
+        }
+        catch (IOException e){
+            throw new RuntimeException(e);
+        }
+        return feeDSHoanThanhPhiDotView;
+    }
+    public AnchorPane getFeeDSChuaHoanThanhPhiDotView(){
+        try{
+            feeDSChuaHoanThanhPhiDotView = new FXMLLoader(getClass().getResource("/fxml/fee/FeeDSChuaHoanThanhPhiDot.fxml")).load();
+        }
+        catch (IOException e){
+            throw new RuntimeException(e);
+        }
+        return feeDSChuaHoanThanhPhiDotView;
+    }
+    public AnchorPane getFeeThongTinChiTietHoaDon(){
+        try{
+            feeThongTinChiTietHoaDon = new FXMLLoader(getClass().getResource("/fxml/fee/FeeHoaDon.fxml")).load();
+        }
+        catch (IOException e){
+            throw new RuntimeException(e);
+        }
+        return feeThongTinChiTietHoaDon;
     }
     public AnchorPane getDSHoanThanhPhiView() {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/fee/FeeDSHoanThanhPhi.fxml"));

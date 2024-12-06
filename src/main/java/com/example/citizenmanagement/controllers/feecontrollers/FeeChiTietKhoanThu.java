@@ -9,6 +9,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
@@ -16,9 +17,9 @@ public class FeeChiTietKhoanThu implements Initializable {
 
     @FXML
     private Button back_btn;
-
     @FXML
-    private Text bat_buoc;
+    private Text ma_dot_thu;
+
 
     @FXML
     private AnchorPane chua_hoan_thanh_btn;
@@ -41,14 +42,14 @@ public class FeeChiTietKhoanThu implements Initializable {
     @FXML
     private Text ngay_tao;
 
-    @FXML
-    private Text so_tien_can_dong;
 
     @FXML
     private Text ten_khoan_thu;
 
     @FXML
     private TextArea mo_ta;
+    @FXML
+    private Label tong_tien_da_thu;
 
     private int daDong;
     private int chuaDong;
@@ -70,12 +71,12 @@ public class FeeChiTietKhoanThu implements Initializable {
         Optional<ButtonType> result = alert.showAndWait();
 
         if (result.get() == ButtonType.OK) {
-
+            System.out.println("ID: "+Model.getInstance().getFeeKhoanThuModel().getId()+" Ma khoan Thu: "+Model.getInstance().getFeeKhoanThuModel().getMaKhoanThu().get());
             Model.getInstance().getDatabaseConnection().deleteKhoanThuPhi(
-                    Model.getInstance().getFeeKhoanThuModel().getMaKhoanThu().get());
+                    Model.getInstance().getFeeKhoanThuModel().getId());
 
             for (FeeKhoanThuCell item : Model.getInstance().getDanhSachKhoanThu()) {
-                if (item.getMaKhoanThu() == Model.getInstance().getFeeKhoanThuModel().getMaKhoanThu().get()) {
+                if (item.getId() == Model.getInstance().getFeeKhoanThuModel().idProperty().get()) {
                     Model.getInstance().getDanhSachKhoanThu().remove(item);
                     break;
                 }
@@ -99,8 +100,12 @@ public class FeeChiTietKhoanThu implements Initializable {
         mo_ta.setWrapText(true);
 
         chiTiet();
-
         Model.getInstance().getFeeKhoanThuModel().getMaKhoanThu().addListener((observable, oldValue, newValue) -> {
+            //System.out.println("Listener triggered: " + oldValue + " -> " + newValue);
+            chiTiet();
+        });
+        Model.getInstance().getFeeKhoanThuModel().getMaKhoanThu().addListener((observable, oldValue, newValue) -> {
+            //System.out.println("FeeChiTietKhoanThu: "+oldValue+" -> "+newValue);
             chiTiet();
         });
 
@@ -116,18 +121,17 @@ public class FeeChiTietKhoanThu implements Initializable {
 
     private void chiTiet() {
         FeeKhoanThuModel selectedItem = Model.getInstance().getFeeKhoanThuModel();
-
-        ma_khoan_thu.setText(String.valueOf(selectedItem.getMaKhoanThu().get()));
+        try {
+            tong_tien_da_thu.setText(String.valueOf(Model.getInstance().getDatabaseConnection().getTongUngHoById(selectedItem.getMaKhoanThu().get(), selectedItem.getId())));
+        }catch (SQLException e){
+            throw new RuntimeException(e);
+        }
+        ma_dot_thu.setText(String.valueOf(selectedItem.getMaKhoanThu().get()));
+        ma_khoan_thu.setText(String.valueOf(selectedItem.getId()));
         ten_khoan_thu.setText(selectedItem.getTenKhoanThu().get());
-        if(selectedItem.getBatBuoc().get() == 0) {
-            bat_buoc.setText("Không");
-            so_tien_can_dong.setText("0 đ");
-        }
-        else {
-            bat_buoc.setText("Có");
-            so_tien_can_dong.setText("" + selectedItem.getSoTienTrenMotNguoi().get() + " đ");
-        }
-
+//        System.out.println("MadotThu: "+ String.valueOf(selectedItem.getMaKhoanThu().get()));
+//        System.out.println("ma_khoan_Thu: "+ String.valueOf(selectedItem.getId()));
+//        System.out.println("MadotThu: "+ String.valueOf(selectedItem.getMaKhoanThu().get()));
         if(selectedItem.getNgayTao().get() != null)
             ngay_tao.setText(selectedItem.getNgayTao().get());
         else
@@ -139,9 +143,9 @@ public class FeeChiTietKhoanThu implements Initializable {
         else
             mo_ta.setText("");
 
-        daDong = Model.getInstance().getDatabaseConnection().getSoLuongHoDaDongPhi(selectedItem.getMaKhoanThu().get());
-        chuaDong = Model.getInstance().getDatabaseConnection().getSoLuongHoChuaDongPhi(selectedItem.getMaKhoanThu().get());
-        tongSo = Model.getInstance().getDatabaseConnection().getSoLuongHoDongPhi(selectedItem.getMaKhoanThu().get());
+        daDong = Model.getInstance().getDatabaseConnection().getSoLuongHoDaDongPhi(selectedItem.getId());
+        chuaDong = Model.getInstance().getDatabaseConnection().getSoLuongHoChuaDongPhi(selectedItem.getId());
+        tongSo = Model.getInstance().getDatabaseConnection().getSoLuongHoDongPhi(selectedItem.getId());
 
         da_hoan_thanh_lbl.setText("" + daDong + "/" + tongSo);
         chua_hoan_thanh_lbl.setText("" + chuaDong + "/" + tongSo);
