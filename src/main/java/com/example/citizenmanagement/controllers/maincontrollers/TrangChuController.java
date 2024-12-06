@@ -38,12 +38,11 @@ public class TrangChuController implements Initializable {
     private Label name;
     @FXML
     private Circle profile;
+
     @FXML
     void click_nhankhau(MouseEvent event) {
         Model.getInstance().getViewFactory().getSelectedMenuItem().set(MainMenuOptions.THONG_KE_NHAN_KHAU);
     }
-
-
     @FXML
     void click_tamvang(MouseEvent event) {
         Model.getInstance().getViewFactory().getSelectedMenuItem().set(MainMenuOptions.THONG_KE_TAM_VANG);

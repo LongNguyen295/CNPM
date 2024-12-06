@@ -25,7 +25,13 @@
     -fx-scale-x: 1.05;
     -fx-scale-y: 1.05;
 }
+.tongtien{
+    -fx-background-color:#F2F2C5;
+    -fx-border-width: 2px 2px 2px 2px;
+    -fx-border-radius: 20;
+    -fx-background-radius: 20;
 
+}
 .pain:pressed {
     -fx-background-color: #eeeeee;
     -fx-scale-x: 1;
@@ -84,21 +90,36 @@
 }
 
 .pane_sokhoanphi{
-    -fx-background-color: #88F7F6;
+    -fx-background-color: #FCCE8E;
+    -fx-border-width: 2px 2px 2px 2px;
+        -fx-border-radius: 20;
+        -fx-background-radius: 20;
 }
 .pane_cot3{
-    -fx-background-color: #F7D1D3;
+    -fx-background-color: #FBE7D3;
+    -fx-border-width: 2px 2px 2px 2px;
+        -fx-border-radius: 20;
+        -fx-background-radius: 20;
 }
 .pane_sotien{
-    -fx-background-color: #F3F8AD;
+    -fx-background-color: #BED8CF;
+    -fx-border-width: 2px 2px 2px 2px;
+        -fx-border-radius: 20;
+        -fx-background-radius: 20;
 }
 
 .pane_sonhankhau{
-    -fx-background-color: #7EA4F0;
+    -fx-background-color: #0CAFA9;
+    -fx-border-width: 2px 2px 2px 2px;
+        -fx-border-radius: 20;
+        -fx-background-radius: 20;
 }
 
 .pane_sohokhau{
-    -fx-background-color: #C1EBC4;
+    -fx-background-color: #0CAFA9;
+    -fx-border-width: 2px 2px 2px 2px;
+        -fx-border-radius: 20;
+        -fx-background-radius: 20;
 }
 
 

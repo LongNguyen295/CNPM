@@ -60,6 +60,7 @@ public class FeeThemKhoanThuDotController implements Initializable {
     }
 
     public void onResetBtn() {
+        ma_dot_thu.setText("");
         ten_khoan_thu.setText("");
         bat_buoc.setValue(choices.get(0));
         mo_ta.setText("");
@@ -93,9 +94,8 @@ public class FeeThemKhoanThuDotController implements Initializable {
         if(!checkImport){
             alert = new Alert(Alert.AlertType.WARNING);
             alert.setHeaderText(null);
-            alert.setContentText("Bạn chưa thêm File Thanh Toán Điện Nước Internet. Bạn chắc chứ ?");
+            alert.setContentText("Bạn chưa thêm File Thanh Toán Điện Nước Internet");
             alert.showAndWait();
-            checkImport = true;
             return false;
         }
         return true;
@@ -128,10 +128,6 @@ public class FeeThemKhoanThuDotController implements Initializable {
     @FXML
     public void ImportExcel(){
         int s = Integer.parseInt(ma_dot_thu.getText());
-        alert = new Alert(Alert.AlertType.WARNING);
-        alert.setHeaderText(null);
-        alert.setContentText("File thêm vào sẽ có cùng mã đợt thu!");
-        alert.showAndWait();
         DatabaseConnection databaseConnection = new DatabaseConnection();
         Connection connection = null;
         PreparedStatement pre = null;

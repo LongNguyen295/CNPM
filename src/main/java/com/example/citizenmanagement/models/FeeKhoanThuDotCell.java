@@ -1,44 +1,36 @@
 package com.example.citizenmanagement.models;
 
-import javafx.beans.property.*;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+//
+public class FeeKhoanThuDotCell  {
 
-public class FeeKhoanThuCell {
-    private final IntegerProperty id = new SimpleIntegerProperty();
-    private final IntegerProperty maKhoanThu = new SimpleIntegerProperty();
+    private final IntegerProperty maDotThu = new SimpleIntegerProperty();
     private final StringProperty tenKhoanThu = new SimpleStringProperty();
     private final StringProperty ngayTao = new SimpleStringProperty();
 
-    public FeeKhoanThuCell() {
+    public FeeKhoanThuDotCell() {
     }
-    public FeeKhoanThuCell(int id, int maKhoanThu, String tenKhoanThu,  String ngayTao) {
-        this.id.setValue(id);
-        this.maKhoanThu.setValue(maKhoanThu);
+    public FeeKhoanThuDotCell(int maKhoanThu, String tenKhoanThu, String ngayTao) {
+
+        this.maDotThu.setValue(maKhoanThu);
         this.tenKhoanThu.setValue(tenKhoanThu);
         this.ngayTao.setValue(ngayTao);
     }
 
-    public int getId() {
-        return id.get();
-    }
-
-    public IntegerProperty idProperty() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id.set(id);
-    }
 
     public int getMaDotThu() {
-        return maKhoanThu.get();
+        return maDotThu.get();
     }
 
     public IntegerProperty maDotThuProperty() {
-        return maKhoanThu;
+        return maDotThu;
     }
 
     public void setMaDotThu(int maDotThu) {
-        this.maKhoanThu.set(maDotThu);
+        this.maDotThu.set(maDotThu);
     }
 
     public String getTenKhoanThu() {

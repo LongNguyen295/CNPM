@@ -11,7 +11,8 @@ import java.util.ResourceBundle;
 
 public class FeeKhoanThuModel{
     // lưu tạm thời khoản thu phí
-    private IntegerProperty maKhoanThu;
+    private IntegerProperty id; // Mã khoản thu
+    private IntegerProperty maKhoanThu; // Đợt thu
     private StringProperty tenKhoanThu;
     private IntegerProperty batBuoc;
 
@@ -19,32 +20,36 @@ public class FeeKhoanThuModel{
     private StringProperty moTa;
 
     public FeeKhoanThuModel() {
+        id = new SimpleIntegerProperty(-1);
         maKhoanThu = new SimpleIntegerProperty(-1);
         tenKhoanThu = new SimpleStringProperty("");
         batBuoc = new SimpleIntegerProperty(0);
         ngayTao = new SimpleStringProperty(LocalDate.now().toString());
         moTa = new SimpleStringProperty("");
-
-        maKhoanThu.addListener((observable, oldValue, newValue) -> {
+        id.addListener((observable, oldValue, newValue) -> {
             changeData(newValue.intValue());
         });
     }
 
     private void changeData(int maHK) {
-        ResultSet resultSet = Model.getInstance().getDatabaseConnection().getKhoanThuPhi(maHK);
         try {
-            if(resultSet.isBeforeFirst()){
+            ResultSet resultSet = Model.getInstance().getDatabaseConnection().getKhoanThuPhi(maHK);
+            if (resultSet.isBeforeFirst()) {
                 resultSet.next();
                 maKhoanThu.set(resultSet.getInt(1));
                 tenKhoanThu.set(resultSet.getNString(2));
                 batBuoc.set(resultSet.getInt(3));
                 ngayTao.set(resultSet.getString(5));
                 moTa.set(resultSet.getNString(6));
+                System.out.println("Data updated: " + maHK);
+            } else {
+                System.out.println("No data found for maHK: " + maHK);
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
     }
+
 
     public void setFeeKhoanThuModel(int maKhoanThu,String tenKhoanThu, int batBuoc, String ngayTao, String moTa) {
         this.maKhoanThu.setValue(maKhoanThu);
@@ -52,6 +57,19 @@ public class FeeKhoanThuModel{
         this.batBuoc.setValue(batBuoc);
         this. ngayTao.setValue(ngayTao);
         this.moTa.setValue(moTa);
+
+    }
+
+    public int getId() {
+        return id.get();
+    }
+
+    public IntegerProperty idProperty() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id.set(id);
     }
 
     public StringProperty getTenKhoanThu() {

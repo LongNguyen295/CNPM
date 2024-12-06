@@ -8,21 +8,65 @@ public class FeeHoKhauCellDot {
     private int maHoKhau;
     private String tenChuHo;
     private String diaChi;
-    private Long tongTien;
+    private int tongTien;
+    private int maDotThu;
+    private String ngayThu;
     private int trangThai = 0; // Đã đóng phí hay chưa, khởi tạo là chưa.
-    public FeeHoKhauCellDot(boolean selected, int maHoKhau, String tenChuHo, String diaChi, Long tongTien){
+    public FeeHoKhauCellDot(boolean selected, int maHoKhau, String tenChuHo, String diaChi, int tongTien){
         this.selected.setValue(selected);
         this.maHoKhau = maHoKhau;
         this.tenChuHo = tenChuHo;
         this.diaChi = diaChi;
         this.tongTien = tongTien;
     }
-    public FeeHoKhauCellDot(int maHoKhau, String tenChuHo, String diaChi, Long tongTien){
+    public FeeHoKhauCellDot(int maDotThu,int maHoKhau, String tenChuHo, String diaChi, int tongTien){
         // Không có checkbox
+        this.maDotThu = maDotThu;
         this.maHoKhau = maHoKhau;
         this.tenChuHo = tenChuHo;
         this.diaChi = diaChi;
         this.tongTien = tongTien;
+    }
+    public FeeHoKhauCellDot(int maDotThu,int maHoKhau, String tenChuHo, String diaChi, int tongTien, String ngayThu){
+        // Không có checkbox
+        this.maDotThu = maDotThu;
+        this.maHoKhau = maHoKhau;
+        this.tenChuHo = tenChuHo;
+        this.diaChi = diaChi;
+        this.tongTien = tongTien;
+        this.ngayThu = ngayThu;
+    }
+
+    public FeeHoKhauCellDot(int maHoKhau, String tenChuHo, String diaChi, int tongTien) {
+        this.maHoKhau = maHoKhau;
+        this.tenChuHo = tenChuHo;
+        this.diaChi = diaChi;
+        this.tongTien = tongTien;
+
+    }
+
+    public FeeHoKhauCellDot(int maHoKhau, String tenChuHo, String diaChi, int tongTien, String ngayThu) {
+        this.maHoKhau = maHoKhau;
+        this.tenChuHo = tenChuHo;
+        this.diaChi = diaChi;
+        this.tongTien = tongTien;
+        this.ngayThu = ngayThu;
+    }
+
+    public String getNgayThu() {
+        return ngayThu;
+    }
+
+    public void setNgayThu(String ngayThu) {
+        this.ngayThu = ngayThu;
+    }
+
+    public int getMaDotThu() {
+        return maDotThu;
+    }
+
+    public void setMaDotThu(int maDotThu) {
+        this.maDotThu = maDotThu;
     }
 
     public boolean isSelected() {
@@ -61,11 +105,11 @@ public class FeeHoKhauCellDot {
         this.diaChi = diaChi;
     }
 
-    public Long getTongTien() {
+    public int getTongTien() {
         return tongTien;
     }
 
-    public void setTongTien(Long tongTien) {
+    public void setTongTien(int tongTien) {
         this.tongTien = tongTien;
     }
 

@@ -16,7 +16,7 @@ import javafx.scene.text.Text;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class ThongKeTamVangNam2023Controller implements Initializable {
+public class ThongKeTamVangNam2024Controller implements Initializable {
 
     public StackedBarChart bieuDoThongKeTamVangTheoThang;
     public PieChart thongKeTamVangTheoLyDo;

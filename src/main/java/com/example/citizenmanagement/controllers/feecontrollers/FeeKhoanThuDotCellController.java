@@ -1,6 +1,7 @@
 package com.example.citizenmanagement.controllers.feecontrollers;
 
 import com.example.citizenmanagement.models.FeeKhoanThuCell;
+import com.example.citizenmanagement.models.FeeKhoanThuDotCell;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.text.Text;
@@ -8,13 +9,10 @@ import javafx.scene.text.Text;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class FeeKhoanThuCellController implements Initializable {
-
+public class FeeKhoanThuDotCellController implements Initializable {
+    
     @FXML
-    private Text id;
-
-    @FXML
-    private Text ma_khoan_thu;
+    private Text ma_dot_thu;
 
     @FXML
     private Text ngay_tao;
@@ -22,14 +20,14 @@ public class FeeKhoanThuCellController implements Initializable {
     @FXML
     private Text ten_khoan_thu;
 
-    private FeeKhoanThuCell feeKhoanThuCell;
+    private FeeKhoanThuDotCell feeKhoanThuCell;
 
-    public FeeKhoanThuCellController(FeeKhoanThuCell feeKhoanThuCell) {this.feeKhoanThuCell = feeKhoanThuCell;}
+    public FeeKhoanThuDotCellController(FeeKhoanThuDotCell feeKhoanThuCell) {this.feeKhoanThuCell = feeKhoanThuCell;}
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        id.setText(String.valueOf(feeKhoanThuCell.getId()));
-        ma_khoan_thu.setText(String.valueOf(feeKhoanThuCell.getMaDotThu()));
+        ma_dot_thu.setText(String.valueOf(feeKhoanThuCell.getMaDotThu()));
         ten_khoan_thu.setText(feeKhoanThuCell.getTenKhoanThu());
         ngay_tao.setText(feeKhoanThuCell.getNgayTao());
+
     }
 }

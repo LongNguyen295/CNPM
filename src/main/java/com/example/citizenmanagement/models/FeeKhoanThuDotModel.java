@@ -5,6 +5,7 @@ import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
+import java.security.PublicKey;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
@@ -22,19 +23,27 @@ public class FeeKhoanThuDotModel {
         batBuoc = new SimpleIntegerProperty(0);
         ngayTao = new SimpleStringProperty(LocalDate.now().toString());
         moTa = new SimpleStringProperty("");
-        maKhoanThuDot.addListener(((observableValue, number, t1) -> {
-            changData(t1.intValue());
-        }));
+        maKhoanThuDot.addListener((observableValue, oldValue, newValue) -> {
+            //System.out.println("maKhoanThuDot changed: " + oldValue + " -> " + newValue);
+            changData(newValue.intValue());
+        });
+
     }
     private void changData(int maHK) {
         ResultSet resultSet = Model.getInstance().getDatabaseConnection().getKhoanThuDot(maHK);
+
+
         try {
             if (resultSet.isBeforeFirst()) {
                 resultSet.next();
                 maKhoanThuDot.set(resultSet.getInt(1));
-                tenKhoanThuDot.set(resultSet.getNString(2));
+                tenKhoanThuDot.set(resultSet.getString(2));
                 batBuoc.set(resultSet.getInt(3));
-
+//                System.out.println("====FeeKhoanThuDotModel====");
+//                System.out.println(resultSet.getInt(1));
+//                System.out.println(resultSet.getString(2));
+//                System.out.println(resultSet.getInt(3));
+//                System.out.println("====FeeKhoanThuDotModel====");
                 // Lấy giá trị DATE và chuyển đổi thành chuỗi
                 java.sql.Date sqlDate = resultSet.getDate(4);
                 if (sqlDate != null) {
@@ -48,6 +57,7 @@ public class FeeKhoanThuDotModel {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        //System.out.println("Da Thuc hien Xong FeeKhoanThuDoTModel");
     }
     public void setFeeKhoanThuDotModel(int maKhoanThuDot,String tenKhoanThuDot, int batBuoc, String ngayTao, String moTa){
         this.maKhoanThuDot.setValue(maKhoanThuDot);
@@ -56,6 +66,8 @@ public class FeeKhoanThuDotModel {
         this.ngayTao.setValue(ngayTao);
         this.moTa.setValue(moTa);
     }
+
+
 
     public int getMaKhoanThuDot() {
         return maKhoanThuDot.get();

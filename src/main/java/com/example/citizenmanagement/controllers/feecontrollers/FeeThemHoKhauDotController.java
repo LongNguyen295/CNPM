@@ -1,9 +1,6 @@
 package com.example.citizenmanagement.controllers.feecontrollers;
 
-import com.example.citizenmanagement.models.FeeHoKhauCell;
-import com.example.citizenmanagement.models.FeeKhoanThuCell;
-import com.example.citizenmanagement.models.FeeMenuOptions;
-import com.example.citizenmanagement.models.Model;
+import com.example.citizenmanagement.models.*;
 import com.example.citizenmanagement.views.FeeHoKhauCellFactory;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
@@ -44,7 +41,28 @@ public class FeeThemHoKhauDotController implements Initializable {
     private void onQuayLaiBtn() {
         Model.getInstance().getViewFactory().getFeeSelectedMenuItem().set(FeeMenuOptions.THEM_KHOAN_THU_DOT);
     }
+    @FXML
+    private void unCheckAll(){
+        for (FeeHoKhauCell item : toanBoDanhSach) {
+            item.setSelected(false);
+        }
 
+        // Cập nhật giao diện của ListView để phản ánh thay đổi
+        listView.getItems().clear();
+        listView.getItems().addAll(toanBoDanhSach);
+        listView.setCellFactory(param -> new FeeHoKhauCellFactory());
+    }
+    @FXML
+    private void onSelectAll(){
+        for (FeeHoKhauCell item : toanBoDanhSach) {
+            item.setSelected(true);
+        }
+
+        // Cập nhật giao diện của ListView để phản ánh thay đổi
+        listView.getItems().clear();
+        listView.getItems().addAll(toanBoDanhSach);
+        listView.setCellFactory(param -> new FeeHoKhauCellFactory());
+    }
     @FXML
     private void onHoanThanhBtn() throws SQLException {
         if (!checkDanhSach()) {
@@ -67,61 +85,43 @@ public class FeeThemHoKhauDotController implements Initializable {
 
             LocalDate now = LocalDate.now();
             String moTa = Model.getInstance().getFeeKhoanThuDotModel().moTaProperty().getValue();
+
             int maDotThu = Model.getInstance().getFeeKhoanThuDotModel().maKhoanThuDotProperty().getValue();
             //########
             Model.getInstance().getDatabaseConnection().themKhoanThuPhiDot(maDotThu,tenDotThu, batBuoc, now, moTa);
-            Model.getInstance().getDanhSachKhoanThuDot().add(new FeeKhoanThuCell(maDotThu, tenDotThu, now.toString()));
+            Model.getInstance().getDanhSachKhoanThuDot().add(new FeeKhoanThuDotCell(maDotThu, tenDotThu, now.toString()));
 
             // add danh sach thu phi vao database
-
             // add danh sách thu phí
             for (FeeHoKhauCell item : toanBoDanhSach) {
-
                 if (item.getSelected()) {
-                    // Thêm phí ố định
-                    ResultSet resultSetFeeCoDinh = Model.getInstance().getDatabaseConnection().getFeeCoDinh(item.getMaHoKhau());
-                    if (resultSetFeeCoDinh.next()) { // Di chuyển con trỏ đến hàng đầu tiên
-                        int tiennha = resultSetFeeCoDinh.getInt(1);
-                        int tienDichVu = resultSetFeeCoDinh.getInt(2);
-                        int tienXeMay = resultSetFeeCoDinh.getInt(3);
-                        int tienXeOto = resultSetFeeCoDinh.getInt(4);
-                        Model.getInstance().getDatabaseConnection().setDanhSachFeeThu(maDotThu, item.getMaHoKhau(), 0,tiennha,tienDichVu,tienXeMay,tienXeOto);
-                        System.out.println("DONE !");
-                        System.out.println(maDotThu);
-                        System.out.println(item.getMaHoKhau());
-                        System.out.println(tiennha);
-                        System.out.println(tienDichVu);
-                        System.out.println(tienXeMay);
-                        System.out.println(tienXeOto);
-                        System.out.println("########");
-                    } else {
-                        System.out.println("No data found for maHoKhau CoDinh: " + item.getMaHoKhau());
+                    try
+                    {DanhSachThuPhiModel resultSetFeeCoDinh = Model.getInstance().getDatabaseConnection().getFeeCoDinh_ThuHo(item.getMaHoKhau(), maDotThu);
+                        // Xử lý kết quả từ resultSetFeeCoDinh
+                        if (resultSetFeeCoDinh != null) {
+                            Model.getInstance().getDatabaseConnection().insertDANHSACHTHUPHI(
+                                maDotThu,item.getMaHoKhau(), resultSetFeeCoDinh.getChuHo(),
+                                    resultSetFeeCoDinh.getTienNha(), resultSetFeeCoDinh.getTienDv(),
+                                    resultSetFeeCoDinh.getTienXeMay(), resultSetFeeCoDinh.getTienOto(),
+                                    resultSetFeeCoDinh.getTienDien(), resultSetFeeCoDinh.getSoDien(),
+                                    resultSetFeeCoDinh.getTienNuoc(), resultSetFeeCoDinh.getSoNuoc(),
+                                    resultSetFeeCoDinh.getTienInternet()
+                            );
+                        } else {
+                            System.out.println("No data found for maHoKhau CoDinh: " + item.getMaHoKhau());
+                        }
+                    } catch (SQLException e) {
+                        System.err.println("Error processing database operation: " + e.getMessage());
+                        e.printStackTrace();
                     }
-//                    // Thêm phí thu hộ: Điện - Nước - Internet
-//                    ResultSet resultSetFeeThuTho = Model.getInstance().getDatabaseConnection().getFeeThuHo(item.getMaHoKhau(),maDotThu);
-//                    if (resultSetFeeThuTho.next()) { // Di chuyển con trỏ đến hàng đầu tiên
-//                        tongSoDien = resultSetFeeThuTho.getInt(1);
-//                        tienDien = resultSetFeeThuTho.getInt(2);
-//                        tongSoNuoc = resultSetFeeThuTho.getInt(3);
-//                        tienNuoc = resultSetFeeThuTho.getInt(4);
-//                        tienInternet = resultSetFeeCoDinh.getInt(5);
-//                    } else {
-//                        System.out.println("No data found for maHoKhau Thuho: " + item.getMaHoKhau());
-//                    }
-//                    // Note chua co tien Ung Ho default = 0
-//                    ResultSet resultSetChuHo = Model.getInstance().getDatabaseConnection().getChuHo(item.getMaHoKhau());
-//                    if (resultSetChuHo.next()) { // Di chuyển con trỏ đến hàng đầu tiên
-//                        chuHo = resultSetChuHo.getNString(1);
-//                    } else {
-//                        System.out.println("No data found for maHoKhau ChuHo: " + item.getMaHoKhau());
-//                    }
                 }
             }
+
 
             toanBoDanhSach.clear();
             initDanhSach();
 
-            Model.getInstance().getFeeKhoanThuDotModel().setFeeKhoanThuDotModel(-1,"", 0, LocalDate.now().toString(), "");
+            Model.getInstance().getFeeKhoanThuDotModel().setFeeKhoanThuDotModel(-5,"", 0, LocalDate.now().toString(), "");
 
             Model.getInstance().getViewFactory().getFeeSelectedMenuItem().set(FeeMenuOptions.DANH_SACH_KHOAN_THU_DOT);
 

@@ -73,7 +73,8 @@ public class ViewFactory {
     private AnchorPane feeThemHoKhauDotView;
     private AnchorPane feeDanhSachDotThuView;
     private AnchorPane feeDSHoanThanhPhiDotView;
-    private AnchorPane feeThongTinDotView;
+    private AnchorPane feeThongTinDotThuView;
+    private AnchorPane feeThongTinChiTietHoaDon;
     private AnchorPane feeDSChuaHoanThanhPhiDotView;
 
     /********************************************************************************************/
@@ -279,6 +280,42 @@ public class ViewFactory {
             throw new RuntimeException(e);
         }
         return feeXemChiTietKhoanThuView;
+    }
+    public AnchorPane getFeeThongTinDotThuView(){
+        try{
+            feeThongTinDotThuView = new FXMLLoader(getClass().getResource("/fxml/fee/FeeChiTietKhoanThuDot.fxml")).load();
+        }
+        catch (IOException e){
+            throw new RuntimeException(e);
+        }
+        return feeThongTinDotThuView;
+    }
+    public AnchorPane getFeeDSHoanThanhPhiDotView(){
+        try{
+            feeDSHoanThanhPhiDotView = new FXMLLoader(getClass().getResource("/fxml/fee/FeeDSHoanThanhPhiDot.fxml")).load();
+        }
+        catch (IOException e){
+            throw new RuntimeException(e);
+        }
+        return feeDSHoanThanhPhiDotView;
+    }
+    public AnchorPane getFeeDSChuaHoanThanhPhiDotView(){
+        try{
+            feeDSChuaHoanThanhPhiDotView = new FXMLLoader(getClass().getResource("/fxml/fee/FeeDSChuaHoanThanhPhiDot.fxml")).load();
+        }
+        catch (IOException e){
+            throw new RuntimeException(e);
+        }
+        return feeDSChuaHoanThanhPhiDotView;
+    }
+    public AnchorPane getFeeThongTinChiTietHoaDon(){
+        try{
+            feeThongTinChiTietHoaDon = new FXMLLoader(getClass().getResource("/fxml/fee/FeeHoaDon.fxml")).load();
+        }
+        catch (IOException e){
+            throw new RuntimeException(e);
+        }
+        return feeThongTinChiTietHoaDon;
     }
     public AnchorPane getDSHoanThanhPhiView() {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/fxml/fee/FeeDSHoanThanhPhi.fxml"));

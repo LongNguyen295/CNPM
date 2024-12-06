@@ -52,6 +52,7 @@ public class FeeThemKhoanThuController implements Initializable {
     }
 
     public void onResetBtn() {
+        ma_khoan_thu.setText("");
         ten_khoan_thu.setText("");
         bat_buoc.setValue(choices.get(0));
         mo_ta.setText("");
@@ -72,16 +73,16 @@ public class FeeThemKhoanThuController implements Initializable {
             alert.showAndWait();
             return false;
         }
-        else {
-            int s = Integer.parseInt(ma_khoan_thu.getText());
-            if(Model.getInstance().getDatabaseConnection().checkMaKhoanThu(s)){
-                alert = new Alert(Alert.AlertType.WARNING);
-                alert.setHeaderText(null);
-                alert.setContentText("MÃ KHOẢN THU này đã tồn tại !");
-                alert.showAndWait();
-                return false;
-            }
-        }
+//        else {
+////            int s = Integer.parseInt(ma_khoan_thu.getText());
+////            if(Model.getInstance().getDatabaseConnection().checkMaKhoanThu(s)){
+////                alert = new Alert(Alert.AlertType.WARNING);
+////                alert.setHeaderText(null);
+////                alert.setContentText("MÃ KHOẢN THU này đã tồn tại !");
+////                alert.showAndWait();
+////                return false;
+////            }
+//        }
         if(!check){
             check = true;
             alert = new Alert(Alert.AlertType.INFORMATION);
