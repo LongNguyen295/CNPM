@@ -9,6 +9,7 @@ import javafx.scene.image.Image;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class Model {
     private int tam;
@@ -311,6 +312,7 @@ public class Model {
         }
         return res;
     }
+
     public int getHoKhauOfNamHienTai(){
         ResultSet resultSet = databaseConnection.getHoKhauOfNamHienTai();
         int res = 0;
@@ -644,6 +646,105 @@ public class Model {
             if(resultSet.isBeforeFirst()){
                 resultSet.next();
                 res = resultSet.getInt(1);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return res;
+    }
+    public ArrayList<Integer> getTongSoDotThu(){
+        ResultSet resultSet = databaseConnection.getTongDotThu();
+        ArrayList<Integer> res = new ArrayList<>();
+        try {
+            while (resultSet.next()) { // Lặp qua các dòng kết quả
+                res.add(resultSet.getInt(1)); // Thêm giá trị vào danh sách
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return res;
+    }
+    public int getFeeUngHoByDot(int makhoanthu){
+        ResultSet resultSet = databaseConnection.getFeeUngHoByDot(makhoanthu);
+        int res = 0;
+        try {
+            if(resultSet.isBeforeFirst()){
+                resultSet.next();
+                res = resultSet.getInt(1);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return res;
+    }
+    public int getFeeChungCuByDot(int madotthu){
+        ResultSet resultSet = databaseConnection.getFeeChungCuByDot(madotthu);
+        int res = 0;
+        try {
+            if(resultSet.isBeforeFirst()){
+                resultSet.next();
+                res = resultSet.getInt(1);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return res;
+    }
+    public String getFeeTenDotThu(int madotthu){
+        ResultSet resultSet = databaseConnection.getFeeTenDotThu(madotthu);
+        String res = null;
+        try {
+            if(resultSet.isBeforeFirst()){
+                resultSet.next();
+                res = resultSet.getString(1);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return res;
+    }
+    public int getSoLuongLoaiPhi(int madotthu){
+        ResultSet resultSet = databaseConnection.getSoLuongLoaiPhi(madotthu);
+        int res = 0;
+        try {
+            while (resultSet.next()) { // Lặp qua các dòng kết quả
+                res =(resultSet.getInt(1)); // Thêm giá trị vào danh sách
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return res;
+    }
+    public int getTongTienDongGop(int madotthu){
+        ResultSet resultSet = databaseConnection.getTongTienDongGop(madotthu);
+        int res = 0;
+        try {
+            while (resultSet.next()) { // Lặp qua các dòng kết quả
+                res =(resultSet.getInt(1)); // Thêm giá trị vào danh sách
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return res;
+    }
+    public int getSumAllFee(){
+        ResultSet resultSet = databaseConnection.getSumAllFee();
+        int res = 0;
+        try {
+            while (resultSet.next()) { // Lặp qua các dòng kết quả
+                res+=(resultSet.getInt(1)); // Thêm giá trị vào danh sách
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return res;
+    }
+    public int getTongTienDongGop(){
+        ResultSet resultSet = databaseConnection.getTongTienDongGop();
+        int res = 0;
+        try {
+            while (resultSet.next()) { // Lặp qua các dòng kết quả
+                res =(resultSet.getInt(1)); // Thêm giá trị vào danh sách
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);

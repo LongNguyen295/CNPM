@@ -170,6 +170,39 @@ public class DatabaseConnection {
         String query = "select YEAR(GETDATE())";
         return executeQuery(query);
     }
+    public ResultSet getTongDotThu(){
+        String query = "select distinct MADOTTHU from DOTTHUPHI";
+        return executeQuery(query);
+    }
+    public ResultSet getFeeUngHoByDot(int makhoanthu){
+        String query = "select sum(SOTIENDADONG) from DONGGOP WHERE MAKHOANTHU = "+makhoanthu;
+        return executeQuery(query);
+    }
+    public ResultSet getFeeChungCuByDot(int maDotthu){
+        String query = "select sum(SOTIENDADONG) from DANHSACHTHUPHI WHERE MADOTTHU ="+maDotthu;
+        return executeQuery(query);
+    }
+    public ResultSet getFeeTenDotThu(int maDotthu){
+        String query = "select TEN from DOTTHUPHI WHERE MADOTTHU ="+maDotthu;
+        return executeQuery(query);
+    }
+    public ResultSet getSoLuongLoaiPhi(int maDotthu){
+        String query = "select COUNT(ID) from LOAIPHI WHERE MAKHOANTHU ="+maDotthu;
+        return executeQuery(query);
+    }
+    public ResultSet getTongTienDongGop(int maDotthu){
+        String query = "SELECT SUM(SOTIENDADONG) FROM DONGGOP WHERE TRANGTHAI =1 AND MAKHOANTHU ="+maDotthu;
+        return executeQuery(query);
+    }
+    public ResultSet getTongTienDongGop(){
+        String query = "SELECT SUM(SOTIENDADONG) FROM DONGGOP WHERE TRANGTHAI =1";
+        return executeQuery(query);
+    }
+    public ResultSet getSumAllFee(){
+        String query = "SELECT SUM(DS.SOTIENDADONG) \n" +
+                "FROM DANHSACHTHUPHI DS\n";
+        return executeQuery(query);
+    }
     public ResultSet getHoKhauOfNamHienTai(){
         String query = "SELECT COUNT(MAHOKHAU)\n" +
                 "FROM HOKHAU";
@@ -699,6 +732,37 @@ public class DatabaseConnection {
                         "SUM(TIENINTERNET) AS [TIENINTERNET], " +
                         "SUM(DS.SOTIENDADONG) AS [SOTIENDADONG] " +
                         "FROM DANHSACHTHUPHI DS;";
+
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            try (ResultSet rs = stmt.executeQuery()) {
+                if (rs.next()) {
+                    return new FeeHoaDon(
+                            rs.getInt("TIENNHA"),
+                            rs.getInt("TIENQUANLY"),
+                            rs.getInt("TIENDIEN"),
+                            rs.getInt("TIENNUOC"),
+                            rs.getInt("TIENINTERNET"),
+                            rs.getInt("TIENXEMAY"),
+                            rs.getInt("TIENOTO"),
+                            rs.getString("SOTIENDADONG") // Tổng số tiền được trả dưới dạng chuỗi
+                    );
+                } else {
+                    return null; // Không tìm thấy dữ liệu
+                }
+            }
+        }
+    }
+    public FeeHoaDon getFeeHoaDonSummaryByDotThu(int madotthu) throws SQLException {
+        String query =
+                "SELECT SUM(TIENNHA) AS [TIENNHA], " +
+                        "SUM(TIENDICHVU) AS [TIENQUANLY], " +
+                        "SUM(TIENXEMAY) AS [TIENXEMAY], " +
+                        "SUM(TIENOTO) AS [TIENOTO], " +
+                        "SUM(TIENDIEN) AS [TIENDIEN], " +
+                        "SUM(TIENNUOC) AS [TIENNUOC], " +
+                        "SUM(TIENINTERNET) AS [TIENINTERNET], " +
+                        "SUM(DS.SOTIENDADONG) AS [SOTIENDADONG] " +
+                        "FROM DANHSACHTHUPHI DS WHERE MADOTTHU = "+madotthu;
 
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             try (ResultSet rs = stmt.executeQuery()) {
