@@ -73,24 +73,18 @@ public class FeeThemKhoanThuController implements Initializable {
             alert.showAndWait();
             return false;
         }
-//        else {
-////            int s = Integer.parseInt(ma_khoan_thu.getText());
-////            if(Model.getInstance().getDatabaseConnection().checkMaKhoanThu(s)){
-////                alert = new Alert(Alert.AlertType.WARNING);
-////                alert.setHeaderText(null);
-////                alert.setContentText("MÃ KHOẢN THU này đã tồn tại !");
-////                alert.showAndWait();
-////                return false;
-////            }
-//        }
-        if(!check){
-            check = true;
-            alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setHeaderText(null);
-            alert.setContentText("Lưu ý: Mã đợt thu tiền ủng hộ cần phải trùng với mã đợt thu phí ! ");
-            alert.showAndWait();
-            return false;
+        else {
+            int s = Integer.parseInt(ma_khoan_thu.getText());
+            System.out.println(s);
+            if(!Model.getInstance().getDatabaseConnection().checkMaKhoanThu(s)){
+                alert = new Alert(Alert.AlertType.WARNING);
+                alert.setHeaderText(null);
+                alert.setContentText("Kiểm tra lại mã đợt thu !");
+                alert.showAndWait();
+                return false;
+            }
         }
+
         return true;
     }
     public boolean isValidInteger(String input) {

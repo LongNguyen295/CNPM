@@ -824,7 +824,7 @@ public class DatabaseConnection {
         executeUpdate(query);
     }
     public boolean checkMaKhoanThu(int maKhoanThu){
-        String query = "SELECT 1 FROM LOAIPHI WHERE MAKHOANTHU = ?";
+        String query = "SELECT 1 FROM DOTTHUPHI WHERE MADOTTHU = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setInt(1, maKhoanThu);
             ResultSet rs = stmt.executeQuery();
@@ -1178,37 +1178,46 @@ public DanhSachThuPhiModel getFeeCoDinh_ThuHo(int maHoKhau, int maDotThu) throws
     }
 
     public void deleteKhoanThuPhi(int maKhoanThu) {
-        String query1 = "DELETE DONGGOP\n" +
-                "WHERE MAKHOANTHU LIKE '" + maKhoanThu + "'";
-        String query2 = "DELETE LOAIPHI\n" +
-                "WHERE MAKHOANTHU LIKE '" + maKhoanThu + "'";
+        String query1 = "DELETE FROM DONGGOP WHERE ID = ?";
+        String query2 = "DELETE FROM LOAIPHI WHERE ID = ?";
 
-        try {
-            Statement statement = connection.createStatement();
-            statement.executeUpdate(query1);
-            statement.executeUpdate(query2);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        try (
+            PreparedStatement stmt1 = connection.prepareStatement(query1);
+            PreparedStatement stmt2 = connection.prepareStatement(query2);) {
+            stmt1.setInt(1, maKhoanThu);
+            stmt2.setInt(1, maKhoanThu);
+            stmt1.executeUpdate();
+            stmt2.executeUpdate();
+
+
+        } catch (SQLException ex) {
+            throw new RuntimeException(ex);
         }
     }
+
     public void deleteDotThuPhi(int maDotThu) {
         String query1 = "DELETE FROM DONGGOP WHERE MAKHOANTHU = ?";
         String query2 = "DELETE FROM LOAIPHI WHERE MAKHOANTHU = ?";
         String query3 = "DELETE FROM DANHSACHTHUPHI WHERE MADOTTHU = ?";
+        String query4 = "DELETE FROM DOTTHUPHI WHERE MADOTTHU = ?";
 
         try (PreparedStatement stmt1 = connection.prepareStatement(query1);
              PreparedStatement stmt2 = connection.prepareStatement(query2);
-             PreparedStatement stmt3 = connection.prepareStatement(query3)) {
+             PreparedStatement stmt3 = connection.prepareStatement(query3);
+             PreparedStatement stmt4 = connection.prepareStatement(query4);
+             ) {
 
             // Set the parameters for each query
             stmt1.setInt(1, maDotThu);
             stmt2.setInt(1, maDotThu);
             stmt3.setInt(1, maDotThu);
+            stmt4.setInt(1, maDotThu);
 
             // Execute the queries
             stmt1.executeUpdate();
             stmt2.executeUpdate();
             stmt3.executeUpdate();
+            stmt4.executeUpdate();
         } catch (SQLException e) {
             // Log detailed error message
             System.err.println("Error while deleting DotThuPhi with maDotThu = " + maDotThu);

@@ -20,7 +20,16 @@
           <TableColumn fx:id="soluonggioitinh" prefWidth="87.2000732421875" text="Số Lượng" />
         </columns>
       </TableView>
-      <PieChart fx:id="bieudonhomtuoi" layoutX="145.0" layoutY="344.0" prefHeight="378.0" prefWidth="452.0" styleClass="maunen" title="Thống kê theo nhóm tuổi" AnchorPane.bottomAnchor="27.600000000000023" />
+       <StackedBarChart fx:id="bieudogioitinh" layoutX="159.0" layoutY="14.0" legendVisible="false" prefHeight="316.0" prefWidth="299.0" styleClass="maunen" title="Thống kê theo giới tính" AnchorPane.leftAnchor="159.0" AnchorPane.topAnchor="14.0">
+           <xAxis>
+               <CategoryAxis side="BOTTOM" />
+           </xAxis>
+           <yAxis>
+               <NumberAxis side="LEFT" />
+           </yAxis>
+       </StackedBarChart>
+
+       <PieChart fx:id="bieudonhomtuoi" layoutX="145.0" layoutY="344.0" prefHeight="378.0" prefWidth="452.0" styleClass="maunen" title="Thống kê theo nhóm tuổi" AnchorPane.bottomAnchor="27.600000000000023" />
       <TableView fx:id="table_nhomtuoi" layoutX="605.0" layoutY="375.0" prefHeight="250.0" prefWidth="230.0">
         <columns>
           <TableColumn fx:id="nhomtuoi" prefWidth="120.0" text="Nhóm tuổi" />

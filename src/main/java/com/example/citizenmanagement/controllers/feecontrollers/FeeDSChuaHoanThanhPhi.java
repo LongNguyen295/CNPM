@@ -65,37 +65,34 @@ public class FeeDSChuaHoanThanhPhi implements Initializable {
 
                             Optional<ButtonType> result2 = alert.showAndWait();
                             if (result2.get() == ButtonType.OK) {
-                                System.out.println("Dang run");
-                                Model.getInstance().getDatabaseConnection().updateNopPhiUNGHO(selectedItem.getMaHoKhau(), Model.getInstance().getFeeKhoanThuModel().getMaKhoanThu().get(), soTien, Model.getInstance().getFeeKhoanThuModel().getId());
-                                //Model.getInstance().getDatabaseConnection().updateUngHoFee(Model.getInstance().getFeeKhoanThuModel().getMaKhoanThu().get(),selectedItem.getMaHoKhau(), Integer.parseInt(soTien));
-                                Model.getInstance().getDanhSachChuaDongPhi().remove(selectedItem);
-                                showDanhSach();
-                                System.out.println("Đã Run");
+                                if(isValidInteger(soTien)) {
+                                    Model.getInstance().getDatabaseConnection().updateNopPhiUNGHO(selectedItem.getMaHoKhau(), Model.getInstance().getFeeKhoanThuModel().getMaKhoanThu().get(), soTien, Model.getInstance().getFeeKhoanThuModel().getId());
+                                    //Model.getInstance().getDatabaseConnection().updateUngHoFee(Model.getInstance().getFeeKhoanThuModel().getMaKhoanThu().get(),selectedItem.getMaHoKhau(), Integer.parseInt(soTien));
+                                    Model.getInstance().getDanhSachChuaDongPhi().remove(selectedItem);
+                                    showDanhSach();
+                                }
+                                else {
+                                    alert = new Alert(Alert.AlertType.WARNING);
+                                    alert.setHeaderText(null);
+                                    alert.setContentText("Vui lòng điền số tiền là một số !");
+                                    alert.showAndWait();
+                                }
+
                             }
                         });
-                    }
-                    else {
-                        alert = new Alert(Alert.AlertType.CONFIRMATION);
-                        alert.setTitle("Confirmation");
-                        alert.setHeaderText(null);
-                        alert.setContentText("Xác nhận nộp tiền?");
-
-                        Optional<ButtonType> result2 = alert.showAndWait();
-                        if (result2.get() == ButtonType.OK) {
-
-                            Model.getInstance().getDatabaseConnection().updateNopPhi(
-                                    selectedItem.getMaHoKhau(),
-                                    Model.getInstance().getFeeKhoanThuModel().getMaKhoanThu().get(),
-                                    String.valueOf(selectedItem.getSoTien()));
-
-                            Model.getInstance().getDanhSachChuaDongPhi().remove(selectedItem);
-                            showDanhSach();
-                        }
                     }
                 }
             }
 
         });
+    }
+    public boolean isValidInteger(String input) {
+        try {
+            Integer.parseInt(input);
+            return true; // Nếu chuyển đổi thành công, trả về true
+        } catch (NumberFormatException e) {
+            return false; // Nếu có lỗi, trả về false
+        }
     }
 
     private void onSearch() {
