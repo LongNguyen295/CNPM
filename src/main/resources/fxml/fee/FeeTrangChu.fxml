@@ -2,13 +2,13 @@
 
 <?import java.lang.String?>
 <?import java.net.URL?>
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
+<?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
@@ -19,7 +19,7 @@
             <Font name="Verdana Bold" size="17.0" />
          </font>
       </Label>
-      <Circle fx:id="profile_thuphi" fill="DODGERBLUE" layoutX="704.0" layoutY="103.0" onMouseClicked="#onProFile_Fee" radius="67.0" stroke="BLACK" strokeType="INSIDE" styleClass="profile" />
+      <Circle fx:id="profile_thuphi" fill="DODGERBLUE" layoutX="746.0" layoutY="74.0" onMouseClicked="#onProFile_Fee" radius="56.0" stroke="BLACK" strokeType="INSIDE" styleClass="profile" />
    </AnchorPane>
    <Label layoutX="23.0" layoutY="60.0" text="Welcome back,">
       <font>
@@ -96,277 +96,54 @@
          <Font name="Consolas Italic" size="12.0" />
       </font>
    </Text>
-   <AnchorPane layoutX="4.0" layoutY="14.0" prefHeight="109.0" prefWidth="850.0" />
-   <AnchorPane fx:id="thongketongtien" layoutX="20.0" layoutY="641.0" onMouseClicked="#clicktongtien" prefHeight="50.0" prefWidth="725.0" styleClass="tongtien">
+   <AnchorPane layoutX="4.0" layoutY="14.0" prefHeight="99.0" prefWidth="850.0" />
+   <AnchorPane fx:id="thongketongtien" layoutX="492.0" layoutY="276.0" onMouseClicked="#clicktongtien" prefHeight="198.0" prefWidth="207.0">
+      <styleClass>
+         <String fx:value="tongtien" />
+         <String fx:value="pane_sokhoanphi" />
+         <String fx:value="pane_sotien" />
+      </styleClass>
       <children>
-         <Label layoutX="35.0" layoutY="15.0" prefHeight="20.0" prefWidth="190.0" text="Tổng tiền đã thu:">
+         <Text layoutX="160.0" layoutY="148.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Phí">
             <font>
-               <Font name="Arial Bold" size="17.0" />
+               <Font name="Verdana Bold" size="18.0" />
             </font>
-         </Label>
-         <Label fx:id="tong_tien_da_dong" layoutX="225.0" layoutY="10.0" prefHeight="30.0" prefWidth="366.0" text="Label" wrapText="true">
+         </Text>
+         <Text layoutX="97.0" layoutY="171.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Đóng Góp" textAlignment="RIGHT">
             <font>
-               <Font name="System Bold Italic" size="20.0" />
+               <Font name="Verdana Bold" size="18.0" />
             </font>
-         </Label>
-         <Label fx:id="tong_tien_da_dong1" alignment="CENTER" layoutX="610.0" layoutY="10.0" prefHeight="30.0" prefWidth="81.0" text="VNĐ" wrapText="true">
-            <font>
-               <Font name="System Bold" size="20.0" />
-            </font>
-         </Label>
+         </Text>
+         <ImageView fitHeight="109.0" fitWidth="99.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@../../images/login_form/team-building.png" />
+            </image>
+         </ImageView>
       </children>
    </AnchorPane>
-   <VBox layoutX="14.0" layoutY="100.0" prefHeight="523.0" prefWidth="235.0">
-      <children>
-         <Pane prefHeight="125.0" prefWidth="235.0" styleClass="pane_sonhankhau">
-            <children>
-               <Label layoutX="12.0" layoutY="22.0" prefHeight="20.0" prefWidth="158.0" text="Tổng số nhân khẩu">
-                  <font>
-                     <Font name="Arial Bold" size="17.0" />
-                  </font>
-               </Label>
-               <Label fx:id="tongSoNhanKhau" alignment="CENTER" layoutX="12.0" layoutY="64.0" text="Label">
-                  <font>
-                     <Font name="System Bold" size="20.0" />
-                  </font>
-               </Label>
-            </children>
-            <VBox.margin>
-               <Insets bottom="5.0" />
-            </VBox.margin>
-         </Pane>
-         <AnchorPane fx:id="thongkedichvu" onMouseClicked="#clickdichvu" prefHeight="125.0" prefWidth="235.0">
-            <styleClass>
-               <String fx:value="pane_sokhoanphi" />
-               <String fx:value="pane_sotien" />
-            </styleClass>
-            <children>
-               <Label fx:id="tien_nha" alignment="CENTER" layoutX="12.0" layoutY="64.0" text="Tiền nhà">
-                  <font>
-                     <Font name="System Bold" size="20.0" />
-                  </font>
-               </Label>
-               <Label layoutX="12.0" layoutY="22.0" prefHeight="20.0" prefWidth="212.0" text="Tổng tiền phí dịch vụ">
-                  <font>
-                     <Font name="Arial Bold" size="17.0" />
-                  </font>
-               </Label>
-            </children>
-            <VBox.margin>
-               <Insets bottom="5.0" />
-            </VBox.margin>
-            <cursor>
-               <Cursor fx:constant="HAND" />
-            </cursor>
-         </AnchorPane>
-         <AnchorPane fx:id="thongkedonggop" onMouseClicked="#clickdonggop" prefHeight="125.0" prefWidth="235.0" styleClass="pane_sotien">
-            <children>
-               <Label layoutX="12.0" layoutY="22.0" prefHeight="20.0" prefWidth="225.0" text="Tổng các loại phí đóng góp">
-                  <font>
-                     <Font name="Arial Bold" size="17.0" />
-                  </font>
-               </Label>
-               <Label fx:id="tong_loai_phi" alignment="CENTER" layoutX="12.0" layoutY="64.0" text="Loại phí">
-                  <font>
-                     <Font name="System Bold" size="20.0" />
-                  </font>
-               </Label>
-            </children>
-            <VBox.margin>
-               <Insets bottom="5.0" />
-            </VBox.margin>
-            <cursor>
-               <Cursor fx:constant="HAND" />
-            </cursor>
-         </AnchorPane>
-         <AnchorPane fx:id="thongketiendien" onMouseClicked="#clicktiendien" prefHeight="125.0" prefWidth="235.0" styleClass="pane_sokhoanphi">
-            <children>
-               <Label layoutX="12.0" layoutY="22.0" prefHeight="20.0" prefWidth="199.0" text="Tổng phí Điện">
-                  <font>
-                     <Font name="Arial Bold" size="17.0" />
-                  </font>
-               </Label>
-               <Label fx:id="tien_dien" alignment="CENTER" layoutX="12.0" layoutY="64.0" text="Điện">
-                  <font>
-                     <Font name="System Bold" size="20.0" />
-                  </font>
-               </Label>
-            </children>
-            <VBox.margin>
-               <Insets bottom="5.0" />
-            </VBox.margin>
-            <cursor>
-               <Cursor fx:constant="HAND" />
-            </cursor>
-         </AnchorPane>
-      </children>
-   </VBox>
-   <VBox layoutX="264.0" layoutY="100.0" prefHeight="523.0" prefWidth="237.0">
-      <children>
-         <Pane prefHeight="125.0" prefWidth="235.0" styleClass="pane_sohokhau">
-            <children>
-               <Label layoutX="12.0" layoutY="22.0" prefHeight="20.0" prefWidth="144.0" text="Tổng số hộ khẩu">
-                  <font>
-                     <Font name="Arial Bold" size="17.0" />
-                  </font>
-               </Label>
-               <Label fx:id="tongSoHoKhau" alignment="CENTER" layoutX="12.0" layoutY="64.0" text="Label">
-                  <font>
-                     <Font name="System Bold" size="20.0" />
-                  </font>
-               </Label>
-            </children>
-            <VBox.margin>
-               <Insets bottom="5.0" />
-            </VBox.margin>
-         </Pane>
-         <AnchorPane fx:id="thongkequanly" onMouseClicked="#clickquanly" prefHeight="125.0" prefWidth="235.0" styleClass="pane_sokhoanphi">
-            <children>
-               <Label layoutX="12.0" layoutY="22.0" prefHeight="20.0" prefWidth="225.0" text="Tổng số tiền phí quản lí">
-                  <font>
-                     <Font name="Arial Bold" size="17.0" />
-                  </font>
-               </Label>
-               <Label fx:id="tien_quan_ly" alignment="CENTER" layoutX="12.0" layoutY="64.0" text="tiền quản lý" wrapText="true">
-                  <font>
-                     <Font name="System Bold" size="20.0" />
-                  </font>
-               </Label>
-            </children>
-            <VBox.margin>
-               <Insets bottom="5.0" />
-            </VBox.margin>
-            <cursor>
-               <Cursor fx:constant="HAND" />
-            </cursor>
-         </AnchorPane>
-         <AnchorPane fx:id="thongketongtiendonggop" onMouseClicked="#clicktongtiendonggop" prefHeight="125.0" prefWidth="235.0" styleClass="pane_sokhoanphi">
-            <children>
-               <Label fx:id="tong_tien_ung_ho" alignment="CENTER" layoutX="12.0" layoutY="64.0" text="Tiền đóng góp" wrapText="true">
-                  <font>
-                     <Font name="System Bold" size="20.0" />
-                  </font>
-               </Label>
-               <Label layoutX="12.0" layoutY="22.0" prefHeight="20.0" prefWidth="190.0" text="Tổng số tiền đóng góp">
-                  <font>
-                     <Font name="Arial Bold" size="17.0" />
-                  </font>
-               </Label>
-            </children>
-            <VBox.margin>
-               <Insets bottom="5.0" />
-            </VBox.margin>
-            <cursor>
-               <Cursor fx:constant="HAND" />
-            </cursor>
-         </AnchorPane>
-         <AnchorPane fx:id="thognketiennuoc" onMouseClicked="#clicktiennuoc" prefHeight="125.0" prefWidth="235.0" styleClass="pane_sotien">
-            <children>
-               <Label layoutX="12.0" layoutY="22.0" prefHeight="20.0" prefWidth="190.0" text="Tổng phí Nước">
-                  <font>
-                     <Font name="Arial Bold" size="17.0" />
-                  </font>
-               </Label>
-               <Label fx:id="tien_nuoc" alignment="CENTER" layoutX="12.0" layoutY="64.0" text="Nước" wrapText="true">
-                  <font>
-                     <Font name="System Bold" size="20.0" />
-                  </font>
-               </Label>
-            </children>
-            <VBox.margin>
-               <Insets bottom="5.0" />
-            </VBox.margin>
-            <cursor>
-               <Cursor fx:constant="HAND" />
-            </cursor>
-         </AnchorPane>
-      </children>
-   </VBox>
-   <VBox layoutX="514.0" layoutY="227.0" prefHeight="400.0" prefWidth="237.0">
-      <children>
-         <AnchorPane fx:id="thongkexemay" onMouseClicked="#clickxemay" prefHeight="125.0" prefWidth="235.0" styleClass="pane_cot3">
-            <children>
-               <Label alignment="CENTER" layoutX="12.0" layoutY="64.0" text="Xe máy" fx:id="xe_may">
-                  <font>
-                     <Font name="System Bold" size="20.0" />
-                  </font>
-               </Label>
-               <Label layoutX="12.0" layoutY="22.0" prefHeight="20.0" prefWidth="225.0" text="Tổng phí xe Máy">
-                  <font>
-                     <Font name="Arial Bold" size="17.0" />
-                  </font>
-               </Label>
-            </children>
-            <VBox.margin>
-               <Insets bottom="5.0" />
-            </VBox.margin>
-            <cursor>
-               <Cursor fx:constant="HAND" />
-            </cursor>
-         </AnchorPane>
-         <AnchorPane fx:id="thongkeoto" onMouseClicked="#clickoto" prefHeight="125.0" prefWidth="235.0">
-            <styleClass>
-               <String fx:value="pane_sokhoanphi" />
-               <String fx:value="pane_cot3" />
-            </styleClass>
-            <children>
-               <Label layoutX="12.0" layoutY="22.0" prefHeight="20.0" prefWidth="225.0" text="Tổng phí xe Ô tô">
-                  <font>
-                     <Font name="Arial Bold" size="17.0" />
-                  </font>
-               </Label>
-               <Label alignment="CENTER" layoutX="12.0" layoutY="64.0" text="Oto" fx:id="xe_oto">
-                  <font>
-                     <Font name="System Bold" size="20.0" />
-                  </font>
-               </Label>
-            </children>
-            <VBox.margin>
-               <Insets bottom="5.0" />
-            </VBox.margin>
-            <cursor>
-               <Cursor fx:constant="HAND" />
-            </cursor>
-         </AnchorPane>
-         <AnchorPane fx:id="thongkeinternet" onMouseClicked="#clicktieninternet" prefHeight="125.0" prefWidth="235.0" styleClass="pane_cot3">
-            <children>
-               <Label layoutX="12.0" layoutY="22.0" prefHeight="20.0" prefWidth="225.0" text="Tổng phí Internet">
-                  <font>
-                     <Font name="Arial Bold" size="17.0" />
-                  </font>
-               </Label>
-               <Label fx:id="tien_internet" alignment="CENTER" layoutX="12.0" layoutY="64.0" text="Internet">
-                  <font>
-                     <Font name="System Bold" size="20.0" />
-                  </font>
-               </Label>
-            </children>
-            <VBox.margin>
-               <Insets bottom="5.0" />
-            </VBox.margin>
-            <cursor>
-               <Cursor fx:constant="HAND" />
-            </cursor>
-         </AnchorPane>
-      </children>
-   </VBox>
-   <AnchorPane fx:id="chua_hoan_thanh_btn" layoutX="588.0" layoutY="362.0" prefHeight="150.0" prefWidth="250.0" style="-fx-background-color: #ff7221;" styleClass="button_ds">
-      <children>
-         <Label layoutX="25.0" layoutY="14.0" text="Chưa hoàn thành" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
-            <font>
-               <Font name="Verdana" size="24.0" />
-            </font>
-         </Label>
-         <Label fx:id="chua_hoan_thanh_lbl" layoutX="145.0" layoutY="75.0" text="0/0" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="15.000000000000014">
-            <font>
-               <Font name="Verdana" size="48.0" />
-            </font>
-         </Label>
-      </children>
+   <AnchorPane fx:id="thongketongtiendonggop" layoutX="185.0" layoutY="276.0" onMouseClicked="#clicktongtiendonggop" prefHeight="198.0" prefWidth="207.0" styleClass="pane_sokhoanphi">
       <cursor>
          <Cursor fx:constant="HAND" />
       </cursor>
+      <children>
+         <Text layoutX="82.0" layoutY="143.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Phí dịch vụ">
+            <font>
+               <Font name="Verdana Bold" size="18.0" />
+            </font>
+         </Text>
+         <Text layoutX="96.0" layoutY="166.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Chung Cư" textAlignment="RIGHT">
+            <font>
+               <Font name="Verdana Bold" size="18.0" />
+            </font>
+         </Text>
+         <ImageView fitHeight="109.0" fitWidth="99.0" layoutX="14.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true">
+            <image>
+               <Image url="@../../images/login_form/home.png" />
+            </image>
+         </ImageView>
+      </children>
    </AnchorPane>
+   <Line endX="-100.0" endY="177.0" layoutX="543.0" layoutY="286.0" startX="-100.0" />
    <stylesheets>
       <URL value="@../../styles/Fee/FeeTrangChu.css" />
       <URL value="@../../styles/Main/TrangChu.css" />

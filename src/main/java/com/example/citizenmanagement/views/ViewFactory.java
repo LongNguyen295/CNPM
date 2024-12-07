@@ -76,6 +76,8 @@ public class ViewFactory {
     private AnchorPane feeThongTinDotThuView;
     private AnchorPane feeThongTinChiTietHoaDon;
     private AnchorPane feeDSChuaHoanThanhPhiDotView;
+    private AnchorPane feeThongKeTongHop;
+    private AnchorPane feeThongKeTongHopUngHo;
 
     /********************************************************************************************/
     public ViewFactory(){
@@ -241,6 +243,26 @@ public class ViewFactory {
             }
         }
         return feeThemDotThuView;
+    }
+    public AnchorPane getFeeThongKeTongHop(){
+        if(feeThongKeTongHop == null){
+            try {
+                feeThongKeTongHop = new FXMLLoader(getClass().getResource("/fxml/fee/ThongKeFeeTongHop.fxml")).load();
+            }catch (IOException e){
+                throw new RuntimeException(e);
+            }
+        }
+        return feeThongKeTongHop;
+    }
+    public AnchorPane getFeeThongKeTongHopUngHo(){
+        if(feeThongKeTongHopUngHo == null){
+            try {
+                feeThongKeTongHopUngHo = new FXMLLoader(getClass().getResource("/fxml/fee/ThongKeFeeUngHo.fxml")).load();
+            }catch (IOException e){
+                throw new RuntimeException(e);
+            }
+        }
+        return feeThongKeTongHopUngHo;
     }
     public AnchorPane getFeeDanhSachDotThuView(){
         if(feeDanhSachDotThuView == null){

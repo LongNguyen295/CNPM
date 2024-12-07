@@ -47,6 +47,10 @@ public class FeeController implements Initializable {
                     danh_sach_phi_dot_btn.requestFocus();
                     fee_parent.setCenter(Model.getInstance().getViewFactory().getFeeThongTinDotThuView());
                 }
+                case THONG_KE_TONG_HOP -> {
+                    trang_chu_btn.requestFocus();
+                    fee_parent.setCenter(Model.getInstance().getViewFactory().getFeeThongKeTongHop());
+                }
                 case HOAN_THANH_PHI_DOT -> {
                     danh_sach_phi_dot_btn.requestFocus();
                     fee_parent.setCenter(Model.getInstance().getViewFactory().getFeeDSHoanThanhPhiDotView());
@@ -66,6 +70,10 @@ public class FeeController implements Initializable {
                 case DANH_SACH_KHOAN_THU_DOT -> {
                     danh_sach_phi_dot_btn.requestFocus();
                     fee_parent.setCenter(Model.getInstance().getViewFactory().getFeeDanhSachDotThuView());
+                }
+                case THONG_KE_TONG_HOP_UNG_HO -> {
+                    trang_chu_btn.requestFocus();
+                    fee_parent.setCenter(Model.getInstance().getViewFactory().getFeeThongKeTongHopUngHo());
                 }
                 case DANH_SACH_HO_KHAU_CAN_THU_PHI -> {
                     them_khoan_thu_btn.requestFocus();
