@@ -71,8 +71,7 @@ public class FeeChiTietKhoanThu implements Initializable {
         Optional<ButtonType> result = alert.showAndWait();
 
         if (result.get() == ButtonType.OK) {
-            System.out.println("ID: "+Model.getInstance().getFeeKhoanThuModel().getId()+" Ma khoan Thu: "+Model.getInstance().getFeeKhoanThuModel().getMaKhoanThu().get());
-            Model.getInstance().getDatabaseConnection().deleteKhoanThuPhi(
+                Model.getInstance().getDatabaseConnection().deleteKhoanThuPhi(
                     Model.getInstance().getFeeKhoanThuModel().getId());
 
             for (FeeKhoanThuCell item : Model.getInstance().getDanhSachKhoanThu()) {
