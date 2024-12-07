@@ -10,7 +10,7 @@
 <?import javafx.scene.text.Font?>
 
 <AnchorPane prefHeight="750.0" prefWidth="850.0" styleClass="my-background" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.citizenmanagement.controllers.feecontrollers.FeeThemKhoanThuController">
-   <Label layoutX="33.0" layoutY="37.0" text="Tạo khoản thu ủng hộ" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="30.0">
+   <Label layoutX="33.0" layoutY="37.0" text="Tạo khoản thu Đóng Góp" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="30.0">
       <font>
          <Font name="Verdana Bold" size="42.0" />
       </font>
@@ -20,7 +20,7 @@
          <Font name="Verdana Bold" size="18.0" />
       </font>
    </Label>
-   <TextField fx:id="ma_khoan_thu" layoutX="245.0" layoutY="109.0" prefHeight="32.0" prefWidth="222.0" style="-fx-background-color: #FFFFFF;" styleClass="input_text_field" AnchorPane.leftAnchor="175.0" AnchorPane.rightAnchor="453.0" AnchorPane.topAnchor="180.0">
+   <TextField fx:id="ma_khoan_thu" layoutX="245.0" layoutY="109.0" prefHeight="32.0" prefWidth="222.0" promptText="Mã đợt thu" style="-fx-background-color: #FFFFFF;" styleClass="input_text_field" AnchorPane.leftAnchor="175.0" AnchorPane.rightAnchor="453.0" AnchorPane.topAnchor="180.0">
       <font>
          <Font name="Verdana" size="14.0" />
       </font>
@@ -30,7 +30,7 @@
          <Font name="Verdana Bold" size="18.0" />
       </font>
    </Label>
-   <TextArea fx:id="mo_ta" layoutX="175.0" layoutY="329.0" prefHeight="200.0" prefWidth="500.0" styleClass="input_text_field" AnchorPane.leftAnchor="175.0" AnchorPane.rightAnchor="175.0" AnchorPane.topAnchor="329.0">
+   <TextArea fx:id="mo_ta" layoutX="175.0" layoutY="329.0" prefHeight="200.0" prefWidth="500.0" promptText="Mô tả" styleClass="input_text_field" AnchorPane.leftAnchor="175.0" AnchorPane.rightAnchor="175.0" AnchorPane.topAnchor="329.0">
       <font>
          <Font size="14.0" />
       </font></TextArea>
@@ -50,7 +50,7 @@
          <Font name="Verdana Bold" size="18.0" />
       </font>
    </Label>
-   <TextField fx:id="ten_khoan_thu" layoutX="458.0" layoutY="180.0" prefHeight="32.0" prefWidth="222.0" style="-fx-background-color: #FFFFFF;" styleClass="input_text_field">
+   <TextField fx:id="ten_khoan_thu" layoutX="458.0" layoutY="180.0" prefHeight="32.0" prefWidth="222.0" promptText="Tên khoản thu" style="-fx-background-color: #FFFFFF;" styleClass="input_text_field">
       <font>
          <Font name="Verdana" size="14.0" />
       </font>

@@ -824,7 +824,7 @@ public class DatabaseConnection {
         executeUpdate(query);
     }
     public boolean checkMaKhoanThu(int maKhoanThu){
-        String query = "SELECT 1 FROM LOAIPHI WHERE MAKHOANTHU = ?";
+        String query = "SELECT 1 FROM DOTTHUPHI WHERE MADOTTHU = ?";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setInt(1, maKhoanThu);
             ResultSet rs = stmt.executeQuery();

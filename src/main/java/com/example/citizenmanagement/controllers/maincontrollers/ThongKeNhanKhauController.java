@@ -35,7 +35,7 @@ public class ThongKeNhanKhauController implements Initializable {
         int a1 = Model.getInstance().getNumberOfNhanKhauNam();
         int a2 = Model.getInstance().getNumberOfNhanKhauNu();
         final XYChart.Series<String,Number> series = new XYChart.Series<>();
-        series.getData().add(new XYChart.Data<>("Nam", a1));
+        series.getData().add(new XYChart.Data<>("Nam",a1));
         series.getData().add(new XYChart.Data<>("Nữ",a2));
         bieudogioitinh.getData().add(series);
 
