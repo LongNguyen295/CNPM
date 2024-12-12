@@ -83,6 +83,16 @@
               <Font size="16.0" />
           </font>
         </TextField>
+        <Label text="Mã phòng:">
+            <font>
+                <Font size="20.0" />
+            </font>
+        </Label>
+        <TextField fx:id="add_maphong" prefHeight="35.0" styleClass="input_text_field">
+            <font>
+                <Font size="16.0" />
+            </font>
+        </TextField>
         <Label text="Địa chỉ:">
           <font>
               <Font size="20.0" />
@@ -93,7 +103,7 @@
               <Font size="16.0" />
           </font>
         </TextField>
-        <Label text="Ghi chú:">
+        <Label text="Số thành viên hiện tại:">
            <font>
                <Font size="20.0" />
            </font>

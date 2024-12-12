@@ -261,7 +261,7 @@ public class thay_doi_ho_khau_controler implements Initializable {
                         boolean chuaChet = Model.getInstance().getDatabaseConnection().checkKhaiTu(thay_doi_ma_chu_ho_textFiled.getText());
                         if (!chuaChet) {
                             Alert alert = new Alert(Alert.AlertType.WARNING);
-                            alert.setContentText("Người em chọn chết rồi, chọn thằng khác đi.");
+                            alert.setContentText("Người không tồn tại.");
                             alert.setTitle("Cảnh báo");
                             alert.setHeaderText(null);
                             alert.showAndWait();
