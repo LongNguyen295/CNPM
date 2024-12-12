@@ -1,6 +1,7 @@
 package com.example.citizenmanagement.models;
 
 
+import com.example.citizenmanagement.controllers.MD5Utils;
 import javafx.beans.Observable;
 import javafx.beans.property.StringProperty;
 import javafx.collections.ObservableList;
@@ -88,6 +89,7 @@ public class DatabaseConnection {
         executeUpdate(query);
     }
     public void setCitizenManagerData(String hoTen, String tenDangNhap, String matKhau, String soDienThoai, int vaiTro) {
+        matKhau = MD5Utils.hashPassword(matKhau);
         String query = "INSERT INTO NGUOIQUANLY(HOTEN, TENDANGNHAP, MATKHAU, SODIENTHOAI, VAITRO)\n" +
                         "VALUES (N'" + hoTen + "', '" + tenDangNhap + "', '" + matKhau + "', '" + soDienThoai + "', "+ Integer.toString(vaiTro)+ ")";
 
@@ -526,6 +528,43 @@ public class DatabaseConnection {
         else
             return 0;
     }
+    public int addHoKhauV1(String ma_ch, String diachi, String ghichu, int maP){
+        if(!ma_ch.isEmpty() && !diachi.isEmpty()) {
+            String query = "EXEC INSERT_HOKHAU_V1 ?, ?, ?, ?, ?";
+            try {
+                PreparedStatement statement = connection.prepareStatement(query);
+
+                statement.setString(1, ma_ch);
+                statement.setNString(2, diachi);
+                statement.setString(3,LocalDate.now().toString());
+                if(ghichu.isEmpty())
+                    statement.setNString(4,null);
+                else
+                    statement.setNString(4, ghichu);
+                statement.setInt(5,maP);
+
+                statement.executeUpdate();
+                return 1;
+            } catch (Exception e) {
+                System.out.println("loi o addHoKhauV1");
+//                throw new RuntimeException(e);
+                return 0;
+            }
+        }
+        else
+            return 0;
+    }
+    public boolean checkMaPhong(int maKhoanThu){
+        String query = "SELECT 1 FROM HOKHAU WHERE MAPHONG = ?";
+        try (PreparedStatement stmt = connection.prepareStatement(query)) {
+            stmt.setInt(1, maKhoanThu);
+            ResultSet rs = stmt.executeQuery();
+            return rs.next(); // Nếu rs.next() trả về true, tức là có bản ghi thỏa mãn điều kiện
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return false; // Nếu có lỗi xảy ra, trả về false
+        }
+    }
     public ResultSet getDanhSachHoKhau(){
         String query = "select * from HOKHAU";
         return executeQuery(query);
@@ -834,58 +873,6 @@ public class DatabaseConnection {
             return false; // Nếu có lỗi xảy ra, trả về false
         }
     }
-//    public int layMaKhoanThu(String tenKhoanThu,int batBuoc, long soTienCanDong, LocalDate ngayTao, String moTa) {
-//        int maKhoanThu = -1;
-//
-//        String query = "SELECT MAKHOANTHU\n" +
-//                "FROM LOAIPHI\n" +
-//                "WHERE TEN = N'" + tenKhoanThu + "' AND BATBUOC = " + batBuoc +
-//                " AND SOTIENTRENMOTNGUOI = " + soTienCanDong + " AND NGAYTAO = '" + ngayTao.toString() + "' AND MOTA = N'" + moTa +"'";
-//        Statement statement;
-//        ResultSet resultSet = null;
-//        try {
-//            statement = connection.createStatement();
-//            resultSet = statement.executeQuery(query);
-//            if (resultSet.isBeforeFirst()){
-//                resultSet.next();
-//                maKhoanThu = resultSet.getInt(1);
-//            }
-//        } catch (SQLException e) {
-//            throw new RuntimeException(e);
-//        }
-//        return maKhoanThu;
-//    }
-    public ResultSet getFeeCoDinh(int maHoKhau){
-        String query =
-                "SELECT \n" +
-                        "\tGIATIENLOAICANHO, -- TIEN NHA\n" +
-                        "\tFEEQLCHUNGCU, -- TIEN DICH VU QUAN LY\n" +
-                        "\tPHIXEDAP*(CONVERT(INT,HK.XEMAY)) AS[TIENXEDAP], -- TIEN XE DAP\n" +
-                        "\tPHIXEOTO*(CONVERT(INT,HK.OTO)) AS[TIENXEOTO]\t-- TIEN XE OTO\n" +
-                        "FROM PHICODINH P JOIN HOKHAU HK ON P.LOAICANHO = CONVERT(INT,SUBSTRING(HK.DIACHI,1,4))\n" +
-                        "WHERE MAHOKHAU = "+maHoKhau;
-        return executeQuery(query);
-    }
-//    public ResultSet getFeeCoDinh_ThuHo(int maHoKhau, int maDotThu) throws SQLException {
-//        String query =
-//                "SELECT TENCHUHO, \n" +
-//                        "P.GIATIENLOAICANHO,P.FEEQLCHUNGCU, \n" +
-//                        "P.PHIXEDAP*(CONVERT(INT,HK.XEMAY)) AS[TIENXEMAY],\n" +
-//                        "P.PHIXEOTO*(CONVERT(INT,HK.OTO)) AS[TIENOTO],\n" +
-//                        "THANHTIENDIEN, TONGSODIEN,\n" +
-//                        "THANHTIENNUOC, TONGSONUOC,\n" +
-//                        "THANHTIENINTERNET\n" +
-//                        "FROM FEETHUHO FH JOIN HOKHAU HK ON FH.IDCANHO = CONVERT(INT,SUBSTRING(HK.DIACHI,1,4))\n" +
-//                        "\t\tJOIN PHICODINH P ON P.LOAICANHO = FH.IDCANHO\n" +
-//                        "WHERE MADOTTHU = ? AND HK.MAHOKHAU = ?;";
-//
-//        try (PreparedStatement stmt = connection.prepareStatement(query)) {
-//            stmt.setInt(1, maDotThu); // Set the MADOTTHU parameter
-//            stmt.setInt(2, maHoKhau); // Set the MAHOKHAU parameter
-//
-//            return stmt.executeQuery(); // Execute the query
-//        }
-//    }
 public DanhSachThuPhiModel getFeeCoDinh_ThuHo(int maHoKhau, int maDotThu) throws SQLException {
     String query =
             "SELECT TENCHUHO, \n" +

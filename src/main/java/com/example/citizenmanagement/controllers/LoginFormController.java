@@ -166,7 +166,9 @@ public class LoginFormController implements Initializable {
 
         if (login_username.getText().isBlank() == false && login_password_hidden.getText().isBlank() == false){
 
-            Model.getInstance().verifyManagerAccount(login_username.getText(), login_password_hidden.getText());
+            String hashedPassword = MD5Utils.hashPassword(login_password_hidden.getText());
+
+            Model.getInstance().verifyManagerAccount(login_username.getText(), hashedPassword);
 
             if (Model.getInstance().getCitizenManagerLoginSuccessFlag()) {
                 Stage stage = (Stage) login_btn.getScene().getWindow();

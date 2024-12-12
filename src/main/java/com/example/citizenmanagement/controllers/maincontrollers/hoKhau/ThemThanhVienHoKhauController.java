@@ -22,7 +22,7 @@ public class ThemThanhVienHoKhauController implements Initializable {
     public Button cancel_but;
     public TextField id_chu_ho_text;
     public TextField add_text;
-
+    public TextField add_maphong;
     public TextField ghi_chu_text;
     public ListView<List_nhan_khau> listView_to_chon;
     public ListView<thanh_vien_cua_ho_cell> listView_to_them;
@@ -38,6 +38,34 @@ public class ThemThanhVienHoKhauController implements Initializable {
     private thanh_vien_cua_ho_cell thanh_vien_duoc_chon;
 
     private List_nhan_khau chuHo = Model.getNhanKhauDuocChon();
+    public boolean checkValid(String input){
+        try {
+            int x = Integer.parseInt(input);
+            int x_nguyen = x/100;
+            int x_du  = x%100;
+            if( (
+                    (x_nguyen >=6 && x_nguyen < 30)
+                    && (x_du>=1 && x_du<=5)
+                    && ((input.substring(0,1)=="0") || (input.substring(0,1)=="1") || (input.substring(0,1)=="2"))
+                )
+                    || (x==3001)
+            ){
+                return  true;
+            }
+        } catch (NumberFormatException e) {
+            return false; // Nếu có lỗi, trả về false
+        }
+        return false;
+    }
+    public boolean checkMaP(String input){
+        try {
+            int x = Integer.parseInt(input);
+
+        } catch (NumberFormatException e) {
+            return false; // Nếu có lỗi, trả về false
+        }
+        return false;
+    }
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -171,9 +199,33 @@ public class ThemThanhVienHoKhauController implements Initializable {
                 alert.setTitle("Thông báo lỗi");
                 alert.setContentText("Bạn chưa nhập địa chỉ");
                 alert.showAndWait();
-            }
-            else {
-                Model.getInstance().getDatabaseConnection().addHoKhau(chuHo.getSo_nhan_khau(), add_text.getText(), ghi_chu_text.getText());
+            } else if (add_maphong.getText().isEmpty()) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setHeaderText(null);
+                alert.setTitle("Thông báo lỗi");
+                alert.setContentText("Bạn chưa nhập mã phòng");
+                alert.showAndWait();
+            } else if (!checkValid(add_maphong.getText())) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setHeaderText(null);
+                alert.setTitle("Thông báo lỗi");
+                alert.setContentText("Mã phòng không tồn tại \n Nhập mã phòng 0XXX, 1XXX, 2XXX, 3001");
+                alert.showAndWait();
+            } else if (Model.getInstance().getDatabaseConnection().checkMaPhong(Integer.parseInt(add_maphong.getText()))) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setHeaderText(null);
+                alert.setContentText("Mã phòng đã có chủ hộ ! \n Vui lòng kiểm tra lại");
+                alert.showAndWait();
+            } else if (ghi_chu_text.getText().isEmpty()) {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setHeaderText(null);
+                alert.setTitle("Thông báo lỗi");
+                alert.setContentText("Bạn chưa số thành viên hiện tại");
+                alert.showAndWait();
+
+            } else {
+                String diaChi = add_maphong.getText()+" "+add_text.getText();
+                Model.getInstance().getDatabaseConnection().addHoKhauV1(chuHo.getSo_nhan_khau(), diaChi, ghi_chu_text.getText(),Integer.parseInt(add_maphong.getText()));
                 String maHoKhau;
                 ResultSet resultSet = Model.getInstance().getDatabaseConnection().getMaHoKhau(chuHo.getSo_nhan_khau());
                 try {
