@@ -27,16 +27,16 @@
       <font>
          <Font name="Verdana Bold" size="14.0" />
       </font></Text>
-   <Text layoutX="301.0" layoutY="140.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Họ Tên ">
+   <Text layoutX="282.0" layoutY="141.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Họ Tên ">
       <font>
          <Font name="Verdana Bold" size="14.0" />
       </font></Text>
-   <Text layoutX="525.0" layoutY="139.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ngày sinh">
+   <Text layoutX="515.0" layoutY="140.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ngày sinh">
       <font>
          <Font name="Verdana Bold" size="14.0" />
       </font></Text>
    <Text layoutX="466.0" layoutY="149.0" strokeType="OUTSIDE" strokeWidth="0.0" />
-   <Text layoutX="630.0" layoutY="140.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nơi thường trú ">
+   <Text layoutX="628.0" layoutY="141.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nơi thường trú ">
       <font>
          <Font name="Verdana Bold" size="14.0" />
       </font></Text>

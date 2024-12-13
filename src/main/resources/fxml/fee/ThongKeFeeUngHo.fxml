@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="750.0" prefWidth="850.0" styleClass="maunen" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.citizenmanagement.controllers.feecontrollers.ThongKeFeeTongHopUngHoController">
+<AnchorPane prefHeight="750.0" prefWidth="850.0" styleClass="maunen" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.citizenmanagement.controllers.feecontrollers.ThongKeFeeTongHopUngHoController">
    <children>
       <BarChart fx:id="soluongdonggop" layoutX="89.0" layoutY="235.0" legendSide="LEFT" prefHeight="191.0" prefWidth="673.0" title="Số lượng khoản đóng góp qua trong các đợt thu">
         <xAxis>
@@ -49,7 +49,7 @@
             </ImageView>
          </children>
       </Pane>
-      <Button fx:id="QuayLai2" layoutX="63.0" layoutY="671.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="99.0" styleClass="button_quaylai" text="Quay lại" />
+      <Button fx:id="QuayLai2" layoutX="27.0" layoutY="693.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="99.0" styleClass="button_quaylai" text="Quay lại" />
    </children>
    <stylesheets>
       <URL value="@../../styles/Main/TrangChu.css" />

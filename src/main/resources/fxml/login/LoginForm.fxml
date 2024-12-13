@@ -84,7 +84,7 @@
       </ImageView>
    </AnchorPane>
    <AnchorPane fx:id="register_form" prefHeight="500.0" prefWidth="400.0" styleClass="form" stylesheets="@../../styles/LoginForm.css">
-      <Label layoutX="12.0" layoutY="34.0" text="Đăng ký">
+      <Label layoutX="127.0" layoutY="39.0" text="Đăng ký">
          <font>
             <Font name="Verdana" size="36.0" />
          </font>

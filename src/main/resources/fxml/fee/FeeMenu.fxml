@@ -11,14 +11,27 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.layout.Pane?>
 <AnchorPane prefHeight="750.0" prefWidth="180.0" styleClass="slide_ankerpaine" stylesheets="@../../styles/FeeMenu.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.citizenmanagement.controllers.feecontrollers.FeeMenuController">
-   <VBox prefHeight="80.0" prefWidth="160.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-      <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" rotate="-180.0">
+<!--   <VBox prefHeight="80.0" prefWidth="160.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">-->
+<!--      <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" rotate="-180.0">-->
+<!--         <image>-->
+<!--            <Image url="@../../images/main/BART_SIMPSON.png" />-->
+<!--         </image>-->
+<!--      </ImageView>-->
+<!--   </VBox>-->
+   <Pane layoutX="4.0" layoutY="18.0" prefHeight="76.0" prefWidth="175.0" styleClass="inner_paine" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="2.0">
+      <ImageView fitHeight="55.0" fitWidth="45.0" layoutX="14.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../../images/main/BART_SIMPSON.png" />
+            <Image url="@../../images/login_form/smart-city.png" />
          </image>
       </ImageView>
-   </VBox>
+      <ImageView fitHeight="45.0" fitWidth="38.0" layoutX="121.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../../images/login_form/list.png" />
+         </image>
+      </ImageView>
+   </Pane>
    <VBox prefHeight="400.0" prefWidth="160.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="200.0">
       <Button fx:id="trang_chu_btn" mnemonicParsing="false" prefHeight="80.0" prefWidth="180.0" styleClass="btn_an" text="Trang Chủ">
          <font>

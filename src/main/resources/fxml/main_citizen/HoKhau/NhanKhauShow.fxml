@@ -9,13 +9,13 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="750.0" prefWidth="850.0" styleClass="my-background" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.citizenmanagement.controllers.maincontrollers.NhankhauController.NhanKhauShowController">
+<AnchorPane prefHeight="750.0" prefWidth="850.0" styleClass="my-background" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.citizenmanagement.controllers.maincontrollers.NhankhauController.NhanKhauShowController">
    <AnchorPane layoutX="4.0" prefHeight="750.0" prefWidth="841.0" stylesheets="@../../../styles/Main/ThemNguoiMoi.css">
       <Text layoutX="45.0" layoutY="166.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Họ và tên(*)" AnchorPane.rightAnchor="680.0" AnchorPane.topAnchor="151.9248046875">
          <font>
             <Font name="Verdana Bold Italic" size="14.0" />
          </font></Text>
-      <Text layoutX="393.0" layoutY="233.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Giới tính(*)" AnchorPane.rightAnchor="363.5541015625" AnchorPane.topAnchor="219.93017578125">
+      <Text layoutX="396.0" layoutY="225.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Giới tính(*)" AnchorPane.rightAnchor="360.5541015625" AnchorPane.topAnchor="211.93017578125">
          <font>
             <Font name="Verdana Bold Italic" size="13.0" />
          </font></Text>
@@ -62,7 +62,7 @@
       <Button fx:id="confirm_chinh_sua_btn" layoutX="528.0" layoutY="684.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="120.0" style="-fx-background-color: #057303;" styleClass="button_style" text="Xác nhận" />
       <TextField fx:id="dan_toc_text" layoutX="488.0" layoutY="272.0" prefHeight="32.0" prefWidth="200.0" style="-fx-background-color: #eee;" styleClass="input_text_field" AnchorPane.topAnchor="272.0" />
       <TextField fx:id="ghi_chu_text" layoutX="486.0" layoutY="612.0" prefHeight="32.0" prefWidth="200.0" styleClass="input_text_field" AnchorPane.topAnchor="612.0" />
-      <Text layoutX="408.0" layoutY="626.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ghi chú" AnchorPane.rightAnchor="370.0" AnchorPane.topAnchor="611.9248046875">
+      <Text layoutX="409.0" layoutY="634.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ghi chú" AnchorPane.rightAnchor="373.5169921875" AnchorPane.topAnchor="619.9248046875">
          <font>
             <Font name="Verdana Bold Italic" size="14.0" />
          </font></Text>
@@ -78,7 +78,7 @@
       </Text>
       <TextField fx:id="noi_sinh_text" layoutX="184.0" layoutY="552.0" prefHeight="32.0" prefWidth="500.0" styleClass="input_text_field" AnchorPane.topAnchor="552.0" />
       <Button fx:id="khai_tu_btn" layoutX="202.0" layoutY="684.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="120.0" style="-fx-background-color: #c41606;" styleClass="button_style" text="Khai tử " />
-      <Text layoutX="57.0" layoutY="626.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ngày tạo " AnchorPane.rightAnchor="680.0" AnchorPane.topAnchor="611.9248046875">
+      <Text layoutX="85.0" layoutY="634.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ngày tạo " AnchorPane.rightAnchor="681.59609375" AnchorPane.topAnchor="619.9248046875">
          <font>
             <Font name="Verdana Bold Italic" size="14.0" />
          </font></Text>

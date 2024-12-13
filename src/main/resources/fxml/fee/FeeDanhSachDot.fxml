@@ -3,12 +3,11 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.effect.Glow?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="750.0" prefWidth="850.0" styleClass="my-background" stylesheets="@../../styles/Fee/FeeDanhSach.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.citizenmanagement.controllers.feecontrollers.FeeDanhSachDotController">
+<AnchorPane prefHeight="750.0" prefWidth="850.0" styleClass="my-background" stylesheets="@../../styles/Fee/FeeDanhSach.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.citizenmanagement.controllers.feecontrollers.FeeDanhSachDotController">
     <TextField fx:id="search_textfield" layoutX="25.0" layoutY="107.0" prefHeight="30.0" prefWidth="250.0" promptText="Tìm kiếm đợt thu" styleClass="input_text_field" stylesheets="@../../styles/LoginForm.css" AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="115.0">
         <font>
           <Font size="17.0" />
@@ -39,12 +38,4 @@
          </Text>
       </children>
    </AnchorPane>
-   <Label contentDisplay="CENTER" layoutX="750.0" layoutY="36.0" opacity="0.6" rotate="45.0" text="jwannasleep" textFill="#c41313" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="40.0">
-      <font>
-         <Font name="System Bold" size="18.0" />
-      </font>
-      <effect>
-         <Glow />
-      </effect>
-   </Label>
 </AnchorPane>
