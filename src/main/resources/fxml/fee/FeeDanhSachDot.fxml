@@ -31,7 +31,7 @@
                <Font name="Verdana Bold" size="15.0" />
             </font>
          </Text>
-         <Text layoutX="645.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ngày tạo">
+         <Text layoutX="599.0" layoutY="25.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ngày tạo">
             <font>
                <Font name="Verdana Bold" size="15.0" />
             </font>
