@@ -11,27 +11,45 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.layout.Pane?>
 <AnchorPane prefHeight="750.0" prefWidth="180.0" styleClass="slide_ankerpaine" stylesheets="@../../styles/FeeMenu.css" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.citizenmanagement.controllers.feecontrollers.FeeMenuController">
-   <VBox prefHeight="80.0" prefWidth="160.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-      <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" rotate="-180.0">
+<!--   <VBox prefHeight="80.0" prefWidth="160.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">-->
+<!--      <ImageView fitHeight="80.0" fitWidth="80.0" pickOnBounds="true" preserveRatio="true" rotate="-180.0">-->
+<!--         <image>-->
+<!--            <Image url="@../../images/main/BART_SIMPSON.png" />-->
+<!--         </image>-->
+<!--      </ImageView>-->
+<!--   </VBox>-->
+
+   <Pane layoutX="4.0" layoutY="20.0" prefHeight="100.0" prefWidth="200"
+         AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+         style="-fx-background-color: white; ">
+      <ImageView fitHeight="80.0" fitWidth="160.0"
+                 layoutX="50.0" layoutY="6.0"
+                 pickOnBounds="true"
+                 preserveRatio="true">
          <image>
-            <Image url="@../../images/main/BART_SIMPSON.png" />
+            <Image url="@../../images/main/Bluemoon-1.png" />
          </image>
       </ImageView>
-   </VBox>
+   </Pane>
+
    <VBox prefHeight="400.0" prefWidth="160.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="200.0">
-      <Button fx:id="trang_chu_btn" mnemonicParsing="false" prefHeight="80.0" prefWidth="180.0" styleClass="btn_an" text="Trang Chủ">
+      <Line endX="175"  stroke="aliceblue" />
+      <Button fx:id="trang_chu_btn" mnemonicParsing="false" prefHeight="100.0" prefWidth="180.0" styleClass="btn_an" text="Trang Chủ">
          <font>
             <Font name="Verdana" size="12.0" />
          </font>
       </Button>
-      <Button fx:id="them_khoan_thu_dot_btn" mnemonicParsing="false" prefHeight="90.0" prefWidth="180.0" styleClass="btn_an" text="Thêm Đợt Thu Phí" wrapText="true"/>
-      <Button fx:id="them_khoan_thu_btn" mnemonicParsing="false" prefHeight="90.0" prefWidth="180.0" styleClass="btn_an" text="Thêm Khoản Ủng Hộ" wrapText="true"/>
-      <Button fx:id="danh_sach_phi_btn" mnemonicParsing="false" prefHeight="90.0" prefWidth="180.0" styleClass="btn_an" text="Danh Sách Ủng Hộ" wrapText="true"/>
-      <Button fx:id="danh_sach_phi_dot_btn" mnemonicParsing="false" prefHeight="90.0" prefWidth="180.0" styleClass="btn_an" text="Danh Sách Khoản Thu Theo Đợt" wrapText="true"/>
-      <Line endX="100.0" />
+      <Button fx:id="them_khoan_thu_dot_btn"  mnemonicParsing="false" prefHeight="100.0" prefWidth="180.0"  styleClass="btn_an" text="Thêm Đợt Thu Phí" wrapText="true"/>
+      <Button fx:id="them_khoan_thu_btn" mnemonicParsing="false" prefHeight="100.0" prefWidth="180.0" styleClass="btn_an" text="Thêm Khoản Ủng Hộ" wrapText="true"/>
+      <Button fx:id="danh_sach_phi_btn" mnemonicParsing="false" prefHeight="100.0" prefWidth="180.0" styleClass="btn_an" text="Danh Sách Ủng Hộ" wrapText="true"/>
+      <Button fx:id="danh_sach_phi_dot_btn" mnemonicParsing="false" prefHeight="100.0" prefWidth="180.0" styleClass="btn_an" text="Danh Sách Khoản Thu Theo Đợt" wrapText="true"/>
+      <Line endX="175"  stroke="aliceblue" />
    </VBox>
-   <HBox fx:id="dang_xuat_btn" onMouseClicked="#onLogoutBtn" prefHeight="60.0" prefWidth="180.0" styleClass="logoutBtn" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+
+
+   <HBox fx:id="dang_xuat_btn" onMouseClicked="#onLogoutBtn" prefHeight="80.0" prefWidth="180.0" styleClass="logoutBtn" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
       <FontAwesomeIconView glyphName="SIGN_OUT" rotate="180.0" size="36" />
       <Label text="Đăng Xuất" textFill="WHITE">
          <font>

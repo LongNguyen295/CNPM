@@ -1,50 +1,48 @@
 .slide_ankerpaine{
-    /*-fx-background-color:#353A56;*/
-    -fx-background-image: url("../images/main/wall.jpg");
-    -fx-background-size: cover;
-    /*-fx-border-color: #2207bb;*/
-    -fx-border-width: 2px 2px 2px 2px;
-    /*-fx-border-radius: 20;
-    -fx-background-radius: 20;*/
-    -fx-text-fill: #FFFFFF;
-    /*-fx-border-style: solid;*/
 
+    -fx-background-color: #f4b49d; /* Gradient vàng gold */
+    -fx-background-size: cover;
+    -fx-border-width: 2px 2px 2px 2px;
+    -fx-text-fill: #FFFFFF;
 }
 
 .slide_ankerpaine FontAwesomeIconView{
     -fx-fill: #FFFFFF;
 }
 .inner_paine{
-    -fx-background-color: #69B4C7;
-    -fx-border-width: 2px 2px 2px 2px;
-    /*-fx-border-radius: 20;
-    -fx-background-radius: 20;*/
-    -fx-border-style: solid;
-    -fx-border-color: #748CF1;
-
+    -fx-background-color: #fffbfa;
+    -fx-border-width:2px 2px 2px 2px;
+    -fx-border-radius: 10px;
+    -fx-border-background: #FFFF;
 }
 
 .btn_an{
     -fx-background-color: transparent;
-    -fx-border-width: 2px 2px 2px 2px;
+
     -fx-text-fill: #FFFFFF;
     -fx-font-weight: bold;
-    -fx-font-size: 2em;
+    -fx-font-size: 1.7em;
     -fx-text-alignment: center;
+    -fx-wrap-text: true;
+    -fx-white-space: pre-wrap;
+
 }
 
 .btn_an:hover{
     -fx-cursor: hand;
-    -fx-background-color: rgba(146, 150, 156, 0.5);
-    -fx-font-size: 2.2em;
-
+    -fx-background-color: #fffbfa;
+        -fx-text-fill: #f86889;
+    -fx-font-size: 1.9em;
 }
 .btn_an:pressed{
-    -fx-background-color: #98adb3;
+    -fx-background-color: #fffbfa;
+    -fx-text-fill: #000000;
 }
 
 .btn_an:focused {
-    -fx-background-color: rgba(146, 150, 156, 0.7);
+    -fx-background-color: #fffbfa;
+        -fx-text-fill: #000000;
+
 }
 
 .logoutBtn {

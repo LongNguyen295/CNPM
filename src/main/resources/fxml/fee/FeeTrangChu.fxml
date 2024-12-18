@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="750.0" prefWidth="841.0" styleClass="maunen" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.citizenmanagement.controllers.feecontrollers.FeeTrangChuController">
+<AnchorPane prefHeight="750.0" prefWidth="841.0" styleClass="maunen" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.citizenmanagement.controllers.feecontrollers.FeeTrangChuController">
    <AnchorPane prefHeight="102.0" prefWidth="850.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <Label layoutX="8.0" layoutY="30.0" text="HỆ THỐNG QUẢN LÝ THU PHÍ, ĐÓNG GÓP" AnchorPane.leftAnchor="27.0" AnchorPane.topAnchor="25.0">
          <font>
@@ -31,7 +31,7 @@
          <Font name="System Bold" size="20.0" />
       </font>
    </Label>
-   <Text layoutX="713.0" layoutY="726.0" strokeType="OUTSIDE" strokeWidth="0.0" text="-Group 11-">
+   <Text layoutX="741.0" layoutY="724.0" strokeType="OUTSIDE" strokeWidth="0.0" text="-Group 11-">
       <font>
          <Font name="Consolas" size="14.0" />
       </font>
@@ -143,7 +143,7 @@
          </ImageView>
       </children>
    </AnchorPane>
-   <Line endX="-100.0" endY="177.0" layoutX="543.0" layoutY="286.0" startX="-100.0" />
+   <Line endX="-100.0" endY="269.20001220703125" layoutX="543.0" layoutY="240.0" startX="-100.0" />
    <stylesheets>
       <URL value="@../../styles/Fee/FeeTrangChu.css" />
       <URL value="@../../styles/Main/TrangChu.css" />

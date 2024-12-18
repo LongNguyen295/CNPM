@@ -10,6 +10,8 @@ import javafx.scene.text.Text;
 
 import java.net.URL;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -51,21 +53,37 @@ public class FeeChiTietKhoanThuDot implements Initializable {
         alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation dialog");
         alert.setHeaderText(null);
-        alert.setContentText("Ông chắc chưa?");
+        alert.setContentText("Bạn chắc chắn không?");
 
         Optional<ButtonType> result = alert.showAndWait();
 
         if (result.get() == ButtonType.OK) {
+            int maKhoanThuDot = Model.getInstance().getFeeKhoanThuDotModel().getMaKhoanThuDot();
             // System.out.println("Ma Khoan thu: " +Model.getInstance().getFeeKhoanThuDotModel().getMaKhoanThuDot());
             Model.getInstance().getDatabaseConnection().deleteDotThuPhi(
                     Model.getInstance().getFeeKhoanThuDotModel().getMaKhoanThuDot());
 
+            List<FeeKhoanThuCell> khoanThuToRemove = new ArrayList<>();
+            List<FeeKhoanThuDotCell> khoanThuDotToRemove = new ArrayList<>();
+
+            // Tìm các item cần xóa
             for (FeeKhoanThuDotCell item : Model.getInstance().getDanhSachKhoanThuDot()) {
-                if (item.getMaDotThu() == Model.getInstance().getFeeKhoanThuDotModel().getMaKhoanThuDot()) {
-                    Model.getInstance().getDanhSachKhoanThuDot().remove(item);
+                if (item.getMaDotThu() == maKhoanThuDot) {
+                    khoanThuDotToRemove.add(item);
+
+                    // Tìm các khoản thu liên quan
+                    for (FeeKhoanThuCell item1 : Model.getInstance().getDanhSachKhoanThu()) {
+                        if (item1.getMaDotThu() == maKhoanThuDot) {
+                            khoanThuToRemove.add(item1);
+                        }
+                    }
                     break;
                 }
             }
+
+            // Thực hiện xóa từ danh sách tạm
+            Model.getInstance().getDanhSachKhoanThu().removeAll(khoanThuToRemove);
+            Model.getInstance().getDanhSachKhoanThuDot().removeAll(khoanThuDotToRemove);
 
             Model.getInstance().getViewFactory().getFeeSelectedMenuItem().set(FeeMenuOptions.DANH_SACH_KHOAN_THU_DOT);
 

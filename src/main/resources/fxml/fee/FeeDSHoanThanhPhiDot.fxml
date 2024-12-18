@@ -9,7 +9,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="750.0" prefWidth="850.0" styleClass="my-background" stylesheets="@../../styles/Fee/FeeDanhSach.css" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.citizenmanagement.controllers.feecontrollers.FeeDSHoanThanhPhiControllerDot">
+<AnchorPane prefHeight="750.0" prefWidth="850.0" styleClass="my-background" stylesheets="@../../styles/Fee/FeeDanhSach.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.citizenmanagement.controllers.feecontrollers.FeeDSHoanThanhPhiControllerDot">
    <children>
       <TextField fx:id="search_textfield" layoutX="45.0" layoutY="127.0" prefHeight="30.0" prefWidth="250.0" promptText="Tìm kiếm hộ khẩu" styleClass="input_text_field" stylesheets="@../../styles/LoginForm.css" AnchorPane.leftAnchor="35.0" AnchorPane.topAnchor="115.0">
          <font>
@@ -20,17 +20,17 @@
          <children>
             <HBox layoutX="2.0" layoutY="16.0" prefHeight="15.0" prefWidth="796.0">
                <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Mã hộ khẩu" wrappingWidth="165.9287109375">
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Mã hộ khẩu" wrappingWidth="150.72869873046875">
                      <font>
                         <Font name="Verdana Bold" size="15.0" />
                      </font>
                   </Text>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Tên chủ hộ" wrappingWidth="172.30712890625">
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Tên chủ hộ" wrappingWidth="186.70709228515625">
                      <font>
                         <Font name="Verdana Bold" size="15.0" />
                      </font>
                   </Text>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Địa chỉ" wrappingWidth="145.36328125">
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Địa chỉ" wrappingWidth="154.9632568359375">
                      <font>
                         <Font name="Verdana Bold" size="15.0" />
                      </font>
@@ -40,7 +40,7 @@
                         <Font name="Verdana Bold" size="15.0" />
                      </font>
                   </Text>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Ngày đóng" wrappingWidth="132.9228515625">
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Ngày đóng" wrappingWidth="114.52294945716858">
                      <font>
                         <Font name="Verdana Bold" size="15.0" />
                      </font>

@@ -24,6 +24,9 @@ public class DatabaseConnection {
         String url = "jdbc:sqlserver://LAPTOP-10MBD6CH\\dbo:1433;databaseName=" + dbName +
                 ";encrypt=true;integratedSecurity=false;trustServerCertificate=true";
 
+//        String url = "jdbc:sqlserver://LAPTOP-AV4HMCSV\\dbo:1433;databaseName=" + dbName +
+//                ";encrypt=true;integratedSecurity=false;trustServerCertificate=true";
+
 //        String dbUser = "sa";
 //        String dbPassword = "123";
 //        String url = "jdbc:sqlserver://DESKTOP-SM2FAUO:1433;databaseName=" + dbName +
@@ -83,8 +86,9 @@ public class DatabaseConnection {
                 "WHERE HOTEN = N'" + hoTen + "' AND TENDANGNHAP = '" + tenDangNhap + "' AND SODIENTHOAI = '" + soDienThoai + "' AND VAITRO = '" + vaiTro + "'";
         return executeQuery(query);
     }
-    public void updateCitizenManagerAccountPassword(String hoTen, String tenDangNhap, String soDienThoai, int vaiTro, String maKhau) {
-        String query = "UPDATE NGUOIQUANLY SET MATKHAU = '" + maKhau + "' \n" +
+    public void updateCitizenManagerAccountPassword(String hoTen, String tenDangNhap, String soDienThoai, int vaiTro, String matKhau) {
+        matKhau = MD5Utils.hashPassword(matKhau);
+        String query = "UPDATE NGUOIQUANLY SET MATKHAU = '" + matKhau + "' \n" +
                 "WHERE HOTEN = N'" + hoTen+ "' AND TENDANGNHAP = '" + tenDangNhap + "' AND SODIENTHOAI = '" + soDienThoai + "' AND VAITRO = '" + vaiTro + "'";
         executeUpdate(query);
     }
@@ -1183,24 +1187,29 @@ public DanhSachThuPhiModel getFeeCoDinh_ThuHo(int maHoKhau, int maDotThu) throws
     }
 
     public void deleteDotThuPhi(int maDotThu) {
+        String query0 = "DELETE FROM FEETHUHO WHERE MADOTTHU = ?";
         String query1 = "DELETE FROM DONGGOP WHERE MAKHOANTHU = ?";
         String query2 = "DELETE FROM LOAIPHI WHERE MAKHOANTHU = ?";
         String query3 = "DELETE FROM DANHSACHTHUPHI WHERE MADOTTHU = ?";
         String query4 = "DELETE FROM DOTTHUPHI WHERE MADOTTHU = ?";
 
-        try (PreparedStatement stmt1 = connection.prepareStatement(query1);
+
+        try (PreparedStatement stmt0 = connection.prepareStatement(query0);
+                PreparedStatement stmt1 = connection.prepareStatement(query1);
              PreparedStatement stmt2 = connection.prepareStatement(query2);
              PreparedStatement stmt3 = connection.prepareStatement(query3);
              PreparedStatement stmt4 = connection.prepareStatement(query4);
              ) {
 
             // Set the parameters for each query
+            stmt0.setInt(1, maDotThu);
             stmt1.setInt(1, maDotThu);
             stmt2.setInt(1, maDotThu);
             stmt3.setInt(1, maDotThu);
             stmt4.setInt(1, maDotThu);
 
             // Execute the queries
+            stmt0.executeUpdate();
             stmt1.executeUpdate();
             stmt2.executeUpdate();
             stmt3.executeUpdate();

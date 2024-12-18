@@ -91,13 +91,13 @@ public class FeeThemKhoanThuDotController implements Initializable {
                 return false;
             }
         }
-        if(!checkImport){
-            alert = new Alert(Alert.AlertType.WARNING);
-            alert.setHeaderText(null);
-            alert.setContentText("Bạn chưa thêm File Thanh Toán Điện Nước Internet");
-            alert.showAndWait();
-            return false;
-        }
+//        if(!checkImport){
+//            alert = new Alert(Alert.AlertType.WARNING);
+//            alert.setHeaderText(null);
+//            alert.setContentText("Bạn chưa thêm File Thanh Toán Điện Nước Internet");
+//            alert.showAndWait();
+//            return false;
+//        }
         return true;
     }
     public boolean isValidInteger(String input) {
@@ -127,84 +127,84 @@ public class FeeThemKhoanThuDotController implements Initializable {
     }
     @FXML
     public void ImportExcel(){
-        if (!isValidInteger(ma_dot_thu.getText())) {
-            alert = new Alert(Alert.AlertType.WARNING);
-            alert.setHeaderText(null);
-            alert.setContentText("Vui lòng điền mã đợt thu !");
-            alert.showAndWait();
-        }
-        else {
-               int s = Integer.parseInt(ma_dot_thu.getText());
-            if (Model.getInstance().getDatabaseConnection().checkMaKhoanThu(s)) {
-                alert = new Alert(Alert.AlertType.WARNING);
-                alert.setHeaderText(null);
-                alert.setContentText("Mã đợt thu đã tồn taị !");
-                alert.showAndWait();
-            } else {
-                DatabaseConnection databaseConnection = new DatabaseConnection();
-                Connection connection = null;
-                PreparedStatement pre = null;
-                String query = "INSERT INTO FEETHUHO(MADOTTHU, IDCANHO, TONGSODIEN, THANHTIENDIEN, TONGSONUOC, THANHTIENNUOC, THANHTIENINTERNET) VALUES(?, ?, ?, ?, ?, ?, ?)";
-                try {
-                    // Mở FileChooser để chọn file Excel
-                    FileChooser fileChooser = new FileChooser();
-                    fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Excel Files", "*.xlsx"));
-                    File file = fileChooser.showOpenDialog(tienDienNuocInternet.getScene().getWindow());
-
-                    if (file == null) {
-                        showAlert(Alert.AlertType.WARNING, "Chưa chọn file", "Vui lòng chọn file Excel để tiếp tục.");
-                        return;
-                    }
-
-                    connection = databaseConnection.getConnection();
-
-                    pre = connection.prepareStatement(query);
-
-                    FileInputStream fileInputStream = new FileInputStream(file);
-                    XSSFWorkbook wb = new XSSFWorkbook(fileInputStream);
-                    XSSFSheet sheet = wb.getSheetAt(0);
-                    Row row;
-                    int result = 0;
-
-                    for (int i = 1; i <= sheet.getLastRowNum(); i++) {
-                        row = sheet.getRow(i);
-                        if (row == null) continue;
-
-                        pre.setInt(1, s);
-                        pre.setInt(2, (int) row.getCell(0).getNumericCellValue()); // ID Căn hộ
-                        pre.setInt(3, (int) row.getCell(1).getNumericCellValue()); // Tổng số điện
-                        pre.setInt(4, (int) row.getCell(2).getNumericCellValue()); // Thành tiền điện
-                        pre.setInt(5, (int) row.getCell(3).getNumericCellValue()); // Tổng số nước
-                        pre.setInt(6, (int) row.getCell(4).getNumericCellValue()); // Thành tiền nước
-                        pre.setInt(7, (int) row.getCell(5).getNumericCellValue()); // Tiền mạng
-
-                        result += pre.executeUpdate();
-                    }
-
-                    wb.close();
-                    fileInputStream.close();
-
-                    if (result > 0) {
-                        checkImport = true;
-                        showAlert(Alert.AlertType.INFORMATION, "Thành công", "Thêm dữ liệu thành công!");
-                    } else {
-                        showAlert(Alert.AlertType.ERROR, "Thất bại", "Không có dữ liệu nào được thêm.");
-                    }
-                } catch (IOException e) {
-                    showAlert(Alert.AlertType.ERROR, "Lỗi đọc file", "Không thể đọc file Excel: " + e.getMessage());
-                } catch (SQLException e) {
-                    showAlert(Alert.AlertType.ERROR, "Lỗi SQL", "Lỗi thực thi câu lệnh SQL: " + e.getMessage());
-                } finally {
-                    try {
-                        if (pre != null) pre.close();
-                        if (connection != null) connection.close();
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        }
-
+//        if (!isValidInteger(ma_dot_thu.getText())) {
+//            alert = new Alert(Alert.AlertType.WARNING);
+//            alert.setHeaderText(null);
+//            alert.setContentText("Vui lòng điền mã đợt thu !");
+//            alert.showAndWait();
+//        }
+//        else {
+//               int s = Integer.parseInt(ma_dot_thu.getText());
+//            if (Model.getInstance().getDatabaseConnection().checkMaKhoanThu(s)) {
+//                alert = new Alert(Alert.AlertType.WARNING);
+//                alert.setHeaderText(null);
+//                alert.setContentText("Mã đợt thu đã tồn taị !");
+//                alert.showAndWait();
+//            } else {
+//                DatabaseConnection databaseConnection = new DatabaseConnection();
+//                Connection connection = null;
+//                PreparedStatement pre = null;
+//                String query = "INSERT INTO FEETHUHO(MADOTTHU, IDCANHO, TONGSODIEN, THANHTIENDIEN, TONGSONUOC, THANHTIENNUOC, THANHTIENINTERNET) VALUES(?, ?, ?, ?, ?, ?, ?)";
+//                try {
+//                    // Mở FileChooser để chọn file Excel
+//                    FileChooser fileChooser = new FileChooser();
+//                    fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Excel Files", "*.xlsx"));
+//                    File file = fileChooser.showOpenDialog(tienDienNuocInternet.getScene().getWindow());
+//
+//                    if (file == null) {
+//                        showAlert(Alert.AlertType.WARNING, "Chưa chọn file", "Vui lòng chọn file Excel để tiếp tục.");
+//                        return;
+//                    }
+//
+//                    connection = databaseConnection.getConnection();
+//
+//                    pre = connection.prepareStatement(query);
+//
+//                    FileInputStream fileInputStream = new FileInputStream(file);
+//                    XSSFWorkbook wb = new XSSFWorkbook(fileInputStream);
+//                    XSSFSheet sheet = wb.getSheetAt(0);
+//                    Row row;
+//                    int result = 0;
+//
+//                    for (int i = 1; i <= sheet.getLastRowNum(); i++) {
+//                        row = sheet.getRow(i);
+//                        if (row == null) continue;
+//
+//                        pre.setInt(1, s);
+//                        pre.setInt(2, (int) row.getCell(0).getNumericCellValue()); // ID Căn hộ
+//                        pre.setInt(3, (int) row.getCell(1).getNumericCellValue()); // Tổng số điện
+//                        pre.setInt(4, (int) row.getCell(2).getNumericCellValue()); // Thành tiền điện
+//                        pre.setInt(5, (int) row.getCell(3).getNumericCellValue()); // Tổng số nước
+//                        pre.setInt(6, (int) row.getCell(4).getNumericCellValue()); // Thành tiền nước
+//                        pre.setInt(7, (int) row.getCell(5).getNumericCellValue()); // Tiền mạng
+//
+//                        result += pre.executeUpdate();
+//                    }
+//
+//                    wb.close();
+//                    fileInputStream.close();
+//
+//                    if (result > 0) {
+//                        checkImport = true;
+//                        showAlert(Alert.AlertType.INFORMATION, "Thành công", "Thêm dữ liệu thành công!");
+//                    } else {
+//                        showAlert(Alert.AlertType.ERROR, "Thất bại", "Không có dữ liệu nào được thêm.");
+//                    }
+//                } catch (IOException e) {
+//                    showAlert(Alert.AlertType.ERROR, "Lỗi đọc file", "Không thể đọc file Excel: " + e.getMessage());
+//                } catch (SQLException e) {
+//                    showAlert(Alert.AlertType.ERROR, "Lỗi SQL", "Lỗi thực thi câu lệnh SQL: " + e.getMessage());
+//                } finally {
+//                    try {
+//                        if (pre != null) pre.close();
+//                        if (connection != null) connection.close();
+//                    } catch (SQLException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            }
+//        }
+//
     }
 
     private void showAlert(Alert.AlertType alertType, String title, String content) {
