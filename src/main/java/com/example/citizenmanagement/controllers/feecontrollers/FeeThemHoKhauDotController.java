@@ -6,14 +6,20 @@ import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.stage.FileChooser;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.net.URL;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
-import java.sql.SQLException;
+import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 public class FeeThemHoKhauDotController implements Initializable {
@@ -35,6 +41,7 @@ public class FeeThemHoKhauDotController implements Initializable {
     private boolean reloadListView = false;
 
     private Alert alert;
+    private Alert alert1;
 
 
     @FXML
@@ -91,6 +98,36 @@ public class FeeThemHoKhauDotController implements Initializable {
             Model.getInstance().getDatabaseConnection().themKhoanThuPhiDot(maDotThu,tenDotThu, batBuoc, now, moTa);
             Model.getInstance().getDanhSachKhoanThuDot().add(new FeeKhoanThuDotCell(maDotThu, tenDotThu, now.toString()));
 
+            alert1 = new Alert(Alert.AlertType.INFORMATION);
+            alert1 = new Alert(Alert.AlertType.CONFIRMATION);
+            alert1.setTitle("Information Message");
+            alert1.setHeaderText(null);
+            alert1.setContentText("Thêm Phí thu hộ: Điện - Nước - Internet");
+
+            Optional<ButtonType> rs2 = alert1.showAndWait();
+            if(rs2.isPresent() &&  rs2.get()==ButtonType.OK){
+                FileChooser fileChooser = new FileChooser();
+                fileChooser.getExtensionFilters().add(new FileChooser.ExtensionFilter("Excel Files", "*.xlsx"));
+                File file = fileChooser.showOpenDialog(null);
+
+                if (file != null) {
+                    importDsDienNuoc(maDotThu, file);
+                }
+            } else if (rs2.isPresent() && rs2.get() == ButtonType.CANCEL) {
+                alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Warning");
+                alert.setHeaderText(null);
+                alert.setContentText("Cần có phải thêm phí thu hộ\nTạo lại mã đợt thu!");
+
+                // Đợi người dùng xác nhận thông báo
+                alert.showAndWait().ifPresent(response -> {
+                    // Sau khi người dùng đã đóng thông báo
+                    Model.getInstance().getDatabaseConnection().deleteDotThuPhi(maDotThu);
+                    Model.getInstance().getViewFactory().getFeeSelectedMenuItem().set(FeeMenuOptions.THEM_KHOAN_THU_DOT);
+                });
+                return;
+            }
+
             // add danh sach thu phi vao database
             // add danh sách thu phí
             for (FeeHoKhauCell item : toanBoDanhSach) {
@@ -100,7 +137,7 @@ public class FeeThemHoKhauDotController implements Initializable {
                         // Xử lý kết quả từ resultSetFeeCoDinh
                         if (resultSetFeeCoDinh != null) {
                             Model.getInstance().getDatabaseConnection().insertDANHSACHTHUPHI(
-                                maDotThu,item.getMaHoKhau(), resultSetFeeCoDinh.getChuHo(),
+                                    maDotThu,item.getMaHoKhau(), resultSetFeeCoDinh.getChuHo(),
                                     resultSetFeeCoDinh.getTienNha(), resultSetFeeCoDinh.getTienDv(),
                                     resultSetFeeCoDinh.getTienXeMay(), resultSetFeeCoDinh.getTienOto(),
                                     resultSetFeeCoDinh.getTienDien(), resultSetFeeCoDinh.getSoDien(),
@@ -122,7 +159,6 @@ public class FeeThemHoKhauDotController implements Initializable {
             initDanhSach();
 
             Model.getInstance().getFeeKhoanThuDotModel().setFeeKhoanThuDotModel(-5,"", 0, LocalDate.now().toString(), "");
-
             Model.getInstance().getViewFactory().getFeeSelectedMenuItem().set(FeeMenuOptions.DANH_SACH_KHOAN_THU_DOT);
 
         }
@@ -134,7 +170,58 @@ public class FeeThemHoKhauDotController implements Initializable {
         }
         return false;
     }
+    private void importDsDienNuoc(int s, File file) {
+        DatabaseConnection databaseConnection = new DatabaseConnection();
+        Connection connection = null;
+        PreparedStatement pre = null;
+        String query = "INSERT INTO FEETHUHO(MADOTTHU, IDCANHO, TONGSODIEN, THANHTIENDIEN, TONGSONUOC, THANHTIENNUOC, THANHTIENINTERNET) VALUES(?, ?, ?, ?, ?, ?, ?)";
 
+        try {
+            connection = databaseConnection.getConnection();
+            pre = connection.prepareStatement(query);
+
+            FileInputStream fileInputStream = new FileInputStream(file);
+            XSSFWorkbook wb = new XSSFWorkbook(fileInputStream);
+            XSSFSheet sheet = wb.getSheetAt(0);
+            Row row;
+            int result = 0;
+
+            for (int i = 1; i <= sheet.getLastRowNum(); i++) {
+                row = sheet.getRow(i);
+                if (row == null) continue;
+
+                pre.setInt(1, s);
+                pre.setInt(2, (int) row.getCell(0).getNumericCellValue());
+                pre.setInt(3, (int) row.getCell(1).getNumericCellValue());
+                pre.setInt(4, (int) row.getCell(2).getNumericCellValue());
+                pre.setInt(5, (int) row.getCell(3).getNumericCellValue());
+                pre.setInt(6, (int) row.getCell(4).getNumericCellValue());
+                pre.setInt(7, (int) row.getCell(5).getNumericCellValue());
+
+                result += pre.executeUpdate();
+            }
+
+            wb.close();
+            fileInputStream.close();
+
+            if (result > 0) {
+                showAlert(Alert.AlertType.INFORMATION, "Thành công", "Thêm dữ liệu thành công!");
+            } else {
+                showAlert(Alert.AlertType.ERROR, "Thất bại", "Không có dữ liệu nào được thêm.");
+            }
+        } catch (IOException e) {
+            showAlert(Alert.AlertType.ERROR, "Lỗi đọc file", "Không thể đọc file Excel: " + e.getMessage());
+        } catch (SQLException e) {
+            showAlert(Alert.AlertType.ERROR, "Lỗi SQL", "Lỗi thực thi câu lệnh SQL: " + e.getMessage());
+        } finally {
+            try {
+                if (pre != null) pre.close();
+                if (connection != null) connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
     private void initDanhSach() {
        //  ######
         ResultSet resultSet = Model.getInstance().getDatabaseConnection().getDanhSachDongPhi();
@@ -180,6 +267,13 @@ public class FeeThemHoKhauDotController implements Initializable {
 
             }
         });
+    }
+    private void showAlert(Alert.AlertType alertType, String title, String content) {
+        Alert alert = new Alert(alertType);
+        alert.setTitle(title);
+        alert.setHeaderText(null);
+        alert.setContentText(content);
+        alert.showAndWait();
     }
     @Override
     public void initialize(URL location, ResourceBundle resources) {

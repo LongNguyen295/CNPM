@@ -20,31 +20,36 @@
 <!--         </image>-->
 <!--      </ImageView>-->
 <!--   </VBox>-->
-   <Pane layoutX="4.0" layoutY="18.0" prefHeight="76.0" prefWidth="175.0" styleClass="inner_paine" AnchorPane.leftAnchor="3.0" AnchorPane.rightAnchor="2.0">
-      <ImageView fitHeight="55.0" fitWidth="45.0" layoutX="14.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
+
+   <Pane layoutX="4.0" layoutY="20.0" prefHeight="100.0" prefWidth="200"
+         AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+         style="-fx-background-color: white; ">
+      <ImageView fitHeight="80.0" fitWidth="160.0"
+                 layoutX="50.0" layoutY="6.0"
+                 pickOnBounds="true"
+                 preserveRatio="true">
          <image>
-            <Image url="@../../images/login_form/smart-city.png" />
-         </image>
-      </ImageView>
-      <ImageView fitHeight="45.0" fitWidth="38.0" layoutX="121.0" layoutY="19.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../../images/login_form/list.png" />
+            <Image url="@../../images/main/Bluemoon-1.png" />
          </image>
       </ImageView>
    </Pane>
+
    <VBox prefHeight="400.0" prefWidth="160.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="200.0">
-      <Button fx:id="trang_chu_btn" mnemonicParsing="false" prefHeight="80.0" prefWidth="180.0" styleClass="btn_an" text="Trang Chủ">
+      <Line endX="175"  stroke="aliceblue" />
+      <Button fx:id="trang_chu_btn" mnemonicParsing="false" prefHeight="100.0" prefWidth="180.0" styleClass="btn_an" text="Trang Chủ">
          <font>
             <Font name="Verdana" size="12.0" />
          </font>
       </Button>
-      <Button fx:id="them_khoan_thu_dot_btn" mnemonicParsing="false" prefHeight="90.0" prefWidth="180.0" styleClass="btn_an" text="Thêm Đợt Thu Phí" wrapText="true"/>
-      <Button fx:id="them_khoan_thu_btn" mnemonicParsing="false" prefHeight="90.0" prefWidth="180.0" styleClass="btn_an" text="Thêm Khoản Ủng Hộ" wrapText="true"/>
-      <Button fx:id="danh_sach_phi_btn" mnemonicParsing="false" prefHeight="90.0" prefWidth="180.0" styleClass="btn_an" text="Danh Sách Ủng Hộ" wrapText="true"/>
-      <Button fx:id="danh_sach_phi_dot_btn" mnemonicParsing="false" prefHeight="90.0" prefWidth="180.0" styleClass="btn_an" text="Danh Sách Khoản Thu Theo Đợt" wrapText="true"/>
-      <Line endX="100.0" />
+      <Button fx:id="them_khoan_thu_dot_btn"  mnemonicParsing="false" prefHeight="100.0" prefWidth="180.0"  styleClass="btn_an" text="Thêm Đợt Thu Phí" wrapText="true"/>
+      <Button fx:id="them_khoan_thu_btn" mnemonicParsing="false" prefHeight="100.0" prefWidth="180.0" styleClass="btn_an" text="Thêm Khoản Ủng Hộ" wrapText="true"/>
+      <Button fx:id="danh_sach_phi_btn" mnemonicParsing="false" prefHeight="100.0" prefWidth="180.0" styleClass="btn_an" text="Danh Sách Ủng Hộ" wrapText="true"/>
+      <Button fx:id="danh_sach_phi_dot_btn" mnemonicParsing="false" prefHeight="100.0" prefWidth="180.0" styleClass="btn_an" text="Danh Sách Khoản Thu Theo Đợt" wrapText="true"/>
+      <Line endX="175"  stroke="aliceblue" />
    </VBox>
-   <HBox fx:id="dang_xuat_btn" onMouseClicked="#onLogoutBtn" prefHeight="60.0" prefWidth="180.0" styleClass="logoutBtn" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+
+
+   <HBox fx:id="dang_xuat_btn" onMouseClicked="#onLogoutBtn" prefHeight="80.0" prefWidth="180.0" styleClass="logoutBtn" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
       <FontAwesomeIconView glyphName="SIGN_OUT" rotate="180.0" size="36" />
       <Label text="Đăng Xuất" textFill="WHITE">
          <font>
