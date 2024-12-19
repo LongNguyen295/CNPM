@@ -58,7 +58,7 @@ public class xemChiTietHokhauControler implements Initializable {
         xoa_btn.setOnAction(event -> {
             alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Confirmation Alert");
-            alert.setHeaderText("Ông chắc chưa?");
+            alert.setHeaderText("Bạn chắc chắn chưa?");
             Optional<ButtonType> result = alert.showAndWait();
             if(result.get() == ButtonType.OK) {
                 ObservableList<thanh_vien_cua_ho_cell> danh_sach = listView_thanhvien.getItems();

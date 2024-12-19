@@ -66,7 +66,7 @@ public class FeeChiTietKhoanThu implements Initializable {
         alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation dialog");
         alert.setHeaderText(null);
-        alert.setContentText("Ông chắc chưa?");
+        alert.setContentText("Bạn có chắc chắn chưa?");
 
         Optional<ButtonType> result = alert.showAndWait();
 

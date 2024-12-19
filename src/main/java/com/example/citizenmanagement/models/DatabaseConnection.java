@@ -17,20 +17,23 @@ public class DatabaseConnection {
     private Connection connection;
 
     public DatabaseConnection() {
-        String dbName = "QUANLYDANCU";
-        String dbUser = "group11";
-        String dbPassword = "group11";
+        String dbName = "QUANLYDANCUv6";
 
-        String url = "jdbc:sqlserver://LAPTOP-10MBD6CH\\dbo:1433;databaseName=" + dbName +
-                ";encrypt=true;integratedSecurity=false;trustServerCertificate=true";
+//        String dbUser = "group11";
+//        String dbPassword = "group11";
+//
+//        String url = "jdbc:sqlserver://LAPTOP-10MBD6CH\\dbo:1433;databaseName=" + dbName +
+//                ";encrypt=true;integratedSecurity=false;trustServerCertificate=true";
 
 //        String url = "jdbc:sqlserver://LAPTOP-AV4HMCSV\\dbo:1433;databaseName=" + dbName +
 //                ";encrypt=true;integratedSecurity=false;trustServerCertificate=true";
 
-//        String dbUser = "sa";
-//        String dbPassword = "123";
-//        String url = "jdbc:sqlserver://DESKTOP-SM2FAUO:1433;databaseName=" + dbName +
-//                ";encrypt=true;integratedSecurity=false;trustServerCertificate=true";
+//        Long
+
+        String dbUser = "sa";
+        String dbPassword = "123";
+        String url = "jdbc:sqlserver://DESKTOP-SM2FAUO:1433;databaseName=" + dbName +
+                ";encrypt=true;integratedSecurity=false;trustServerCertificate=true";
 
 
         try {

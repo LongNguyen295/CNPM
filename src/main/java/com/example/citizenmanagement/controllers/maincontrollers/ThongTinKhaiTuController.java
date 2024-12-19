@@ -89,7 +89,7 @@ public class ThongTinKhaiTuController implements Initializable{
         alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Confirmation dialog");
         alert.setHeaderText(null);
-        alert.setContentText("Ông chắc chưa?");
+        alert.setContentText("Bạn chắc chắn chưa?");
 
         Optional<ButtonType> result = alert.showAndWait();
 
