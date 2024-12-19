@@ -99,7 +99,7 @@
             </Text>
          </children>
       </AnchorPane>
-      <Label layoutX="135.0" layoutY="67.0" text="Xem thông tin chi tiết khoản thu" AnchorPane.topAnchor="67.0">
+      <Label layoutX="68.0" layoutY="64.0" text="Xem thông tin chi tiết khoản thu ủng hộ" AnchorPane.topAnchor="64.0">
          <font>
             <Font name="Verdana Bold" size="32.0" />
          </font>
