@@ -62,20 +62,38 @@ public class TamTruShowController implements Initializable {
         my_choise_box.setItems(FXCollections.observableArrayList(Gioitinh));
 
         chitiet();
-        khai_tu_btn.setOnAction(actionEvent ->{
+        khai_tu_btn.setOnAction(actionEvent -> {
+            String maNhanKhau = Model.getNhanKhauDuocChon().getSo_nhan_khau();
 
-           int thanhcong = Model.getInstance().getDatabaseConnection().xoa_tam_tru(Model.getNhanKhauDuocChon().getSo_nhan_khau());
-            if(thanhcong == 1) {
-                Alert alert = new Alert(Alert.AlertType.INFORMATION);
-                alert.setTitle("Thành công");
-                alert.setContentText("Đã xóa thành công người này!");
+            // Xóa thông tin tạm trú
+            int thanhCongXoaTamTru = Model.getInstance().getDatabaseConnection().xoa_tam_tru(maNhanKhau);
+
+            if (thanhCongXoaTamTru == 1) {
+                // Tiếp tục xóa thông tin nhân khẩu
+                int thanhCongXoaNhanKhau = Model.getInstance().getDatabaseConnection().xoaNhanKhau(maNhanKhau);
+
+                if (thanhCongXoaNhanKhau == 1) {
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Thành công");
+                    alert.setContentText("Đã xóa thành công người này khỏi tạm trú và nhân khẩu!");
+                    alert.showAndWait();
+
+                    // Quay lại danh sách tạm trú
+                    Model.getInstance().getViewFactory().getSelectedMenuItem().set(MainMenuOptions.TAM_TRU_LIST);
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setTitle("Lỗi");
+                    alert.setContentText("Đã xóa tạm trú nhưng không thể xóa khỏi danh sách nhân khẩu.");
+                    alert.showAndWait();
+                }
+            } else {
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle("Lỗi");
+                alert.setContentText("Không thể xóa thông tin tạm trú.");
                 alert.showAndWait();
-                Model.getInstance().getViewFactory().getSelectedMenuItem().set(MainMenuOptions.TAM_TRU_LIST);
-            }
-            else {
-                System.out.println("loi kljksadfjlkjg");
             }
         });
+
 
         thoat_chinhsua_button.setOnAction(event ->
         {
