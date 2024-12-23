@@ -96,7 +96,8 @@ public class FeeThemHoKhauDotController implements Initializable {
             int maDotThu = Model.getInstance().getFeeKhoanThuDotModel().maKhoanThuDotProperty().getValue();
             //########
             Model.getInstance().getDatabaseConnection().themKhoanThuPhiDot(maDotThu,tenDotThu, batBuoc, now, moTa);
-            Model.getInstance().getDanhSachKhoanThuDot().add(new FeeKhoanThuDotCell(maDotThu, tenDotThu, now.toString()));
+            FeeKhoanThuDotCell feeKhoanThuDotCell1 = new FeeKhoanThuDotCell(maDotThu, tenDotThu, now.toString());
+            Model.getInstance().getDanhSachKhoanThuDot().add(feeKhoanThuDotCell1);
 
             alert1 = new Alert(Alert.AlertType.INFORMATION);
             alert1 = new Alert(Alert.AlertType.CONFIRMATION);
@@ -113,6 +114,21 @@ public class FeeThemHoKhauDotController implements Initializable {
                 if (file != null) {
                     importDsDienNuoc(maDotThu, file);
                 }
+                if(file==null){
+                    alert = new Alert(Alert.AlertType.WARNING);
+                    alert.setTitle("Warning");
+                    alert.setHeaderText(null);
+                    alert.setContentText("Cần có phải thêm phí thu hộ\nTạo lại mã đợt thu!");
+
+                    // Đợi người dùng xác nhận thông báo
+                    alert.showAndWait().ifPresent(response -> {
+                        // Sau khi người dùng đã đóng thông báo
+                        Model.getInstance().getDatabaseConnection().deleteDotThuPhi(maDotThu);
+                        Model.getInstance().getDanhSachKhoanThuDot().remove(feeKhoanThuDotCell1);
+                        Model.getInstance().getViewFactory().getFeeSelectedMenuItem().set(FeeMenuOptions.THEM_KHOAN_THU_DOT);
+                    });
+                    return;
+                }
             } else if (rs2.isPresent() && rs2.get() == ButtonType.CANCEL) {
                 alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Warning");
@@ -123,6 +139,7 @@ public class FeeThemHoKhauDotController implements Initializable {
                 alert.showAndWait().ifPresent(response -> {
                     // Sau khi người dùng đã đóng thông báo
                     Model.getInstance().getDatabaseConnection().deleteDotThuPhi(maDotThu);
+                    Model.getInstance().getDanhSachKhoanThuDot().remove(feeKhoanThuDotCell1);
                     Model.getInstance().getViewFactory().getFeeSelectedMenuItem().set(FeeMenuOptions.THEM_KHOAN_THU_DOT);
                 });
                 return;
