@@ -763,7 +763,7 @@ public class DatabaseConnection {
     public ResultSet getDanhSachDongPhi() {
         String query = "SELECT HK.MAHOKHAU, NK.HOTEN, HK.DIACHI, COUNT(TV.MANHANKHAU)\n" +
                 "FROM HOKHAU HK INNER JOIN NHANKHAU NK ON HK.IDCHUHO = NK.MANHANKHAU\n" +
-                "\tINNER JOIN THANHVIENCUAHO TV ON HK.MAHOKHAU = TV.MAHOKHAU\n" +
+                "\tINNER JOIN THANHVIENCUAHO TV ON HK.MAHOKHAU = TV.MAHOKHAU WHERE TRANGTHAI = 1\n" +
                 "GROUP BY HK.MAHOKHAU, NK.HOTEN, HK.DIACHI ORDER BY HK.MAHOKHAU";
         return executeQuery(query);
     }
@@ -1247,7 +1247,7 @@ public DanhSachThuPhiModel getFeeCoDinh_ThuHo(int maHoKhau, int maDotThu) throws
     public ResultSet getDanhSachChuaDongPhiDot( int madothu) {
         String query = "SELECT IDCANHO, CHUHO, HK.DIACHI, (TIENNHA+TIENDICHVU+TIENXEMAY+TIENOTO+TIENDIEN+TIENNUOC+TIENINTERNET) AS [SOTIENCANDONG], MADOTTHU\n" +
                 "FROM DANHSACHTHUPHI DS JOIN HOKHAU HK ON DS.IDCANHO = HK.MAHOKHAU\n" +
-                "WHERE  MADOTTHU = "+madothu +"  AND TRANGTHAI = 0";
+                "WHERE  MADOTTHU = "+madothu +"  AND DS.TRANGTHAI = 0";
         return executeQuery(query);
     }
 
@@ -1324,7 +1324,7 @@ public DanhSachThuPhiModel getFeeCoDinh_ThuHo(int maHoKhau, int maDotThu) throws
     public ResultSet getDanhSachDaDongPhiDot(int maDotThu) {
         String query = "Select MADOTTHU, IDCANHO,CHUHO ,DIACHI, SOTIENDADONG, NGAYDONG\n" +
                 "from DANHSACHTHUPHI ds JOIN HOKHAU HK ON HK.MAHOKHAU = ds.IDCANHO \n" +
-                "WHERE MADOTTHU = " + maDotThu + " AND TRANGTHAI = 1";
+                "WHERE MADOTTHU = " + maDotThu + " AND ds.TRANGTHAI = 1";
         return executeQuery(query);
     }
     public ResultSet getDSNguoiChet() {
