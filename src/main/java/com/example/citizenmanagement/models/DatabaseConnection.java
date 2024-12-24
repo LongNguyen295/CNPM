@@ -535,34 +535,36 @@ public class DatabaseConnection {
         else
             return 0;
     }
-    public int addHoKhauV1(String ma_ch, String diachi, String ghichu, int maP){
-        if(!ma_ch.isEmpty() && !diachi.isEmpty()) {
-            String query = "EXEC INSERT_HOKHAU_V1 ?, ?, ?, ?, ?";
-            try {
-                PreparedStatement statement = connection.prepareStatement(query);
 
-                statement.setString(1, ma_ch);
-                statement.setNString(2, diachi);
-                statement.setString(3,LocalDate.now().toString());
-                if(ghichu.isEmpty())
-                    statement.setNString(4,null);
-                else
-                    statement.setNString(4, ghichu);
-                statement.setInt(5,maP);
+    public int addHoKhauV1(String ma_ch, String diachi, String ghichu, int maP) {
+        if (!ma_ch.isEmpty() && !diachi.isEmpty()) {
+            String query = "EXEC INSERT_HOKHAU_V1 ?, ?, ?, ?, ?, ?";
+            try (PreparedStatement statement = connection.prepareStatement(query)) {
 
+                // Thiết lập các tham số
+                statement.setString(1, ma_ch); // Mã hộ khẩu
+                statement.setNString(2, diachi); // Địa chỉ
+                statement.setString(3, LocalDate.now().toString()); // Ngày tạo
+                statement.setNString(4, ghichu.isEmpty() ? null : ghichu); // Ghi chú
+                statement.setInt(5, maP); // Mã phòng
+                statement.setInt(6, 1); // Trạng thái (1)
+
+                // Thực hiện lệnh SQL
                 statement.executeUpdate();
-                return 1;
+                return 1; // Thành công
             } catch (Exception e) {
-                System.out.println("loi o addHoKhauV1");
-//                throw new RuntimeException(e);
-                return 0;
+                System.out.println("Lỗi ở addHoKhauV1: " + e.getMessage());
+                return 0; // Thất bại
             }
+        } else {
+            System.out.println("Mã hộ khẩu hoặc địa chỉ trống.");
+            return 0; // Thất bại
         }
-        else
-            return 0;
     }
+
+
     public boolean checkMaPhong(int maKhoanThu){
-        String query = "SELECT 1 FROM HOKHAU WHERE MAPHONG = ?";
+        String query = "SELECT 1 FROM HOKHAU WHERE MAPHONG = ? AND TRANGTHAI=1";
         try (PreparedStatement stmt = connection.prepareStatement(query)) {
             stmt.setInt(1, maKhoanThu);
             ResultSet rs = stmt.executeQuery();

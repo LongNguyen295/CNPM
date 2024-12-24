@@ -38,25 +38,37 @@ public class ThemThanhVienHoKhauController implements Initializable {
     private thanh_vien_cua_ho_cell thanh_vien_duoc_chon;
 
     private List_nhan_khau chuHo = Model.getNhanKhauDuocChon();
-    public boolean checkValid(String input){
+
+    public boolean checkValid(String input) {
         try {
-            int x = Integer.parseInt(input);
-            int x_nguyen = x/100;
-            int x_du  = x%100;
-            if( (
-                    (x_nguyen >=6 && x_nguyen < 30)
-                    && (x_du>=1 && x_du<=5)
-                    && ((input.substring(0,1)=="0") || (input.substring(0,1)=="1") || (input.substring(0,1)=="2"))
-                )
-                    || (x==3001)
-            ){
-                return  true;
+            // Kiểm tra độ dài của chuỗi đầu vào
+            if (input.length() != 4) {
+                return false; // Mã phòng phải có 4 ký tự
             }
-        } catch (NumberFormatException e) {
-            return false; // Nếu có lỗi, trả về false
+
+            // Tách các ký tự
+            char x = input.charAt(0);
+            char y = input.charAt(1);
+            char z = input.charAt(2);
+            char t = input.charAt(3);
+
+            // Kiểm tra điều kiện cho từng ký tự
+            if (x >= '0' && x <= '3' && // Ký tự đầu tiên là số từ 0 đến 3
+                    y >= '0' && y <= '9' && // Ký tự thứ hai là số từ 0 đến 9
+                    z == '0' &&             // Ký tự thứ ba phải là '0'
+                    t >= '1' && t <= '5') { // Ký tự thứ tư là số từ 1 đến 5
+                return true; // Nếu tất cả điều kiện đều thỏa mãn
+            }
+        } catch (Exception e) {
+            // Nếu có lỗi, trả về false
+            return false;
         }
+
+        // Trả về false nếu bất kỳ điều kiện nào không thỏa mãn
         return false;
     }
+
+
     public boolean checkMaP(String input){
         try {
             int x = Integer.parseInt(input);

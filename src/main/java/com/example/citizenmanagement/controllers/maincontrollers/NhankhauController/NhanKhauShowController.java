@@ -86,7 +86,7 @@ int bit;
               alert = new Alert(Alert.AlertType.ERROR);
               alert.setTitle("Lỗi");
               alert.setHeaderText("Người này đã chết");
-              alert.setContentText("Xin bệ hạ hãy nghĩ thông suốt trước khi ấn nút !");
+              alert.setContentText("Kiểm tra kĩ thông tin trước khi ấn nút !");
               alert.showAndWait();
           }else{
               onKhaitu();}
