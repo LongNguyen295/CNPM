@@ -54,11 +54,14 @@
             <Font size="15.0" />
          </font>
       </Button>
-      <Button fx:id="quadoi_btn" layoutX="10.0" layoutY="250.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="180.0" styleClass="btn_an" text="Đã Qua Đời" wrapText="true">
+
+      <Button fx:id="quadoi_btn" layoutX="10.0" layoutY="250.0" mnemonicParsing="false" prefHeight="100.0" prefWidth="180.0" styleClass="btn_an" text="Đã Qua Đời" wrapText="true" visible="false" managed="false">
          <font>
             <Font size="15.0" />
          </font>
       </Button>
+
+
       <Line endX="175"  stroke="aliceblue" />
    </VBox>
    <HBox fx:id="logout_btn" layoutY="535.0" onMouseClicked="#onLogoutBtn" prefHeight="100.0" prefWidth="180.0" styleClass="logoutBtn" AnchorPane.bottomAnchor="50.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
