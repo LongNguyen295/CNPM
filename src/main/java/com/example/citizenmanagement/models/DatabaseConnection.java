@@ -705,6 +705,20 @@ public class DatabaseConnection {
             e.printStackTrace();
         }
     }
+
+    public void doiTrangThaiHoKhau(String maHoKhau, int trangThaiMoi) {
+        String query = "UPDATE HOKHAU SET TRANGTHAI = ? WHERE MAHOKHAU = ?";
+        try (PreparedStatement pstmt = connection.prepareStatement(query)) {
+            pstmt.setInt(1, trangThaiMoi); // Gán trạng thái mới (0)
+            pstmt.setString(2, maHoKhau); // Gán mã hộ khẩu
+            pstmt.executeUpdate(); // Thực hiện lệnh cập nhật
+            System.out.println("Đã cập nhật trạng thái hộ khẩu: " + maHoKhau + " thành " + trangThaiMoi);
+        } catch (SQLException e) {
+            e.printStackTrace(); // Ghi log lỗi
+        }
+    }
+
+
     public void xoaThanhVienCuaHo(String maNhanKhau) {
         String query = "DELETE FROM THANHVIENCUAHO WHERE MANHANKHAU = " + maNhanKhau;
         System.out.println("da xoa " + maNhanKhau);
@@ -723,6 +737,32 @@ public class DatabaseConnection {
         }
         return resultSet;
     }
+
+    public ResultSet getDanhSachHoKhauCoTrangThai1() {
+        String query = "SELECT * FROM HOKHAU WHERE TRANGTHAI = 1";
+        try {
+            Statement statement = connection.createStatement();
+            return statement.executeQuery(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    public ResultSet timKiemHoKhauCoTrangThai1(String keyword) {
+        String query = "SELECT * FROM HOKHAU WHERE TRANGTHAI = 1 AND (MAHOKHAU LIKE ? OR TENCHUHO LIKE ? OR DIACHI LIKE ?)";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, "%" + keyword + "%");
+            preparedStatement.setString(2, "%" + keyword + "%");
+            preparedStatement.setString(3, "%" + keyword + "%");
+            return preparedStatement.executeQuery();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
 
     public ResultSet nhanKhau_timkiem_chua_co_nha(String string) {
         ResultSet resultSet = null;

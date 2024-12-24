@@ -1,6 +1,5 @@
 package com.example.citizenmanagement.controllers.maincontrollers.hoKhau;
 
-
 import com.example.citizenmanagement.models.MainMenuOptions;
 import com.example.citizenmanagement.models.Model;
 import com.example.citizenmanagement.models.MainHoKhauCell;
@@ -14,8 +13,8 @@ import javafx.scene.control.TextField;
 
 import java.net.URL;
 import java.sql.ResultSet;
-
-import java.util.*;
+import java.sql.SQLException;
+import java.util.ResourceBundle;
 
 public class hoKhauShowControler implements Initializable {
     @FXML
@@ -27,90 +26,90 @@ public class hoKhauShowControler implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        // Cập nhật danh sách hộ khẩu ban đầu
         capnhat();
 
-        search_textfield.textProperty().addListener((observable, oldvalue, newvalue)->{
-
-            if(newvalue.isEmpty()){
+        // Lắng nghe sự thay đổi trong ô tìm kiếm
+        search_textfield.textProperty().addListener((observable, oldvalue, newvalue) -> {
+            if (newvalue.isEmpty()) {
+                // Nếu ô tìm kiếm trống, hiển thị danh sách đầy đủ
                 capnhat();
-            }
-            else {
-                ResultSet resultSet = Model.getInstance().getDatabaseConnection().timKiem(search_textfield.getText());
+            } else {
+                // Lọc danh sách dựa trên từ khóa
+                ResultSet resultSet = Model.getInstance().getDatabaseConnection().timKiemHoKhauCoTrangThai1(newvalue);
                 listView.getItems().clear();
                 try {
-                    if(resultSet.isBeforeFirst()){
-                        while (resultSet.next()){
+                    if (resultSet.isBeforeFirst()) {
+                        while (resultSet.next()) {
                             String id = resultSet.getString(1);
-                            String Owner = resultSet.getString(6);
-                            String add = resultSet.getString(3);
-                            String date_tao = resultSet.getString(4);
-                            String ghi_chu = resultSet.getString(5);
-                            String xe_may = resultSet.getString(7);
-                            String o_to = resultSet.getString(8);
+                            String owner = resultSet.getString(6);
+                            String address = resultSet.getString(3);
+                            String dateCreated = resultSet.getString(4);
+                            String note = resultSet.getString(5);
+                            String motorbike = resultSet.getString(7);
+                            String car = resultSet.getString(8);
 
-                            listView.getItems().add(new MainHoKhauCell(id, Owner, add,date_tao, ghi_chu, xe_may, o_to));
+                            // Thêm hộ khẩu vào danh sách
+                            listView.getItems().add(new MainHoKhauCell(id, owner, address, dateCreated, note, motorbike, car));
                         }
                     }
-                }catch (Exception e){
+                } catch (SQLException e) {
                     e.printStackTrace();
                 }
-            }// END ELSE
-        });
-
-        listView.setCellFactory(param-> new MainHoKhauCellFactory());
-        //**************************************************************
-
-        listView.setOnMouseClicked(mouseEvent -> {
-            if (mouseEvent.getClickCount() == 2) {
-                Model.setHoKhauDuocChon(listView.getSelectionModel().getSelectedItem());
-                Model.getInstance().getViewFactory().getSelectedMenuItem().set(MainMenuOptions.XEM_CHI_TIET_HO_KHAU);
             }
         });
-        //****************************************************
 
+        // Đặt nhà máy cell để hiển thị từng mục trong danh sách
+        listView.setCellFactory(param -> new MainHoKhauCellFactory());
+
+        // Xử lý sự kiện khi nhấn đúp vào một hộ khẩu
+        listView.setOnMouseClicked(mouseEvent -> {
+            if (mouseEvent.getClickCount() == 2) {
+                MainHoKhauCell selectedHoKhau = listView.getSelectionModel().getSelectedItem();
+                if (selectedHoKhau != null) {
+                    Model.setHoKhauDuocChon(selectedHoKhau);
+                    Model.getInstance().getViewFactory().getSelectedMenuItem().set(MainMenuOptions.XEM_CHI_TIET_HO_KHAU);
+                }
+            }
+        });
+
+        // Xử lý sự kiện khi nhấn nút "Thêm Mới"
         them_but.setOnAction(event -> {
             Model.getInstance().getViewFactory().getSelectedMenuItem().set(MainMenuOptions.THEM_CHU_HO_KHAU);
         });
     }
 
-    private void capnhat(){
-        ResultSet resultSet = Model.getInstance().getDatabaseConnection().getDanhSachHoKhau();
+    // Cập nhật danh sách hộ khẩu
+    private void capnhat() {
+        // Truy vấn danh sách hộ khẩu có TRANGTHAI = 1
+        ResultSet resultSet = Model.getInstance().getDatabaseConnection().getDanhSachHoKhauCoTrangThai1();
         listView.getItems().clear();
         try {
-            if(resultSet.isBeforeFirst()){
-                while (resultSet.next()){
+            if (resultSet.isBeforeFirst()) {
+                while (resultSet.next()) {
                     String id = resultSet.getString(1);
-                    ResultSet resultSet1= Model.getInstance().getDatabaseConnection().lay_nhan_khau(resultSet.getString(2));
-                    String Owner=null;
+                    ResultSet resultSet1 = Model.getInstance().getDatabaseConnection().lay_nhan_khau(resultSet.getString(2));
+                    String owner = null;
                     try {
-                        if(resultSet1.isBeforeFirst()){
+                        if (resultSet1.isBeforeFirst()) {
                             resultSet1.next();
-                            Owner = resultSet1.getString(2);
+                            owner = resultSet1.getString(2);
                         }
-                    }catch (Exception e){
-                        throw new RuntimeException(e);
+                    } catch (SQLException e) {
+                        e.printStackTrace();
                     }
-                    String add = resultSet.getString(3);
+                    String address = resultSet.getString(3);
+                    String dateCreated = resultSet.getString(4);
+                    String note = resultSet.getString(5);
+                    String motorbike = resultSet.getString(7);
+                    String car = resultSet.getString(8);
 
-
-                    String date_tao;
-                    date_tao = resultSet.getString(4);
-
-                    String ghi_chu;
-                    ghi_chu=resultSet.getString(5);
-
-                    String xe_may;
-                    xe_may=resultSet.getString(7);
-
-                    String o_to;
-                    o_to=resultSet.getString(8);
-
-                    listView.getItems().add(new MainHoKhauCell(id, Owner, add,date_tao,ghi_chu,xe_may,o_to));
+                    // Thêm hộ khẩu vào danh sách
+                    listView.getItems().add(new MainHoKhauCell(id, owner, address, dateCreated, note, motorbike, car));
                 }
             }
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 }
