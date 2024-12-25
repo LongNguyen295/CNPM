@@ -31,7 +31,7 @@ public class DatabaseConnection {
 //        Long
 
         String dbUser = "sa";
-        String dbPassword = "123";
+        String dbPassword = "1234";
         String url = "jdbc:sqlserver://DESKTOP-SM2FAUO:1433;databaseName=" + dbName +
                 ";encrypt=true;integratedSecurity=false;trustServerCertificate=true";
 
@@ -537,30 +537,34 @@ public class DatabaseConnection {
     }
 
     public int addHoKhauV1(String ma_ch, String diachi, String ghichu, int maP) {
+        // Kiểm tra đầu vào
         if (!ma_ch.isEmpty() && !diachi.isEmpty()) {
-            String query = "EXEC INSERT_HOKHAU_V1 ?, ?, ?, ?, ?, ?";
+            // Câu lệnh SQL tương ứng với thủ tục vừa tạo
+            String query = "EXEC INSERT_HOKHAU_V1 ?, ?, ?, ?";
             try (PreparedStatement statement = connection.prepareStatement(query)) {
 
-                // Thiết lập các tham số
-                statement.setString(1, ma_ch); // Mã hộ khẩu
-                statement.setNString(2, diachi); // Địa chỉ
-                statement.setString(3, LocalDate.now().toString()); // Ngày tạo
-                statement.setNString(4, ghichu.isEmpty() ? null : ghichu); // Ghi chú
-                statement.setInt(5, maP); // Mã phòng
-                statement.setInt(6, 1); // Trạng thái (1)
+                // Thiết lập các tham số cho thủ tục SQL
+                statement.setString(1, ma_ch);                         // Mã chủ hộ
+                statement.setNString(2, diachi);                      // Địa chỉ
+                statement.setNString(3, ghichu.isEmpty() ? null : ghichu); // Ghi chú (nếu rỗng thì null)
+                statement.setInt(4, maP);                             // Mã phòng
 
-                // Thực hiện lệnh SQL
+                // Thực thi lệnh SQL
                 statement.executeUpdate();
                 return 1; // Thành công
             } catch (Exception e) {
+                // Ghi log lỗi nếu xảy ra
                 System.out.println("Lỗi ở addHoKhauV1: " + e.getMessage());
                 return 0; // Thất bại
             }
         } else {
-            System.out.println("Mã hộ khẩu hoặc địa chỉ trống.");
+            // Ghi log khi tham số không hợp lệ
+            System.out.println("Mã chủ hộ hoặc địa chỉ trống.");
             return 0; // Thất bại
         }
     }
+
+
 
 
     public boolean checkMaPhong(int maKhoanThu){
