@@ -27,7 +27,7 @@ public class xemChiTietHokhauControler implements Initializable {
     public Button xoa_btn;
     public Button thaydoi_but;
     public Button quay_lai_but;
-    public Button tach_btn;
+//    public Button tach_btn;
 
     private MainHoKhauCell tam;
 
@@ -40,9 +40,9 @@ public class xemChiTietHokhauControler implements Initializable {
         tam=Model.getHoKhauDuocChon();
 
         cap_nhat();
-        if(listView_thanhvien.getItems().size() == 1) {
-            tach_btn.setVisible(false);
-        }
+//        if(listView_thanhvien.getItems().size() == 1) {
+//            tach_btn.setVisible(false);
+//        }
         ma_ho_khau.setText(String.valueOf(tam.getId().get()));
         ten_chu_ho.setText(String.valueOf(tam.getOwner().get()));
         dia_chi.setText(String.valueOf(tam.getAddress().get()));
@@ -105,9 +105,9 @@ public class xemChiTietHokhauControler implements Initializable {
         quay_lai_but.setOnAction(event->{
             Model.getInstance().getViewFactory().getSelectedMenuItem().set(MainMenuOptions.HO_KHAU);
         });
-        tach_btn.setOnAction(event -> {
-            Model.getInstance().getViewFactory().getSelectedMenuItem().set(MainMenuOptions.TACH_HO_KHAU);
-        });
+//        tach_btn.setOnAction(event -> {
+//            Model.getInstance().getViewFactory().getSelectedMenuItem().set(MainMenuOptions.TACH_HO_KHAU);
+//        });
     }
     public void cap_nhat(){
         String gioi_tinh;

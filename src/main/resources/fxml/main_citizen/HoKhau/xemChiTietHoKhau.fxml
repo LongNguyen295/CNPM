@@ -138,11 +138,11 @@
          <Cursor fx:constant="HAND" />
       </cursor>
    </Button>
-   <Button fx:id="tach_btn" alignment="CENTER" layoutX="416.0" layoutY="596.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="120.0" style="-fx-background-color: #bbba12; -fx-border-color: #42390b; -fx-border-width: 1.6;" styleClass="button_style" text="Tách">
-      <font>
-         <Font size="20.0" />
-      </font>
-   </Button>
+<!--   <Button fx:id="tach_btn" alignment="CENTER" layoutX="416.0" layoutY="596.0" mnemonicParsing="false" prefHeight="46.0" prefWidth="120.0" style="-fx-background-color: #bbba12; -fx-border-color: #42390b; -fx-border-width: 1.6;" styleClass="button_style" text="Tách">-->
+<!--      <font>-->
+<!--         <Font size="20.0" />-->
+<!--      </font>-->
+<!--   </Button>-->
    <stylesheets>
       <URL value="@../../../styles/hoKhau/xemChiTietHoKhau.css" />
       <URL value="@../../../styles/Fee/FeeDanhSach.css" />
