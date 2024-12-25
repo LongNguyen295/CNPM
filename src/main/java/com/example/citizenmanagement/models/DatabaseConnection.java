@@ -255,14 +255,14 @@ public class DatabaseConnection {
         return executeQuery(query);
     }
 
-    public ResultSet getTamVangOfThangVaNam(int thang,int nam){
+    public ResultSet getTamVangOfThangVaNam(int thang, int nam) {
         String query = "SELECT COUNT(MAGIAYTAMVANG)\n" +
                 "FROM TAMVANG\n" +
-                "WHERE (YEAR(TUNGAY) = " + nam + " AND MONTH(TUNGAY) <= " + thang + ") OR (YEAR(DENNGAY) = " + nam + " AND MONTH(DENNGAY) >= " + thang + ")\n" +
-                "\tOR (YEAR(TUNGAY) < " + nam + " AND YEAR(DENNGAY) > " + nam + ")";
-
+                "WHERE " + thang + " BETWEEN MONTH(TUNGAY) AND MONTH(DENNGAY)\n" +
+                "AND " + nam + " BETWEEN YEAR(TUNGAY) AND YEAR(DENNGAY)";
         return executeQuery(query);
     }
+
 
     public ResultSet getTamVangViLyDoHocTap(int nam){
         String query = "SELECT COUNT(MAGIAYTAMVANG) FROM TAMVANG WHERE LYDO LIKE N'%Học tập%' AND " + nam + " BETWEEN YEAR(TUNGAY) AND YEAR(DENNGAY)";

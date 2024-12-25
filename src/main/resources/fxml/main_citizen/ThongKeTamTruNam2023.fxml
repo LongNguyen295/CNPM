@@ -41,18 +41,22 @@
          <TableColumn fx:id="soluongtamtru_lydo" prefWidth="75.0" text="Số Lượng" />
       </columns>
    </TableView>
-   <TextField fx:id="timkiemnam_textfield" layoutX="25.0" layoutY="29.0" prefHeight="36.0" prefWidth="200.0" promptText="Năm" styleClass="input_text_field">
-      <font>
-         <Font size="14.0" />
-      </font></TextField>
-   <Button fx:id="timkiemnam_btn" layoutX="232.0" layoutY="33.0" mnemonicParsing="false" styleClass="button_quaylai" text="Tìm Kiếm">
-      <graphic>
-         <FontAwesomeIconView glyphName="SEARCH" size="18" />
-      </graphic>
-      <font>
-         <Font size="14.0" />
-      </font>
-   </Button>
+
+    <TextField fx:id="timkiemnam_textfield" layoutX="25.0" layoutY="29.0" prefHeight="36.0" prefWidth="200.0" promptText="Năm" styleClass="input_text_field" visible="false" managed="false">
+        <font>
+            <Font size="14.0" />
+        </font>
+    </TextField>
+    <Button fx:id="timkiemnam_btn" layoutX="232.0" layoutY="33.0" mnemonicParsing="false" styleClass="button_quaylai" text="Tìm Kiếm" visible="false" managed="false">
+        <graphic>
+            <FontAwesomeIconView glyphName="SEARCH" size="18" />
+        </graphic>
+        <font>
+            <Font size="14.0" />
+        </font>
+    </Button>
+
+
    <Pane layoutX="327.0" layoutY="25.0" prefHeight="76.0" prefWidth="207.0" styleClass="pain">
       <children>
          <ImageView fitHeight="45.0" fitWidth="63.0" layoutX="14.0" layoutY="11.0" pickOnBounds="true" preserveRatio="true">
@@ -60,16 +64,17 @@
                <Image url="@../../images/login_form/house.png" />
             </image>
          </ImageView>
-         <Text layoutX="85.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Năm">
-            <font>
-               <Font size="15.0" />
-            </font>
-         </Text>
-         <Text fx:id="nam_text" layoutX="123.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2023">
-            <font>
-               <Font size="15.0" />
-            </font>
-         </Text>
+          <Text layoutX="85.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Số lượng Tạm trú">
+              <font>
+                  <Font size="15.0" />
+              </font>
+          </Text>
+          <Text fx:id="nam_text" layoutX="123.0" layoutY="26.0" strokeType="OUTSIDE" strokeWidth="0.0" text="2023" visible="false" managed="false">
+              <font>
+                  <Font size="15.0" />
+              </font>
+          </Text>
+
          <Text fx:id="tongso_text" layoutX="98.0" layoutY="61.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Text">
             <font>
                <Font name="System Bold" size="20.0" />
@@ -77,6 +82,7 @@
          </Text>
       </children>
    </Pane>
+
    <stylesheets>
       <URL value="@../../styles/Main/TrangChu.css" />
       <URL value="@../../styles/LoginForm.css" />
