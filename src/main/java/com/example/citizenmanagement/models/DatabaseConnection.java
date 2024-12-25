@@ -120,10 +120,11 @@ public class DatabaseConnection {
         return executeQuery(query);
     }
 
-    public ResultSet getNumberOfHoKhau(){
-        String query = "select count(MAHOKHAU) from HOKHAU";
+    public ResultSet getNumberOfHoKhau() {
+        String query = "select count(MAHOKHAU) from HOKHAU where TRANGTHAI = 1";
         return executeQuery(query);
     }
+
 
     public ResultSet getNumberOfTamTru(){
         String query = "SELECT COUNT(MAGIAYTAMTRU) FROM TAMTRU WHERE YEAR(GETDATE()) BETWEEN YEAR(TUNGAY) AND YEAR(DENNGAY) ";
@@ -218,12 +219,13 @@ public class DatabaseConnection {
         return executeQuery(query);
     }
 
-    public ResultSet getHoKhauOfNam(int nam){
-        String query = "SELECT COUNT(MAHOKHAU)\n" +
-                "FROM HOKHAU\n" +
-                "WHERE " + nam + " > YEAR(NGAYTAO)";
+    public ResultSet getHoKhauOfNam(int nam) {
+        String query = "SELECT COUNT(MAHOKHAU) " +
+                "FROM HOKHAU " +
+                "WHERE YEAR(NGAYTAO) = " + nam + " AND TRANGTHAI = 1";
         return executeQuery(query);
     }
+
 
     public ResultSet getTamTruOfThangVaNam(int thang,int nam){
         String query = "SELECT COUNT(MAGIAYTAMTRU)\n" +

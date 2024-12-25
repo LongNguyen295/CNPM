@@ -34,7 +34,7 @@ public class ThongKeHoKhauController implements Initializable {
         series.getData().add(new XYChart.Data<>(Integer.toString(namhientai-3),Model.getInstance().getHoKhauOfNam(namhientai-3)));
         series.getData().add(new XYChart.Data<>(Integer.toString(namhientai-2),Model.getInstance().getHoKhauOfNam(namhientai-2)));
         series.getData().add(new XYChart.Data<>(Integer.toString(namhientai-1),Model.getInstance().getHoKhauOfNam(namhientai-1)));
-        series.getData().add(new XYChart.Data<>(Integer.toString(namhientai),Model.getInstance().getHoKhauOfNamHienTai()));
+        series.getData().add(new XYChart.Data<>(Integer.toString(namhientai),Model.getInstance().getHoKhauOfNam(namhientai)));
         thongKeHoKhau.getData().add(series);
 
     }
