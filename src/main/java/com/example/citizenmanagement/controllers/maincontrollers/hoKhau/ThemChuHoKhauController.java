@@ -40,14 +40,15 @@ public class ThemChuHoKhauController implements Initializable {
                 try {
                     if(resultSet1.isBeforeFirst()) {
                         while(resultSet1.next()) {
-                            String ma_nhan_khau=resultSet1.getString(1);
-                            boolean chuaChet = Model.getInstance().getDatabaseConnection().checkKhaiTu(ma_nhan_khau);
-                            if(!chuaChet) continue;
-                            String cccd = resultSet1.getString(2);
-                            String hoTen = resultSet1.getString(3);
-                            String gioitinh = resultSet1.getString(4);
-                            String namsinh = resultSet1.getString(5);
-                            String diachi = resultSet1.getString(6);
+                            String ma_nhan_khau = resultSet1.getString(1); // Lấy mã nhân khẩu từ ResultSet
+                            String cccd = resultSet1.getString(2); // Lấy CCCD từ ResultSet
+                            String hoTen = resultSet1.getString(3); // Lấy họ tên từ ResultSet
+                            String gioitinh = resultSet1.getString(4); // Lấy giới tính từ ResultSet
+                            String namsinh = resultSet1.getString(5); // Lấy năm sinh từ ResultSet
+                            String diachi = resultSet1.getString(6); // Lấy địa chỉ từ ResultSet
+
+// Các thông tin sẽ được xử lý tiếp mà không cần kiểm tra khai tử
+
 
                             listView.getItems().add(new List_nhan_khau(ma_nhan_khau,cccd, hoTen, gioitinh, namsinh, diachi));
                         }
@@ -84,14 +85,15 @@ public class ThemChuHoKhauController implements Initializable {
         try{
             if(resultSet.isBeforeFirst()){
                 while (resultSet.next()) {
-                    String ma_nhan_khau=resultSet.getString(1);
-                    boolean chuaChet = Model.getInstance().getDatabaseConnection().checkKhaiTu(ma_nhan_khau);
-                    if(!chuaChet) continue;
-                    String id = resultSet.getString(2);
-                    String hoten = resultSet.getNString(3);
-                    String gioitinh = resultSet.getString(4);
-                    String namsinh = resultSet.getString(5);
-                    String thuongtru;
+                    String ma_nhan_khau = resultSet.getString(1); // Lấy mã nhân khẩu từ ResultSet
+                    String id = resultSet.getString(2); // Lấy ID từ ResultSet
+                    String hoten = resultSet.getNString(3); // Lấy họ tên từ ResultSet
+                    String gioitinh = resultSet.getString(4); // Lấy giới tính từ ResultSet
+                    String namsinh = resultSet.getString(5); // Lấy năm sinh từ ResultSet
+                    String thuongtru = resultSet.getString(6); // Lấy địa chỉ thường trú từ ResultSet
+
+// Xử lý tiếp các thông tin mà không cần kiểm tra khai tử
+
                     if(resultSet.getNString(6)==null) thuongtru="không có";
                     else thuongtru = resultSet.getNString(6);
                     listView.getItems().add(new List_nhan_khau(ma_nhan_khau,id, hoten, gioitinh, namsinh, thuongtru));

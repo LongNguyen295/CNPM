@@ -93,10 +93,10 @@ public class MainController implements Initializable {
                     main_parent.setCenter(Model.getInstance().getViewFactory().getListDeadView());
                     quadoi_btn.requestFocus();
                 }
-                case THONG_TIN_KHAI_TU -> {
-                    main_parent.setCenter(Model.getInstance().getViewFactory().getThongTinKhaiTu());
-                    quadoi_btn.requestFocus();
-                }
+//                case THONG_TIN_KHAI_TU -> {
+//                    main_parent.setCenter(Model.getInstance().getViewFactory().getThongTinKhaiTu());
+//                    quadoi_btn.requestFocus();
+//                }
                 case THAY_DOI_HO_KHAU -> {
                     main_parent.setCenter(Model.getInstance().getViewFactory().get_thay_doi_ho_khau());
                     ho_khau_btn.requestFocus();

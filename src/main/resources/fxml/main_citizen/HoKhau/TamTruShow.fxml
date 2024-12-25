@@ -61,11 +61,15 @@
         <Button fx:id="thoat_chinhsua_button" layoutX="175.0" layoutY="684.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="120.0" style="-fx-background-color: #6a7068;" styleClass="button_style" text="Thoát" />
         <Button fx:id="confirm_chinh_sua_btn" layoutX="373.0" layoutY="684.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="120.0" style="-fx-background-color: #1a5e03;" styleClass="button_style" text="Xác nhận" />
         <TextField fx:id="dan_toc_text" layoutX="523.0" layoutY="300.0" prefHeight="32.0" prefWidth="200.0" styleClass="text_fld" AnchorPane.rightAnchor="175.0" AnchorPane.topAnchor="310.0" />
-        <TextField fx:id="ghi_chu_text" layoutX="523.0" layoutY="626.0" prefHeight="32.0" prefWidth="200.0" styleClass="text_fld" AnchorPane.rightAnchor="175.0" AnchorPane.topAnchor="610.0" />
-        <Text layoutX="406.0" layoutY="631.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ghi chú" AnchorPane.rightAnchor="390.9087890625" AnchorPane.topAnchor="616.9248046875">
-         <font>
-            <Font name="Verdana Italic" size="14.0" />
-         </font></Text>
+
+
+        <Text layoutX="406.0" layoutY="631.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ghi chú" AnchorPane.rightAnchor="390.9087890625" AnchorPane.topAnchor="616.9248046875" visible="false" managed="false">
+            <font>
+                <Font name="Verdana Italic" size="14.0" />
+            </font>
+        </Text>
+        <TextField fx:id="ghi_chu_text" layoutX="523.0" layoutY="626.0" prefHeight="32.0" prefWidth="200.0" styleClass="text_fld" AnchorPane.rightAnchor="175.0" AnchorPane.topAnchor="610.0" visible="false" managed="false" />
+
         <TextField fx:id="ho_ten_text" layoutX="203.0" layoutY="172.0" prefHeight="33.0" prefWidth="500.0" styleClass="text_fld" AnchorPane.leftAnchor="175.0" AnchorPane.rightAnchor="175.0" AnchorPane.topAnchor="190.0" />
         <Text layoutX="277.0" layoutY="61.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Chỉnh Sửa Tạm Trú">
             <font>
@@ -74,11 +78,14 @@
         </Text>
         <TextField fx:id="noi_sinh_text" layoutX="200.0" layoutY="562.0" prefHeight="32.0" prefWidth="500.0" styleClass="text_fld" AnchorPane.leftAnchor="175.0" AnchorPane.rightAnchor="175.0" AnchorPane.topAnchor="550.0" />
         <Button fx:id="khai_tu_btn" layoutX="555.0" layoutY="684.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="120.0" style="-fx-background-color: #c41606;" styleClass="button_style" text="Xóa" />
-        <Text layoutX="77.0" layoutY="631.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ngày tạo " AnchorPane.rightAnchor="705.2798828125" AnchorPane.topAnchor="616.9248046875">
-         <font>
-            <Font name="Verdana Italic" size="14.0" />
-         </font></Text>
-        <DatePicker fx:id="ngay_tao_date" layoutX="156.0" layoutY="623.0" prefHeight="32.0" prefWidth="200.0" AnchorPane.leftAnchor="175.0" AnchorPane.topAnchor="610.0" />
+
+        <Text layoutX="77.0" layoutY="631.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Ngày tạo " AnchorPane.rightAnchor="705.2798828125" AnchorPane.topAnchor="616.9248046875" visible="false" managed="false">
+            <font>
+                <Font name="Verdana Italic" size="14.0" />
+            </font>
+        </Text>
+        <DatePicker fx:id="ngay_tao_date" layoutX="156.0" layoutY="623.0" prefHeight="32.0" prefWidth="200.0" AnchorPane.leftAnchor="175.0" AnchorPane.topAnchor="610.0" visible="false" managed="false" />
+
         <DatePicker fx:id="ngay_sinh_lbl" layoutX="156.0" layoutY="232.0" prefHeight="32.0" prefWidth="200.0" AnchorPane.leftAnchor="175.0" AnchorPane.topAnchor="250.0" />
       <Button fx:id="chinh_sua_btn" layoutX="373.0" layoutY="684.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="120.0" style="-fx-background-color: #1a5e03;" styleClass="button_style" text="Chỉnh sửa" />
       <Text layoutX="58.0" layoutY="571.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nơi sinh(*)">

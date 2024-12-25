@@ -507,14 +507,14 @@ public class ViewFactory {
     }
 
 
-    public AnchorPane getThongTinKhaiTu() {
-        try {
-            thongTinKhaiTuView = new FXMLLoader(getClass().getResource("/fxml/main_citizen/ThongTinKhaiTu.fxml")).load();
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        return thongTinKhaiTuView;
-    }
+//    public AnchorPane getThongTinKhaiTu() {
+//        try {
+//            thongTinKhaiTuView = new FXMLLoader(getClass().getResource("/fxml/main_citizen/ThongTinKhaiTu.fxml")).load();
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+//        return thongTinKhaiTuView;
+//    }
     /********************************************************************************************/
     // thong ke thu phi
 

@@ -65,20 +65,16 @@ int bit;
         ngay_tao_date.setDisable(true);
 
 
-        if (!Model.getInstance().getDatabaseConnection().checkKhaiTu(
-                Model.getNhanKhauDuocChon().getSo_nhan_khau())) {
-            khai_tu_btn.setDisable(true);
+        // Bỏ kiểm tra khai tử vì không còn sử dụng bảng KHAITU
+        if (!Model.getInstance().getDatabaseConnection().checkTamVang(Model.getNhanKhauDuocChon().getSo_nhan_khau())) {
             tam_vang_btn.setDisable(true);
-        }
-        else{
-            khai_tu_btn.setDisable(false);
-            if (!Model.getInstance().getDatabaseConnection().checkTamVang(Model.getNhanKhauDuocChon().getSo_nhan_khau()))
-                tam_vang_btn.setDisable(true);
-            else tam_vang_btn.setDisable(false);
+        } else {
+            tam_vang_btn.setDisable(false);
         }
 
 
-    my_choise_box.setItems(FXCollections.observableArrayList(Gioitinh));
+
+        my_choise_box.setItems(FXCollections.observableArrayList(Gioitinh));
        chitiet();
       khai_tu_btn.setOnAction(actionEvent -> {
           if(ghi_chu_text.getText() != null &&ghi_chu_text.getText().equals("khai tử"))
