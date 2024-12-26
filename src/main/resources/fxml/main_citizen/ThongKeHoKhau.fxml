@@ -37,7 +37,7 @@
                <Image url="@../../images/login_form/smart-city.png" />
             </image>
          </ImageView>
-         <Text layoutX="78.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tổng số hộ khẩu năm 2024" wrappingWidth="196.53677368164062">
+         <Text layoutX="78.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Tổng số hộ khẩu" wrappingWidth="196.53677368164062">
             <font>
                <Font size="15.0" />
             </font>

@@ -71,15 +71,15 @@ public class thay_doi_ho_khau_controler implements Initializable {
                 try {
                     if(resultSet.isBeforeFirst()) {
                         while(resultSet.next()) {
-                            String ma_nhan_khau = resultSet.getString(1);
-                            boolean chuaChet = Model.getInstance().getDatabaseConnection().checkKhaiTu(ma_nhan_khau);
-                            if (!chuaChet) continue;
+                            String ma_nhan_khau = resultSet.getString(1); // Lấy mã nhân khẩu từ ResultSet
+                            String cccd = resultSet.getString(2); // Lấy CCCD từ ResultSet
+                            String hoTen = resultSet.getString(3); // Lấy họ tên từ ResultSet
+                            String gioitinh = resultSet.getString(4); // Lấy giới tính từ ResultSet
+                            String ngaysinh = resultSet.getString(5); // Lấy ngày sinh từ ResultSet
+                            String diachi = resultSet.getString(6); // Lấy địa chỉ từ ResultSet
 
-                            String cccd = resultSet.getString(2);
-                            String hoTen = resultSet.getString(3);
-                            String gioitinh = resultSet.getString(4);
-                            String ngaysinh = resultSet.getString(5);
-                            String diachi = resultSet.getString(6);
+// Tiếp tục xử lý các thông tin cần thiết
+
 
                             listView_nhan_khau.getItems().add(new List_nhan_khau(ma_nhan_khau,cccd, hoTen, gioitinh, ngaysinh, diachi));
                         }
@@ -252,30 +252,29 @@ public class thay_doi_ho_khau_controler implements Initializable {
     }
 
 
-    public boolean kiem_tra_chu_ho(){
+    public boolean kiem_tra_chu_ho() {
         ResultSet resultSet = Model.getInstance().getDatabaseConnection().lay_cac_thanh_vien(String.valueOf(tam.getId().get()));
         try {
-            if(resultSet.isBeforeFirst()){
-                while (resultSet.next()){
-                    if(thay_doi_ma_chu_ho_textFiled.getText().equals(resultSet.getString(1))) {
-                        boolean chuaChet = Model.getInstance().getDatabaseConnection().checkKhaiTu(thay_doi_ma_chu_ho_textFiled.getText());
-                        if (!chuaChet) {
-                            Alert alert = new Alert(Alert.AlertType.WARNING);
-                            alert.setContentText("Người không tồn tại.");
-                            alert.setTitle("Cảnh báo");
-                            alert.setHeaderText(null);
-                            alert.showAndWait();
-                        }
-                        else return true;
+            if (resultSet.isBeforeFirst()) {
+                while (resultSet.next()) {
+                    if (thay_doi_ma_chu_ho_textFiled.getText().equals(resultSet.getString(1))) {
+                        return true; // Chủ hộ tồn tại trong danh sách thành viên
                     }
-
                 }
             }
-        }catch (Exception e){
+            // Nếu không tìm thấy, hiển thị cảnh báo
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setContentText("Người không tồn tại trong danh sách thành viên.");
+            alert.setTitle("Cảnh báo");
+            alert.setHeaderText(null);
+            alert.showAndWait();
+        } catch (Exception e) {
+            e.printStackTrace();
             return false;
         }
         return false;
     }
+
 
     public void cap_nhat_list_view_thanh_vien(){
         String gioi_tinh;
@@ -313,31 +312,29 @@ public class thay_doi_ho_khau_controler implements Initializable {
         listView_thanh_vien.setCellFactory(param-> new thanh_vien_cua_ho_cell_factory());
     }
 
-
-
     public void cap_nhat_list_view_nhan_khau() {
         ResultSet resultSet = Model.getInstance().getDatabaseConnection().truyvan_chua_co_nha();
         listView_nhan_khau.getItems().clear();
-        try{
-            if(resultSet.isBeforeFirst()){
+        try {
+            if (resultSet.isBeforeFirst()) { // Kiểm tra nếu có dữ liệu trong ResultSet
                 while (resultSet.next()) {
-                    String maNhanKhau=resultSet.getString(1);
-                    boolean chuaChet = Model.getInstance().getDatabaseConnection().checkKhaiTu(maNhanKhau);
-                    if (!chuaChet) continue;
-                    String soCanCuoc = resultSet.getString(2);
-                    String hoTen = resultSet.getNString(3);
-                    String gioiTinh = resultSet.getString(4);
-                    String ngaySinh = resultSet.getString(5);
-                    String thuongTru = resultSet.getNString(6);
+                    String maNhanKhau = resultSet.getString(1); // Lấy mã nhân khẩu
+                    String soCanCuoc = resultSet.getString(2);  // Lấy số căn cước
+                    String hoTen = resultSet.getNString(3);    // Lấy họ tên
+                    String gioiTinh = resultSet.getString(4);  // Lấy giới tính
+                    String ngaySinh = resultSet.getString(5);  // Lấy ngày sinh
+                    String thuongTru = resultSet.getNString(6); // Lấy địa chỉ thường trú
+
+                    // Thêm nhân khẩu vào danh sách hiển thị
                     listView_nhan_khau.getItems().add(new List_nhan_khau(maNhanKhau, soCanCuoc, hoTen, gioiTinh, ngaySinh, thuongTru));
                 }
             }
+        } catch (Exception e) {
+            e.printStackTrace(); // In lỗi nếu có ngoại lệ
         }
-        catch(Exception e) {
-            e.printStackTrace();
-        }
-        listView_nhan_khau.setCellFactory(param-> new List_nhan_khau_factory());
+        listView_nhan_khau.setCellFactory(param -> new List_nhan_khau_factory()); // Cài đặt giao diện cho ListView
     }
+
 
 
 //    public Boolean kiem_tra(ObservableList<thanh_vien_cua_ho_cell> danh_sach, thanh_vien_cua_ho_cell doi_tuong){

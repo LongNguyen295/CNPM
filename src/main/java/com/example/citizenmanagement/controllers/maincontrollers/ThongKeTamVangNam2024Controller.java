@@ -159,6 +159,8 @@ public class ThongKeTamVangNam2024Controller implements Initializable {
                 new ThongKe("Khác", Model.getInstance().getTamVangViLyDoKhac(Model.getInstance().getNamHienTai()))
         );
 
-
+        lyDoTamVang.setCellValueFactory(new PropertyValueFactory<ThongKe,String>("gioitinh"));
+        soLuongTamVang.setCellValueFactory(new PropertyValueFactory<ThongKe,Integer>("soluonggioitinh"));
+        tableThongKeLyDoTamVang.setItems(list_tklydo);
     }
 }

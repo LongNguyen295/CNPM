@@ -27,7 +27,7 @@ public class xemChiTietHokhauControler implements Initializable {
     public Button xoa_btn;
     public Button thaydoi_but;
     public Button quay_lai_but;
-    public Button tach_btn;
+//    public Button tach_btn;
 
     private MainHoKhauCell tam;
 
@@ -40,9 +40,9 @@ public class xemChiTietHokhauControler implements Initializable {
         tam=Model.getHoKhauDuocChon();
 
         cap_nhat();
-        if(listView_thanhvien.getItems().size() == 1) {
-            tach_btn.setVisible(false);
-        }
+//        if(listView_thanhvien.getItems().size() == 1) {
+//            tach_btn.setVisible(false);
+//        }
         ma_ho_khau.setText(String.valueOf(tam.getId().get()));
         ten_chu_ho.setText(String.valueOf(tam.getOwner().get()));
         dia_chi.setText(String.valueOf(tam.getAddress().get()));
@@ -60,19 +60,26 @@ public class xemChiTietHokhauControler implements Initializable {
             alert.setTitle("Confirmation Alert");
             alert.setHeaderText("Bạn chắc chắn chưa?");
             Optional<ButtonType> result = alert.showAndWait();
-            if(result.get() == ButtonType.OK) {
+            if (result.get() == ButtonType.OK) {
+                // Lấy danh sách các thành viên trong hộ khẩu
                 ObservableList<thanh_vien_cua_ho_cell> danh_sach = listView_thanhvien.getItems();
-                for (int i = 0; i < danh_sach.size(); i++) {
-                    thanh_vien_cua_ho_cell tam = danh_sach.get(i);
+
+                // Xóa từng thành viên khỏi bảng CACTHANHVIENCUAHO
+                for (thanh_vien_cua_ho_cell tam : danh_sach) {
                     Model.getInstance().getDatabaseConnection().xoa_thanh_vien_cua_ho(tam.getmaNhanKhau());
                 }
-                int ketqua = Model.getInstance().getDatabaseConnection().xoaHoKhau(tam.getId().get());
 
+                // Đổi trạng thái của hộ khẩu trong bảng HOKHAU từ 1 thành 0
+                Model.getInstance().getDatabaseConnection().doiTrangThaiHoKhau(ma_ho_khau.getText(), 0);
+
+                // Hiển thị thông báo thành công
                 alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setHeaderText(null);
                 alert.setTitle("Thông báo");
-                alert.setContentText("Đã xóa thành công!");
+                alert.setContentText("Đã cập nhật trạng thái hộ khẩu thành công!");
                 alert.showAndWait();
+
+                // Làm sạch dữ liệu trên giao diện
                 listView_thanhvien.getItems().clear();
                 ma_ho_khau.setText(null);
                 ma_chu_ho.setText(null);
@@ -83,9 +90,11 @@ public class xemChiTietHokhauControler implements Initializable {
                 xe_may.setText(null);
                 o_to.setText(null);
 
+                // Chuyển về màn hình quản lý hộ khẩu
                 Model.getInstance().getViewFactory().getSelectedMenuItem().set(MainMenuOptions.HO_KHAU);
             }
         });
+
 
 
 
@@ -96,9 +105,9 @@ public class xemChiTietHokhauControler implements Initializable {
         quay_lai_but.setOnAction(event->{
             Model.getInstance().getViewFactory().getSelectedMenuItem().set(MainMenuOptions.HO_KHAU);
         });
-        tach_btn.setOnAction(event -> {
-            Model.getInstance().getViewFactory().getSelectedMenuItem().set(MainMenuOptions.TACH_HO_KHAU);
-        });
+//        tach_btn.setOnAction(event -> {
+//            Model.getInstance().getViewFactory().getSelectedMenuItem().set(MainMenuOptions.TACH_HO_KHAU);
+//        });
     }
     public void cap_nhat(){
         String gioi_tinh;

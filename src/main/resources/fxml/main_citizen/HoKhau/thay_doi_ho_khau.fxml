@@ -24,26 +24,29 @@
       </styleClass></ListView>
    <ListView fx:id="listView_thanh_vien" layoutX="23.0" layoutY="470.0" prefHeight="200.0" prefWidth="600.0" styleClass="list-cell" stylesheets="@../../../styles/Main/hoKhau/listView.css" />
    <VBox layoutX="637.0" layoutY="135.0" prefHeight="500.0" prefWidth="187.0" spacing="10.0" AnchorPane.topAnchor="100.0">
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Thay đổi mã chủ hộ">
+
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Mã chủ hộ">
          <font>
             <Font size="16.0" />
          </font>
       </Text>
-      <TextField fx:id="thay_doi_ma_chu_ho_textFiled" style="-fx-background-color: #fff;" styleClass="input_text_field">
+      <TextField fx:id="thay_doi_ma_chu_ho_textFiled" style="-fx-background-color: #fff;" styleClass="input_text_field" disable="true">
          <font>
             <Font size="16.0" />
          </font>
       </TextField>
-      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Thay đổi địa chỉ">
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Địa chỉ">
          <font>
             <Font size="16.0" />
          </font>
       </Text>
-      <TextField fx:id="thay_doi_dia_chi_textField" style="-fx-background-color: #fff;" styleClass="input_text_field">
+      <TextField fx:id="thay_doi_dia_chi_textField" style="-fx-background-color: #fff;" styleClass="input_text_field" disable="true">
          <font>
             <Font size="16.0" />
          </font>
       </TextField>
+
+
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Tổng thành viên">
          <font>
             <Font size="16.0" />
